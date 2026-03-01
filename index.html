@@ -112,6 +112,77 @@
             </div>
         </div>
     </footer>
+<section id="order-section" class="py-12 bg-white">
+  <div class="max-w-2xl mx-auto px-4 shadow-2xl rounded-3xl border border-gray-100 p-8">
+    <h2 class="text-2xl font-bold text-center mb-6 text-slate-800">Оформить диагностическую карту</h2>
+    
+    <form id="tg-form" class="space-y-4">
+      <select id="category" class="w-full p-3 border rounded-xl shadow-sm focus:ring-2 focus:ring-blue-500 outline-none">
+        <option value="B">Категория B — 6 000 руб.</option>
+        <option value="C/E">Категория C/E — 10 000 руб.</option>
+      </select>
 
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <input type="tel" id="phone" placeholder="Ваш телефон" required class="p-3 border rounded-xl shadow-sm outline-none focus:ring-2 focus:ring-blue-500">
+        <input type="email" id="email" placeholder="E-mail" required class="p-3 border rounded-xl shadow-sm outline-none focus:ring-2 focus:ring-blue-500">
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <input type="number" id="mileage" placeholder="Пробег (км)" required class="p-3 border rounded-xl shadow-sm outline-none focus:ring-2 focus:ring-blue-500">
+        <input type="text" id="tires" placeholder="Марка шин" required class="p-3 border rounded-xl shadow-sm outline-none focus:ring-2 focus:ring-blue-500">
+      </div>
+
+      <textarea id="comment" placeholder="Данные тахографа (для C) или доп. инфо" class="w-full p-3 border rounded-xl shadow-sm outline-none focus:ring-2 focus:ring-blue-500 h-24"></textarea>
+
+      <div class="p-4 bg-blue-50 rounded-xl border border-blue-100">
+        <p class="text-xs text-blue-800 leading-relaxed">После нажатия кнопки данные уйдут менеджеру. Приготовьте фото СТС/ПТС и автомобиля с двух сторон для отправки в чат.</p>
+      </div>
+
+      <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-xl transition-all shadow-lg active:scale-95">
+        ОФОРМИТЬ И ПЕРЕЙТИ К ОПЛАТЕ
+      </button>
+    </form>
+  </div>
+</section>
+
+<script>
+document.getElementById('tg-form').onsubmit = function(e) {
+    e.preventDefault();
+    
+    // ВСТАВЬ СВОИ ДАННЫЕ ТУТ:
+    const token = "8649772804:AAGjKzXa0-qQ0Ee4NcVOXDvUCSzkq-I_xXU"; 
+    const chat_id = "7512855086";
+    
+    const text = `
+🆕 ЗАЯВКА НА КАРТУ:
+🎫 Кат: ${document.getElementById('category').value}
+📞 Тел: ${document.getElementById('phone').value}
+📧 Email: ${document.getElementById('email').value}
+🚗 Пробег: ${document.getElementById('mileage').value}
+🛞 Шины: ${document.getElementById('tires').value}
+📝 Инфо: ${document.getElementById('comment').value}
+    `;
+
+    const url = `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chat_id}&text=${encodeURIComponent(text)}`;
+    
+    fetch(url).then(response => {
+        if(response.ok) {
+            document.getElementById('tg-form').innerHTML = `
+                <div class="text-center py-6 animate-pulse">
+                    <h3 class="text-xl font-bold text-green-600 mb-4">Данные получены!</h3>
+                    <p class="text-gray-700 mb-6 font-medium">Для выпуска карты оплатите услугу переводом СБП:</p>
+                    <div class="bg-gray-100 p-5 rounded-2xl mb-6 border-2 border-dashed border-blue-400">
+                        <p class="font-mono font-black text-xl text-blue-900">+79179827733</p>
+                        <p class="text-sm text-gray-500 font-semibold">(Сбербанк, Получатель: Павел Р.)</p>
+                    </div>
+                    <a href="https://t.me/grandgarant2000" class="block w-full bg-blue-600 text-white py-4 rounded-xl font-bold shadow-blue-200 shadow-lg mb-4">
+                        ПРИКРЕПИТЬ ЧЕК И ФОТО (TG)
+                    </a>
+                </div>
+            `;
+        }
+    });
+};
+</script>
 </body>
 </html>
