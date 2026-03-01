@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://dk-eaisto.ru/sitemap.xml
