@@ -11,6 +11,7 @@
         body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
         .hero-bg { background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); }
         .price-card:hover { transform: translateY(-5px); transition: all 0.3s ease; }
+        #order-section { display: none; } /* Скрыто до нажатия кнопки */
     </style>
 </head>
 <body class="bg-slate-50 text-slate-900">
@@ -18,20 +19,17 @@
     <header class="bg-white/80 backdrop-blur-md shadow-sm sticky top-0 z-50">
         <div class="container mx-auto px-4 py-4 flex justify-between items-center">
             <div class="text-xl font-black tracking-tighter text-slate-800 uppercase">Авто<span class="text-blue-600">Док</span> РФ</div>
-            <a href="https://t.me/AvtoNaparnik_bot" target="_blank" class="bg-blue-600 text-white px-6 py-2 rounded-full font-bold hover:bg-blue-700 transition shadow-lg shadow-blue-200">Бот 24/7</a>
+            <a href="https://t.me/grandgarant2000" target="_blank" class="bg-blue-600 text-white px-6 py-2 rounded-full font-bold hover:bg-blue-700 transition shadow-lg shadow-blue-200 text-sm">Консультация 24/7</a>
         </div>
     </header>
 
     <section class="hero-bg text-white py-20">
         <div class="container mx-auto px-4 text-center">
             <h1 class="text-4xl md:text-6xl font-extrabold mb-6 leading-tight">Техосмотр онлайн <br><span class="text-blue-400">с фотофиксацией</span></h1>
-            <p class="text-lg md:text-xl mb-10 text-slate-400 max-w-2xl mx-auto">Гарантированное внесение в базу ЕАИСТО-М. Для постановки на учет в ГИБДД, страхования ОСАГО и выезда за границу.</p>
+            <p class="text-lg md:text-xl mb-10 text-slate-400 max-w-2xl mx-auto">Гарантированное внесение в базу ЕАИСТО-М. Для ГИБДД, ОСАГО и выезда за границу.</p>
             <div class="flex flex-wrap justify-center gap-6">
                 <div class="flex items-center gap-2 text-sm font-medium bg-slate-800 px-4 py-2 rounded-full border border-slate-700">
                     <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span> База ЕАИСТО-М активна
-                </div>
-                <div class="flex items-center gap-2 text-sm font-medium bg-slate-800 px-4 py-2 rounded-full border border-slate-700">
-                    <span class="w-2 h-2 bg-blue-500 rounded-full"></span> Категории: B, C, D, E
                 </div>
             </div>
         </div>
@@ -44,12 +42,11 @@
                 <h3 class="text-2xl font-bold mb-2">Легковые авто</h3>
                 <p class="text-slate-500 mb-8 font-medium italic">Категории B (M1, N1)</p>
                 <div class="text-5xl font-black mb-8">6 000 <span class="text-xl font-normal text-slate-400">₽</span></div>
-                <ul class="space-y-4 mb-10">
-                    <li class="flex items-center gap-3 font-medium text-sm md:text-base"><svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg> Фотофиксация под ГИБДД</li>
-                    <li class="flex items-center gap-3 font-medium text-sm md:text-base"><svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg> Для постановки на учет</li>
-                    <li class="flex items-center gap-3 font-medium text-sm md:text-base"><svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg> Гарантия ЕАИСТО 100%</li>
+                <ul class="space-y-4 mb-10 text-sm">
+                    <li class="flex items-center gap-3"><svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg> Фотофиксация под ГИБДД</li>
+                    <li class="flex items-center gap-3"><svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg> Гарантия ЕАИСТО 100%</li>
                 </ul>
-                <a href="https://t.me/AvtoNaparnik_bot" target="_blank" class="block text-center bg-slate-900 text-white py-4 rounded-2xl font-bold text-lg hover:bg-black transition uppercase tracking-wider">Оформить карту</a>
+                <button onclick="openForm('B')" class="w-full text-center bg-slate-900 text-white py-4 rounded-2xl font-bold text-lg hover:bg-black transition uppercase tracking-wider">Оформить B</button>
             </div>
 
             <div class="price-card bg-white p-10 rounded-3xl shadow-2xl border-4 border-blue-600 relative overflow-hidden">
@@ -57,132 +54,110 @@
                 <h3 class="text-2xl font-bold mb-2">Грузовые и Спец</h3>
                 <p class="text-slate-500 mb-8 font-medium italic">Категории C, E, D, N2, N3</p>
                 <div class="text-5xl font-black mb-8 text-blue-600">10 000 <span class="text-xl font-normal text-slate-400">₽</span></div>
-                <ul class="space-y-4 mb-10">
-                    <li class="flex items-center gap-3 font-medium text-sm md:text-base"><svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg> Спецтехника и прицепы</li>
-                    <li class="flex items-center gap-3 font-medium text-sm md:text-base"><svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg> Фотофиксация по ГОСТ</li>
-                    <li class="flex items-center gap-3 font-medium text-sm md:text-base"><svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg> Проходит любые проверки</li>
+                <ul class="space-y-4 mb-10 text-sm">
+                    <li class="flex items-center gap-3"><svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg> Фотофиксация по ГОСТ</li>
+                    <li class="flex items-center gap-3"><svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg> Проходит любые проверки</li>
                 </ul>
-                <a href="https://t.me/AvtoNaparnik_bot" target="_blank" class="block text-center bg-blue-600 text-white py-4 rounded-2xl font-bold text-lg hover:bg-blue-700 transition uppercase tracking-wider shadow-lg shadow-blue-200">Оформить C / E</a>
+                <button onclick="openForm('C/E')" class="w-full text-center bg-blue-600 text-white py-4 rounded-2xl font-bold text-lg hover:bg-blue-700 transition uppercase tracking-wider shadow-lg shadow-blue-200">Оформить C / E</button>
             </div>
 
         </div>
     </section>
 
-    <section class="bg-slate-900 text-white py-20">
-        <div class="container mx-auto px-4">
-            <h2 class="text-3xl font-bold text-center mb-16">Работаем с профессионалами</h2>
-            <div class="grid md:grid-cols-3 gap-12">
-                <div class="text-center">
-                    <div class="bg-slate-800 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                        <svg class="w-8 h-8 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-                    </div>
-                    <h4 class="text-xl font-bold mb-4">Карты Тахографа</h4>
-                    <p class="text-slate-400">Выпуск карт водителя СКЗИ и ЕСТР за 10-14 дней. Дистанционная подача документов.</p>
+    <section id="order-section" class="py-12 bg-white border-t border-slate-200">
+        <div class="max-w-2xl mx-auto px-4 shadow-2xl rounded-3xl border border-blue-100 p-8">
+            <h2 id="form-title" class="text-2xl font-bold text-center mb-6 text-slate-800">Оформление: Категория B</h2>
+            
+            <form id="tg-form" class="space-y-4">
+                <input type="hidden" id="category_val" value="B">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <input type="tel" id="phone" placeholder="Ваш телефон" required class="p-3 border rounded-xl outline-none focus:ring-2 focus:ring-blue-500">
+                    <input type="email" id="email" placeholder="E-mail" required class="p-3 border rounded-xl outline-none focus:ring-2 focus:ring-blue-500">
                 </div>
-                <div class="text-center">
-                    <div class="bg-slate-800 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                        <svg class="w-8 h-8 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-                    </div>
-                    <h4 class="text-xl font-bold mb-4">Быстрый ЭДО</h4>
-                    <p class="text-slate-400">Подключение транспортных компаний к электронному документообороту. Путевые листы.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <input type="number" id="mileage" placeholder="Пробег (км)" required class="p-3 border rounded-xl outline-none focus:ring-2 focus:ring-blue-500">
+                    <input type="text" id="tires" placeholder="Марка шин" required class="p-3 border rounded-xl outline-none focus:ring-2 focus:ring-blue-500">
                 </div>
-                <div class="text-center">
-                    <div class="bg-slate-800 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                        <svg class="w-8 h-8 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9l-4 4v-4H3a2 2 0 01-2-2V10a2 2 0 012-2h2M9 21h6"></path></svg>
-                    </div>
-                    <h4 class="text-xl font-bold mb-4">Агентская сеть</h4>
-                    <p class="text-slate-400">Спеццены для автопарков и страховых агентов при объеме от 5 диагностических карт.</p>
+                <textarea id="comment" placeholder="Для кат. C: данные тахографа. Для всех: доп. инфо" class="w-full p-3 border rounded-xl outline-none focus:ring-2 focus:ring-blue-500 h-24"></textarea>
+
+                <div class="p-4 bg-gray-50 rounded-xl border-2 border-dashed border-gray-200">
+                    <label class="block text-sm font-bold mb-2">Прикрепите фото (СТС 2 стороны + фото авто):</label>
+                    <input type="file" id="photo_files" multiple accept="image/*" required class="w-full text-sm">
                 </div>
+
+                <button type="submit" id="submit-btn" class="w-full bg-blue-600 text-white font-bold py-4 rounded-xl transition-all shadow-lg active:scale-95">
+                    ОТПРАВИТЬ ДАННЫЕ И ФОТО
+                </button>
+            </form>
+            <div id="success-msg" class="hidden text-center py-6">
+                <h3 class="text-xl font-bold text-green-600 mb-4">Данные отправлены!</h3>
+                <p class="text-gray-700 mb-6">Для активации карты оплатите услугу по СБП:</p>
+                <div class="bg-blue-50 p-5 rounded-2xl mb-6 border-2 border-blue-400">
+                    <p class="font-black text-xl text-blue-900">+79179827733</p>
+                    <p class="text-sm text-gray-600 font-semibold">Сбербанк, Павел Р.</p>
+                </div>
+                <a href="https://t.me/grandgarant2000" class="block w-full bg-slate-900 text-white py-4 rounded-xl font-bold">Я ОПЛАТИЛ (Прислать чек)</a>
             </div>
         </div>
     </section>
 
-    <footer class="bg-slate-950 py-16 text-slate-500 border-t border-slate-900">
-        <div class="container mx-auto px-4">
-            <div class="max-w-4xl mx-auto text-center">
-                <p class="mb-6 text-xs uppercase tracking-[0.2em] font-bold text-slate-700">SEO Ключевые запросы</p>
-                <p class="text-sm leading-relaxed">
-                    диагностическая карта онлайн, техосмотр на фуру, карта тахографа скзи заказать, техосмотр с фотофиксацией для ГИБДД цена, 
-                    база ЕАИСТО проверка по номеру, техосмотр категория C E, диагностическая карта для постановки на учет в ГИБДД 2026, 
-                    сделать техосмотр без заезда по всей России официальная станция.
-                </p>
-                <div class="mt-10 pt-10 border-t border-slate-900 text-xs text-center italic">
-                    &copy; 2026 АВТО-ДОК РФ. Сервис носит информационный характер. Помощь в оформлении документов.
-                </div>
-            </div>
+    <footer class="bg-slate-950 py-16 text-slate-500">
+        <div class="container mx-auto px-4 text-center">
+            <p class="text-sm max-w-3xl mx-auto">
+                диагностическая карта онлайн, техосмотр на фуру, карта тахографа скзи заказать, техосмотр с фотофиксацией для ГИБДД цена, база ЕАИСТО-М 2026.
+            </p>
+            <div class="mt-10 text-xs italic">&copy; 2026 АВТО-ДОК РФ.</div>
         </div>
     </footer>
-<section id="order-section" class="py-12 bg-white">
-  <div class="max-w-2xl mx-auto px-4 shadow-2xl rounded-3xl border border-gray-100 p-8">
-    <h2 class="text-2xl font-bold text-center mb-6 text-slate-800">Оформить диагностическую карту</h2>
-    
-    <form id="tg-form" class="space-y-4">
-      <select id="category" class="w-full p-3 border rounded-xl shadow-sm focus:ring-2 focus:ring-blue-500 outline-none">
-        <option value="B">Категория B — 6 000 руб.</option>
-        <option value="C/E">Категория C/E — 10 000 руб.</option>
-      </select>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <input type="tel" id="phone" placeholder="Ваш телефон" required class="p-3 border rounded-xl shadow-sm outline-none focus:ring-2 focus:ring-blue-500">
-        <input type="email" id="email" placeholder="E-mail" required class="p-3 border rounded-xl shadow-sm outline-none focus:ring-2 focus:ring-blue-500">
-      </div>
+    <script>
+        const token = "8649772804:AAGjKzXa0-qQ0Ee4NcVOXDvUCSzkq-I_xXU";
+        const chat_id = "7512855086";
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <input type="number" id="mileage" placeholder="Пробег (км)" required class="p-3 border rounded-xl shadow-sm outline-none focus:ring-2 focus:ring-blue-500">
-        <input type="text" id="tires" placeholder="Марка шин" required class="p-3 border rounded-xl shadow-sm outline-none focus:ring-2 focus:ring-blue-500">
-      </div>
+        function openForm(cat) {
+            document.getElementById('order-section').style.display = 'block';
+            document.getElementById('category_val').value = cat;
+            document.getElementById('form-title').innerText = 'Оформление: Категория ' + cat;
+            window.location.hash = 'order-section';
+        }
 
-      <textarea id="comment" placeholder="Данные тахографа (для C) или доп. инфо" class="w-full p-3 border rounded-xl shadow-sm outline-none focus:ring-2 focus:ring-blue-500 h-24"></textarea>
+        document.getElementById('tg-form').onsubmit = async function(e) {
+            e.preventDefault();
+            const btn = document.getElementById('submit-btn');
+            btn.disabled = true;
+            btn.innerText = "ОТПРАВКА...";
 
-      <div class="p-4 bg-blue-50 rounded-xl border border-blue-100">
-        <p class="text-xs text-blue-800 leading-relaxed">После нажатия кнопки данные уйдут менеджеру. Приготовьте фото СТС/ПТС и автомобиля с двух сторон для отправки в чат.</p>
-      </div>
-
-      <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-xl transition-all shadow-lg active:scale-95">
-        ОФОРМИТЬ И ПЕРЕЙТИ К ОПЛАТЕ
-      </button>
-    </form>
-  </div>
-</section>
-
-<script>
-document.getElementById('tg-form').onsubmit = function(e) {
-    e.preventDefault();
-    
-    // ВСТАВЬ СВОИ ДАННЫЕ ТУТ:
-    const token = "8649772804:AAGjKzXa0-qQ0Ee4NcVOXDvUCSzkq-I_xXU"; 
-    const chat_id = "7512855086";
-    
-    const text = `
-🆕 ЗАЯВКА НА КАРТУ:
-🎫 Кат: ${document.getElementById('category').value}
+            const text = `
+🆕 НОВАЯ ЗАЯВКА:
+🎫 Категория: ${document.getElementById('category_val').value}
 📞 Тел: ${document.getElementById('phone').value}
 📧 Email: ${document.getElementById('email').value}
 🚗 Пробег: ${document.getElementById('mileage').value}
 🛞 Шины: ${document.getElementById('tires').value}
 📝 Инфо: ${document.getElementById('comment').value}
-    `;
-
-    const url = `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chat_id}&text=${encodeURIComponent(text)}`;
-    
-    fetch(url).then(response => {
-        if(response.ok) {
-            document.getElementById('tg-form').innerHTML = `
-                <div class="text-center py-6 animate-pulse">
-                    <h3 class="text-xl font-bold text-green-600 mb-4">Данные получены!</h3>
-                    <p class="text-gray-700 mb-6 font-medium">Для выпуска карты оплатите услугу переводом СБП:</p>
-                    <div class="bg-gray-100 p-5 rounded-2xl mb-6 border-2 border-dashed border-blue-400">
-                        <p class="font-mono font-black text-xl text-blue-900">+79179827733</p>
-                        <p class="text-sm text-gray-500 font-semibold">(Сбербанк, Получатель: Павел Р.)</p>
-                    </div>
-                    <a href="https://t.me/grandgarant2000" class="block w-full bg-blue-600 text-white py-4 rounded-xl font-bold shadow-blue-200 shadow-lg mb-4">
-                        ПРИКРЕПИТЬ ЧЕК И ФОТО (TG)
-                    </a>
-                </div>
             `;
-        }
-    });
-};
-</script>
+
+            try {
+                // 1. Отправляем текст
+                await fetch(`https://api.telegram.org/bot${token}/sendMessage?chat_id=${chat_id}&text=${encodeURIComponent(text)}`);
+
+                // 2. Отправляем файлы
+                const files = document.getElementById('photo_files').files;
+                for (let file of files) {
+                    const formData = new FormData();
+                    formData.append('chat_id', chat_id);
+                    formData.append('document', file);
+                    await fetch(`https://api.telegram.org/bot${token}/sendDocument`, { method: 'POST', body: formData });
+                }
+
+                document.getElementById('tg-form').classList.add('hidden');
+                document.getElementById('success-msg').classList.remove('hidden');
+            } catch (err) {
+                alert("Ошибка при отправке. Попробуйте еще раз или напишите в Telegram.");
+                btn.disabled = false;
+                btn.innerText = "ОТПРАВИТЬ ЕЩЕ РАЗ";
+            }
+        };
+    </script>
 </body>
 </html>
