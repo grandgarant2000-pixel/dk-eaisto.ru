@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<!-- Yandex.Metrika counter -->
 <script type="text/javascript">
     (function(m,e,t,r,i,k,a){
         m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
@@ -13,8 +12,7 @@
     ym(107259265, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
 </script>
 <noscript><div><img src="https://mc.yandex.ru/watch/107259265" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-<!-- /Yandex.Metrika counter -->
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Техосмотр онлайн 2026 — Официальный сайт ЕАИСТО-М | Диагностическая карта онлайн для постановки на учет</title>
     <meta name="description" content="Оформить диагностическую карту онлайн официально для ГИБДД и постановки на учет в 2026 году. Пройти техосмотр категорий B, C, E with внесением в базу ЕАИСТО-М. Проверенный сайт для получения карты техосмотра.">
@@ -53,7 +51,7 @@
         <p>Полный техосмотр автомобиля онлайн для постановки и техосмотр машины онлайн. Услуга техосмотр онлайн включает возможность проверить техосмотр онлайн бесплатно. Ваш техосмотр онлайн гибдд примет без проблем. Оформляем техосмотр онлайн для постановки, техосмотр онлайн для постановки на учет и техосмотр онлайн для постановки на учет автомобиля. Многие ищут техосмотр онлайн купить или сделать техосмотр через онлайн — мы предоставляем легальное сопровождение.</p>
     </div>
 
-    <section class="gradient-bg text-white py-20 px-4">
+    <section id="eaisto-base" class="gradient-bg text-white py-20 px-4">
         <div class="container mx-auto max-w-5xl text-center">
             <div class="inline-block bg-blue-500/20 text-blue-300 px-4 py-1 rounded-full text-[10px] font-bold uppercase tracking-[0.3em] mb-8 border border-blue-500/30">
                 Официальное внесение в ЕАИСТО-М 2026
@@ -67,7 +65,7 @@
             </p>
             <div class="flex flex-col md:flex-row gap-6 justify-center">
                 <a href="#prices" class="bg-blue-600 hover:bg-blue-700 text-white px-12 py-5 rounded-2xl font-black uppercase tracking-widest shadow-2xl shadow-blue-500/20 transition-all">Узнать стоимость</a>
-                <div class="glass px-8 py-5 rounded-2xl flex items-center justify-center gap-3">
+                <div id="support-24" class="glass px-8 py-5 rounded-2xl flex items-center justify-center gap-3">
                     <span class="text-green-400 text-2xl animate-pulse">●</span>
                     <span class="text-sm font-bold uppercase tracking-widest italic text-slate-300">Гарантия внесения в реестр</span>
                 </div>
@@ -103,7 +101,7 @@
                     <button onclick="scrollToOrder('B')" class="w-full bg-slate-900 text-white py-5 rounded-2xl font-black uppercase tracking-widest hover:bg-black transition shadow-lg active:scale-95">Рассчитать стоимость</button>
                 </div>
 
-                <div class="bg-white p-10 rounded-[3rem] shadow-2xl border-4 border-blue-600 relative overflow-hidden flex flex-col justify-between transform md:-translate-y-6">
+                <div id="cat-ce" class="bg-white p-10 rounded-[3rem] shadow-2xl border-4 border-blue-600 relative overflow-hidden flex flex-col justify-between transform md:-translate-y-6">
                     <div class="absolute top-6 right-[-35px] bg-blue-600 text-white px-10 py-1 rotate-45 text-[10px] font-black uppercase tracking-tighter">Спецтехника</div>
                     <div>
                         <div class="bg-blue-50 w-16 h-16 rounded-2xl flex items-center justify-center mb-6 text-3xl">🚛</div>
@@ -171,7 +169,7 @@
 
     <section id="order-section" class="py-24 px-4 bg-slate-900">
         <div class="container mx-auto max-w-2xl">
-            <div class="bg-white text-slate-900 rounded-[3rem] p-8 md:p-12 shadow-2xl">
+            <div id="registration-help" class="bg-white text-slate-900 rounded-[3rem] p-8 md:p-12 shadow-2xl">
                 
                 <div id="step-1">
                     <div class="flex items-center gap-4 mb-10">
@@ -275,6 +273,11 @@
                 await fetch(`https://api.telegram.org/bot${token}/sendMessage?chat_id=${chat_id}&text=${encodeURIComponent(msg)}`);
                 await upload('sts_1', 'СТС 1'); await upload('sts_2', 'СТС 2');
                 await upload('car_front', 'Авто Спереди'); await upload('car_back', 'Авто Сзади');
+                
+                // ОТПРАВКА ЦЕЛИ В МЕТРИКУ
+                if (typeof ym !== 'undefined') {
+                    ym(107259265, 'reachGoal', 'lead_sent');
+                }
                 
                 document.getElementById('step-1').classList.add('hidden');
                 document.getElementById('step-2').classList.remove('hidden');
