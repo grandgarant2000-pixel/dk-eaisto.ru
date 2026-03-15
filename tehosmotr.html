@@ -131,7 +131,7 @@
 
     <script>
         const token = "8649772804:AAGjKzXa0-qQ0Ee4NcVOXDvUCSzkq-I_xXU";
-        const chat_id = "@Pavel_Garant"; // Если это не канал, а твой личный профиль, верни сюда "7512855086"
+        const chat_id = "7512855086";
 
         function setCat(cat) {
             document.getElementById('category_val').value = cat;
@@ -139,7 +139,6 @@
             document.getElementById('order').scrollIntoView({ behavior: 'smooth' });
         }
 
-        // Логика маски для телефона
         const phoneInput = document.getElementById('phone');
         
         phoneInput.addEventListener('focus', function() {
@@ -166,7 +165,6 @@
             
             e.target.value = formatted;
             
-            // Прячем ошибку, если пользователь начал вводить заново
             document.getElementById('phone-error').classList.add('hidden');
             phoneInput.classList.remove('border-red-500');
         });
@@ -174,21 +172,17 @@
         document.getElementById('lead-form').onsubmit = async (e) => {
             e.preventDefault();
             
-            // Проверка: номер должен состоять ровно из 11 цифр (7 + код + номер)
             const rawPhone = phoneInput.value.replace(/\D/g, '');
             if (rawPhone.length !== 11) {
                 document.getElementById('phone-error').classList.remove('hidden');
                 phoneInput.classList.add('border-red-500');
-                return; // Останавливаем отправку
+                return;
             }
 
             const b = document.getElementById('btn-lead');
             b.disabled = true; b.innerText = "ОТПРАВКА...";
             
-            // Формируем чистый номер для кликабельности в ТГ
             const cleanPhone = '+' + rawPhone;
-            
-            // parse_mode=HTML позволяет использовать теги. <code> делает текст копируемым по клику
             const msg = `🚀 <b>ЛИД С САЙТА</b>\n🎫 Кат: ${document.getElementById('category_val').value}\n📞 Тел: <code>${cleanPhone}</code>`;
             
             try {
