@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Карты водителя для тахографа (СКЗИ) | Оформить онлайн | АвтоДок РФ</title>
+    <meta name="description" content="Изготовление, продление и разблокировка карт водителя для тахографов с блоком СКЗИ. Быстрые сроки, доставка.">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap" rel="stylesheet">
+    
+    <style>
+        body { font-family: 'Inter', sans-serif; overflow-x: hidden; background: #0f172a; }
+        .hero-title { font-size: clamp(2rem, 8vw, 4rem); line-height: 1; letter-spacing: -0.04em; }
+        .hero-gradient { background: radial-gradient(circle at top right, #1e293b, #0f172a); }
+    </style>
+
+    <script type="text/javascript">
+        (function(m,e,t,r,i,k,a){
+            m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+            m[i].l=1*new Date();
+            for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+            k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+        })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=107259265', 'ym');
+        ym(107259265, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
+    </script>
+</head>
+<body class="text-slate-200">
+
+    <header class="fixed w-full z-50 bg-[#0f172a]/90 backdrop-blur-lg border-b border-white/5 px-6 py-4">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="index.html" class="font-black text-xl italic uppercase tracking-tighter hover:text-blue-500 transition">АвтоДок<span class="text-blue-500">РФ</span></a>
+            <div class="flex items-center gap-4">
+                <a href="index.html" class="text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-white transition hidden md:block">← На главную</a>
+                <span class="w-2 h-2 bg-green-500 rounded-full"></span>
+            </div>
+        </div>
+    </header>
+
+    <section class="relative pt-32 pb-16 px-6 hero-gradient flex flex-col justify-center border-b border-slate-800 min-h-[60vh]">
+        <div class="container mx-auto text-center mt-10">
+            <div class="text-5xl mb-6">💳</div>
+            <h1 class="hero-title font-black mb-6 uppercase italic text-white">
+                КАРТЫ ВОДИТЕЛЯ <br> <span class="text-blue-500 font-black">СКЗИ / ТАХОГРАФ</span>
+            </h1>
+            <p class="text-slate-400 text-base md:text-lg mb-8 max-w-2xl mx-auto font-medium italic leading-snug">
+                Изготовление новых, продление и разблокировка карт для тахографов. Работаем напрямую с заводом — без переплат и задержек.
+            </p>
+        </div>
+    </section>
+
+    <section id="order" class="py-24 px-6 bg-white text-slate-900 rounded-t-[4rem] -mt-8 relative z-10">
+        <div class="container mx-auto max-w-md">
+            <div class="bg-[#0f172a] text-white rounded-[3.5rem] p-10 shadow-2xl">
+                <div class="text-center mb-10">
+                    <h2 class="text-3xl font-black uppercase italic tracking-tighter mb-2 text-blue-500">Заказать карту</h2>
+                    <p class="text-slate-500 text-[9px] font-black uppercase tracking-widest">Перезвоним и уточним детали</p>
+                </div>
+                
+                <form id="taho-form" class="space-y-4">
+                    <select id="taho_type" class="w-full p-6 bg-white/5 border border-white/10 rounded-2xl outline-none focus:border-blue-500 transition font-bold text-lg appearance-none text-slate-300">
+                        <option value="Новая карта СКЗИ" class="text-black">Новая карта СКЗИ</option>
+                        <option value="Продление карты" class="text-black">Продление старой карты</option>
+                        <option value="Разблокировка (ПИН-код)" class="text-black">Разблокировка (забыли ПИН)</option>
+                    </select>
+                    <input type="tel" id="phone_taho" placeholder="Ваш телефон" required class="w-full p-6 bg-white/5 border border-white/10 rounded-2xl outline-none focus:border-blue-500 transition font-black text-xl">
+                    <button type="submit" id="btn-taho" class="w-full bg-blue-600 text-white font-black py-7 rounded-2xl uppercase tracking-widest shadow-xl active:scale-95 transition-all italic">Заявка на оформление</button>
+                </form>
+
+                <div id="success_taho" class="hidden text-center py-10">
+                    <div class="w-20 h-20 bg-green-500 text-white rounded-full flex items-center justify-center mx-auto mb-6 text-3xl">✓</div>
+                    <h3 class="text-2xl font-black uppercase italic tracking-tighter">Принято в работу</h3>
+                    <p class="text-slate-400 text-sm font-bold mt-2">Мастер скоро наберет вас</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        const token = "8649772804:AAGjKzXa0-qQ0Ee4NcVOXDvUCSzkq-I_xXU";
+        const chat_id = "7512855086";
+
+        document.getElementById('taho-form').onsubmit = async (e) => {
+            e.preventDefault();
+            const b = document.getElementById('btn-taho');
+            b.disabled = true; b.innerText = "ОТПРАВКА...";
+            const type = document.getElementById('taho_type').value;
+            const msg = `🚀 ЛИД: Карта СКЗИ (Тахограф)\n💳 Услуга: ${type}\n📞 Тел: ${document.getElementById('phone_taho').value}`;
+            try {
+                await fetch(`https://api.telegram.org/bot${token}/sendMessage?chat_id=${chat_id}&text=${encodeURIComponent(msg)}`);
+                if (typeof ym !== 'undefined') { ym(107259265, 'reachGoal', 'lead_taho'); }
+                document.getElementById('taho-form').classList.add('hidden');
+                document.getElementById('success_taho').classList.remove('hidden');
+            } catch (err) { alert("Ошибка соединения!"); b.disabled = false; b.innerText = "ЕЩЕ РАЗ"; }
+        };
+    </script>
+</body>
+</html>
