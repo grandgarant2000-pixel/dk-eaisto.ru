@@ -12,7 +12,7 @@
 </script>
 <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Техосмотр 2026 — Категории B, C, E | Оформление ЕАИСТО-М</title>
+    <title>Оформление техосмотра и диагностических карт онлайн | АвтоДок РФ</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap" rel="stylesheet">
@@ -27,15 +27,15 @@
 
     <header class="fixed w-full z-50 bg-[#0f172a]/90 backdrop-blur-lg border-b border-white/5 px-6 py-4">
         <div class="container mx-auto flex justify-between items-center">
-            <div class="font-black text-xl italic uppercase tracking-tighter">АвтоДок<span class="text-blue-500">РФ</span></div>
-            <div class="flex items-center gap-2">
+            <a href="index.html" class="font-black text-xl italic uppercase tracking-tighter hover:text-blue-500 transition">АвтоДок<span class="text-blue-500">РФ</span></a>
+            <div class="flex items-center gap-4">
+                <a href="index.html" class="text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-white transition hidden md:block">← На главную</a>
                 <span class="w-2 h-2 bg-green-500 rounded-full"></span>
-                <span class="text-[9px] font-black uppercase tracking-widest text-slate-400">ЕАИСТО-М Активен</span>
             </div>
         </div>
     </header>
 
-    <section class="relative pt-40 pb-20 px-6 hero-gradient min-h-[90vh] flex flex-col justify-center">
+    <section class="relative pt-40 pb-20 px-6 hero-gradient min-h-[90vh] flex flex-col justify-center border-b border-slate-800">
         <div class="container mx-auto text-center">
             <h1 class="hero-title font-black mb-6 uppercase italic text-white">
                 ТЕХОСМОТР <br> <span class="text-blue-500 font-black">ОНЛАЙН-СЕРВИС</span>
@@ -58,31 +58,27 @@
         </div>
     </section>
 
-    <section id="prices" class="py-24 px-6 bg-white text-slate-900 rounded-t-[4rem]">
+    <section id="prices" class="py-24 px-6 bg-white text-slate-900 rounded-t-[4rem] -mt-8 relative z-10">
         <div class="container mx-auto max-w-5xl">
             <div class="grid md:grid-cols-2 gap-8">
-                <div class="p-10 rounded-[3rem] bg-slate-50 border-2 border-slate-100 flex flex-col justify-between h-[320px] shadow-sm">
-                    <div>
-                        <div class="text-4xl mb-4 text-blue-600">🚗</div>
-                        <h3 class="text-3xl font-black uppercase italic tracking-tighter mb-2 text-slate-900">Категория B</h3>
-                        <p class="text-slate-700 font-black uppercase text-xs md:text-sm tracking-widest leading-snug">Легковые автомобили <br>для частных лиц</p>
-                    </div>
-                    <button onclick="setCat('B')" class="w-full bg-slate-900 text-white py-5 rounded-2xl font-black uppercase tracking-widest hover:bg-blue-600 transition shadow-lg">Выбрать</button>
+                <div class="p-10 rounded-[2.5rem] bg-slate-50 border-2 border-slate-100 flex flex-col items-center text-center shadow-sm">
+                    <div class="text-5xl mb-4 text-blue-600">🚗</div>
+                    <h3 class="text-3xl font-black uppercase italic tracking-tighter mb-2 text-slate-900">Категория B</h3>
+                    <p class="text-slate-600 font-bold uppercase text-sm tracking-widest leading-relaxed mb-8">Легковые автомобили <br>для частных лиц</p>
+                    <button onclick="setCat('B')" class="w-full mt-auto bg-slate-900 text-white py-5 rounded-2xl font-black uppercase tracking-widest hover:bg-blue-600 transition shadow-lg">Выбрать</button>
                 </div>
 
-                <div class="p-10 rounded-[3rem] bg-blue-600 text-white flex flex-col justify-between h-[320px] shadow-2xl shadow-blue-300">
-                    <div>
-                        <div class="text-4xl mb-4">🚛</div>
-                        <h3 class="text-3xl font-black uppercase italic tracking-tighter mb-2 text-white">Категория C / E</h3>
-                        <p class="text-white font-black uppercase text-xs md:text-sm tracking-widest leading-snug">Грузовые авто, <br>тягачи и прицепы</p>
-                    </div>
-                    <button onclick="setCat('C/E')" class="w-full bg-white text-blue-600 py-5 rounded-2xl font-black uppercase tracking-widest hover:bg-blue-500 transition shadow-lg">Выбрать</button>
+                <div class="p-10 rounded-[2.5rem] bg-blue-600 text-white border-2 border-blue-600 flex flex-col items-center text-center shadow-2xl shadow-blue-300">
+                    <div class="text-5xl mb-4">🚛</div>
+                    <h3 class="text-3xl font-black uppercase italic tracking-tighter mb-2 text-white">Категория C / E</h3>
+                    <p class="text-blue-100 font-bold uppercase text-sm tracking-widest leading-relaxed mb-8">Грузовые авто, <br>тягачи и прицепы</p>
+                    <button onclick="setCat('C/E')" class="w-full mt-auto bg-white text-blue-600 py-5 rounded-2xl font-black uppercase tracking-widest hover:bg-slate-100 transition shadow-lg">Выбрать</button>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="order" class="py-24 px-6 bg-white">
+    <section id="order" class="py-24 px-6 bg-white border-t border-slate-100">
         <div class="container mx-auto max-w-md">
             <div class="bg-[#0f172a] text-white rounded-[3.5rem] p-10 shadow-2xl">
                 <div class="text-center mb-10">
