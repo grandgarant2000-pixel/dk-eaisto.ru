@@ -57,14 +57,17 @@
                     <p class="text-slate-500 text-[9px] font-black uppercase tracking-widest">Перезвоним и уточним детали</p>
                 </div>
                 
-                <form id="taho-form" class="space-y-4">
+                <form id="taho-form" class="space-y-4 relative">
                     <select id="taho_type" class="w-full p-6 bg-white/5 border border-white/10 rounded-2xl outline-none focus:border-blue-500 transition font-bold text-lg appearance-none text-slate-300">
                         <option value="Новая карта СКЗИ" class="text-black">Новая карта СКЗИ</option>
                         <option value="Продление карты" class="text-black">Продление старой карты</option>
                         <option value="Разблокировка (ПИН-код)" class="text-black">Разблокировка (забыли ПИН)</option>
                     </select>
-                    <input type="tel" id="phone_taho" placeholder="Ваш телефон" required class="w-full p-6 bg-white/5 border border-white/10 rounded-2xl outline-none focus:border-blue-500 transition font-black text-xl">
-                    <button type="submit" id="btn-taho" class="w-full bg-blue-600 text-white font-black py-7 rounded-2xl uppercase tracking-widest shadow-xl active:scale-95 transition-all italic">Заявка на оформление</button>
+                    <div>
+                        <input type="tel" id="phone_taho" placeholder="+7 (___) ___-__-__" required class="w-full p-6 bg-white/5 border border-white/10 rounded-2xl outline-none focus:border-blue-500 transition font-black text-xl text-white placeholder-slate-500">
+                        <p id="phone-error-taho" class="hidden text-red-500 text-xs font-bold mt-2 ml-2 absolute">Пожалуйста, введите номер полностью</p>
+                    </div>
+                    <button type="submit" id="btn-taho" class="w-full bg-blue-600 text-white font-black py-7 rounded-2xl uppercase tracking-widest shadow-xl active:scale-95 transition-all italic mt-4">Заявка на оформление</button>
                 </form>
 
                 <div id="success_taho" class="hidden text-center py-10">
@@ -80,18 +83,63 @@
         const token = "8649772804:AAGjKzXa0-qQ0Ee4NcVOXDvUCSzkq-I_xXU";
         const chat_id = "7512855086";
 
+        const phoneInputTaho = document.getElementById('phone_taho');
+        
+        phoneInputTaho.addEventListener('focus', function() {
+            if (this.value === '') this.value = '+7 ';
+        });
+
+        phoneInputTaho.addEventListener('input', function (e) {
+            let input = e.target.value.replace(/\D/g, ''); 
+            
+            if (input.startsWith('7') || input.startsWith('8')) {
+                input = input.substring(1);
+            }
+            
+            if (input.length === 0) { 
+                e.target.value = ''; 
+                return; 
+            }
+
+            let formatted = '+7 ';
+            if (input.length > 0) formatted += '(' + input.substring(0, 3);
+            if (input.length >= 4) formatted += ') ' + input.substring(3, 6);
+            if (input.length >= 7) formatted += '-' + input.substring(6, 8);
+            if (input.length >= 9) formatted += '-' + input.substring(8, 10);
+            
+            e.target.value = formatted;
+            
+            document.getElementById('phone-error-taho').classList.add('hidden');
+            phoneInputTaho.classList.remove('border-red-500');
+        });
+
         document.getElementById('taho-form').onsubmit = async (e) => {
             e.preventDefault();
+            
+            const rawPhone = phoneInputTaho.value.replace(/\D/g, '');
+            if (rawPhone.length !== 11) {
+                document.getElementById('phone-error-taho').classList.remove('hidden');
+                phoneInputTaho.classList.add('border-red-500');
+                return;
+            }
+
             const b = document.getElementById('btn-taho');
             b.disabled = true; b.innerText = "ОТПРАВКА...";
             const type = document.getElementById('taho_type').value;
-            const msg = `🚀 ЛИД: Карта СКЗИ (Тахограф)\n💳 Услуга: ${type}\n📞 Тел: ${document.getElementById('phone_taho').value}`;
+            
+            const cleanPhone = '+' + rawPhone;
+            const msg = `🚀 <b>ЛИД: Карта СКЗИ (Тахограф)</b>\n💳 Услуга: ${type}\n📞 Тел: <code>${cleanPhone}</code>`;
+            
             try {
-                await fetch(`https://api.telegram.org/bot${token}/sendMessage?chat_id=${chat_id}&text=${encodeURIComponent(msg)}`);
+                await fetch(`https://api.telegram.org/bot${token}/sendMessage?chat_id=${chat_id}&parse_mode=HTML&text=${encodeURIComponent(msg)}`);
                 if (typeof ym !== 'undefined') { ym(107259265, 'reachGoal', 'lead_taho'); }
                 document.getElementById('taho-form').classList.add('hidden');
                 document.getElementById('success_taho').classList.remove('hidden');
-            } catch (err) { alert("Ошибка соединения!"); b.disabled = false; b.innerText = "ЕЩЕ РАЗ"; }
+            } catch (err) { 
+                alert("Ошибка соединения!"); 
+                b.disabled = false; 
+                b.innerText = "ЗАЯВКА НА ОФОРМЛЕНИЕ"; 
+            }
         };
     </script>
 </body>
