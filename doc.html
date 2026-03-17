@@ -11,11 +11,42 @@
         input, textarea { font-size: 16px !important; } 
         .upload-box { transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); }
         .section-label { font-size: 11px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.15em; color: #94a3b8; padding-left: 0.25rem; }
+        
+        @keyframes shimmer {
+            0% { transform: translateX(-150%) skewX(-20deg); }
+            100% { transform: translateX(200%) skewX(-20deg); }
+        }
+        .btn-shimmer {
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-shimmer::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 50%; height: 100%;
+            background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0) 100%);
+            animation: shimmer 3s infinite;
+        }
     </style>
 </head>
 <body class="antialiased text-slate-900">
 
-    <div class="min-h-screen flex flex-col justify-center py-6 px-4">
+    <header class="fixed w-full z-50 bg-[#0f172a]/90 backdrop-blur-lg border-b border-white/5 px-4 md:px-6 py-4">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="index.html" class="font-black text-xl italic uppercase tracking-tighter text-white hover:text-blue-500 transition">АвтоДок<span class="text-blue-500">РФ</span></a>
+            <div class="flex items-center gap-3 md:gap-4">
+                <a href="https://t.me/Pavel_Garant" target="_blank" class="btn-shimmer flex items-center justify-center gap-2 bg-[#2AABEE] hover:bg-[#229ED9] text-white w-10 h-10 md:w-auto md:h-auto md:px-4 md:py-2.5 rounded-full md:rounded-xl font-bold transition-all shadow-[0_0_15px_rgba(42,171,238,0.4)] hover:shadow-[0_0_25px_rgba(42,171,238,0.6)] hover:-translate-y-0.5">
+                    <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.14.18-.357.295-.6.295-.002 0-.003 0-.005 0l.213-3.054 5.56-5.022c.24-.213-.054-.334-.373-.121l-6.869 4.326-2.96-.924c-.64-.203-.658-.64.135-.954l11.566-4.458c.538-.196 1.006.128.833.94z"/>
+                    </svg>
+                    <span class="hidden md:block text-[11px] uppercase tracking-widest">Поддержка</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <div class="min-h-screen flex flex-col justify-center py-24 px-4">
         <div class="max-w-md mx-auto w-full bg-white rounded-[3rem] shadow-2xl overflow-hidden border border-slate-100">
             
             <div class="bg-[#0f172a] p-10 text-white relative">
