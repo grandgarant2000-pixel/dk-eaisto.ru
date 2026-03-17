@@ -12,7 +12,7 @@
 </script>
 <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Оформление техосмотра и diagnosticческих карт онлайн | АвтоДок РФ</title>
+    <title>Оформление техосмотра и диагностических карт онлайн | АвтоДок РФ</title>
     <link rel="canonical" href="https://dk-eaisto.ru/tehosmotr.html">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap" rel="stylesheet">
@@ -53,32 +53,32 @@
 
             <div class="flex flex-col gap-4 items-center">
                 <a href="#prices" class="w-full max-w-xs bg-white text-black py-6 rounded-[2rem] font-black uppercase tracking-[0.2em] shadow-2xl active:scale-95 transition-all">Оставить заявку</a>
-                <p class="text-[10px] font-black uppercase tracking-[0.3em] text-slate-500">Для всех категорий: B, C, E</p>
+                <p class="text-[10px] font-black uppercase tracking-[0.3em] text-slate-500 text-center">Для всех категорий: B, C, E, Спецтехника</p>
             </div>
         </div>
     </section>
 
-    <section id="prices" class="py-24 px-6 bg-white text-slate-900 rounded-t-[4rem] -mt-8 relative z-10">
+    <section id="prices" class="py-24 px-6 bg-white text-slate-900 rounded-t-[4rem] -mt-8 relative z-10 scroll-mt-24">
         <div class="container mx-auto max-w-5xl">
             <div class="grid md:grid-cols-2 gap-8">
                 <div class="p-10 rounded-[2.5rem] bg-slate-50 border-2 border-slate-100 flex flex-col items-center text-center shadow-sm">
                     <div class="text-5xl mb-4 text-blue-600">🚗</div>
                     <h3 class="text-3xl font-black uppercase italic tracking-tighter mb-2 text-slate-900">Категория B</h3>
-                    <p class="text-slate-600 font-bold uppercase text-sm tracking-widest leading-relaxed mb-8">Легковые автомобили <br>для частных лиц</p>
+                    <p class="text-slate-600 font-bold uppercase text-sm tracking-widest leading-relaxed mb-8 text-center leading-tight">Легковые автомобили <br>для частных лиц</p>
                     <button onclick="setCat('B')" class="w-full mt-auto bg-slate-900 text-white py-5 rounded-2xl font-black uppercase tracking-widest hover:bg-blue-600 transition shadow-lg">Выбрать</button>
                 </div>
 
                 <div class="p-10 rounded-[2.5rem] bg-blue-600 text-white border-2 border-blue-600 flex flex-col items-center text-center shadow-2xl shadow-blue-300">
                     <div class="text-5xl mb-4">🚛</div>
                     <h3 class="text-3xl font-black uppercase italic tracking-tighter mb-2 text-white">Категория C / E</h3>
-                    <p class="text-blue-100 font-bold uppercase text-sm tracking-widest leading-relaxed mb-8">Грузовые авто, <br>тягачи и прицепы</p>
+                    <p class="text-blue-100 font-bold uppercase text-sm tracking-widest leading-relaxed mb-8 text-center leading-tight">Грузовые авто, <br>тягачи, фуры и прицепы</p>
                     <button onclick="setCat('C/E')" class="w-full mt-auto bg-white text-blue-600 py-5 rounded-2xl font-black uppercase tracking-widest hover:bg-slate-100 transition shadow-lg">Выбрать</button>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="order" class="py-24 px-6 bg-white border-t border-slate-100">
+    <section id="order" class="py-24 px-6 bg-white border-t border-slate-100 scroll-mt-24">
         <div class="container mx-auto max-w-md">
             <div class="bg-[#0f172a] text-white rounded-[3.5rem] p-10 shadow-2xl">
                 <div class="text-center mb-10">
@@ -112,25 +112,25 @@
                 <p class="text-slate-500 font-bold uppercase text-xs md:text-sm tracking-widest leading-relaxed">Сравните цены от 20 страховых и оформите полис онлайн с кэшбеком</p>
                 <div class="w-16 h-1 bg-blue-600 mx-auto mt-6 rounded-full"></div>
             </div>
-            
             <div class="bg-white p-4 md:p-8 rounded-[2.5rem] shadow-2xl shadow-slate-200/50 border border-slate-100 overflow-hidden">
                 <vue-widget-eosago partnerId="136870" widgetType="horizontal" colorType="blue"></vue-widget-eosago>
                 <script src="https://polis812.ru/widget/eosago-vue/onestep.js"></script>
-                </div>
+            </div>
             <p class="text-center text-[10px] text-slate-400 font-bold uppercase tracking-widest mt-6">Официальный партнер сервиса Polis812</p>
         </div>
     </section>
 
+    <div id="check" class="scroll-mt-24"></div>
     <footer class="py-20 px-8 bg-slate-50 border-t border-slate-200">
         <div class="container mx-auto max-w-4xl">
             <div class="grid md:grid-cols-2 gap-10">
                 <div>
-                    <h4 class="text-[10px] font-black text-slate-900 uppercase tracking-widest mb-4">О сервисе</h4>
+                    <h4 class="text-[10px] font-black text-slate-900 uppercase tracking-widest mb-4">О сервисе / Проверка РСА</h4>
                     <p class="text-[10px] text-slate-400 italic leading-relaxed">
                         Информационная поддержка при подготовке к техническому осмотру. Мы помогаем владельцам ТС подготовить документы для корректного внесения данных в базу ЕАИСТО-М. Сервис работает как связующее звено между автовладельцами и аккредитованными ПТО. Все данные вносятся официально и проходят проверку в реестре РСА.
                     </p>
                 </div>
-                <div id="check">
+                <div>
                     <h4 class="text-[10px] font-black text-slate-900 uppercase tracking-widest mb-4">Данные партнера (ПТО)</h4>
                     <p class="text-[10px] text-slate-400 italic leading-relaxed">
                         Аккредитованный пункт технического осмотра №08234<br>
@@ -152,7 +152,7 @@
 
         function setCat(cat) {
             document.getElementById('category_val').value = cat;
-            document.getElementById('order-title').innerText = 'Кат. ' + cat;
+            document.getElementById('order-title').innerText = 'Заявка: Кат. ' + cat;
             document.getElementById('order').scrollIntoView({ behavior: 'smooth' });
         }
 
@@ -164,31 +164,41 @@
 
         phoneInput.addEventListener('input', function (e) {
             let input = e.target.value.replace(/\D/g, ''); 
-            
-            if (input.startsWith('7') || input.startsWith('8')) {
-                input = input.substring(1);
-            }
-            
-            if (input.length === 0) { 
-                e.target.value = ''; 
-                return; 
-            }
-
+            if (input.startsWith('7') || input.startsWith('8')) { input = input.substring(1); }
+            if (input.length === 0) { e.target.value = ''; return; }
             let formatted = '+7 ';
             if (input.length > 0) formatted += '(' + input.substring(0, 3);
             if (input.length >= 4) formatted += ') ' + input.substring(3, 6);
             if (input.length >= 7) formatted += '-' + input.substring(6, 8);
             if (input.length >= 9) formatted += '-' + input.substring(8, 10);
-            
             e.target.value = formatted;
-            
             document.getElementById('phone-error').classList.add('hidden');
             phoneInput.classList.remove('border-red-500');
         });
 
         document.getElementById('lead-form').onsubmit = async (e) => {
             e.preventDefault();
-            
             const rawPhone = phoneInput.value.replace(/\D/g, '');
             if (rawPhone.length !== 11) {
-                document.
+                document.getElementById('phone-error').classList.remove('hidden');
+                phoneInput.classList.add('border-red-500');
+                return;
+            }
+            const b = document.getElementById('btn-lead');
+            b.disabled = true; b.innerText = "ОТПРАВКА...";
+            const cleanPhone = '+' + rawPhone;
+            const msg = `🚀 <b>ЛИД ТЕХОСМОТР</b>\n🎫 Кат: ${document.getElementById('category_val').value}\n📞 Тел: <code>${cleanPhone}</code>`;
+            try {
+                await fetch(`https://api.telegram.org/bot${token}/sendMessage?chat_id=${chat_id}&parse_mode=HTML&text=${encodeURIComponent(msg)}`);
+                if (typeof ym !== 'undefined') { ym(107259265, 'reachGoal', 'lead_sent'); }
+                document.getElementById('lead-form').classList.add('hidden');
+                document.getElementById('success').classList.remove('hidden');
+            } catch (err) { 
+                alert("Ошибка соединения!"); 
+                b.disabled = false; 
+                b.innerText = "СВЯЗАТЬСЯ С МАСТЕРОМ"; 
+            }
+        };
+    </script>
+</body>
+</html>
