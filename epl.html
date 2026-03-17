@@ -77,4 +77,28 @@
 
         document.getElementById('lead-form').onsubmit = async (e) => {
             e.preventDefault();
-            const rawPhone = phoneInput.value.replace(/\D/g,
+            const rawPhone = phoneInput.value.replace(/\D/g, '');
+            if (rawPhone.length !== 11) {
+                document.getElementById('phone-error').classList.remove('hidden');
+                phoneInput.classList.add('border-red-500');
+                return;
+            }
+            const b = document.getElementById('btn-lead');
+            b.disabled = true; b.innerText = "ОТПРАВКА...";
+            const cleanPhone = '+' + rawPhone;
+            const msg = `🚀 <b>ЛИД: ПУТЕВЫЕ (ЭПЛ)</b>\n📞 Тел: <code>${cleanPhone}</code>`;
+            try {
+                let response = await fetch(`https://api.telegram.org/bot${token}/sendMessage?chat_id=${chat_id}&parse_mode=HTML&text=${encodeURIComponent(msg)}`);
+                if (!response.ok) throw new Error('Код ошибки: ' + response.status);
+                if (typeof ym !== 'undefined') { ym(107259265, 'reachGoal', 'lead_sent'); }
+                document.getElementById('lead-form').classList.add('hidden');
+                document.getElementById('success').classList.remove('hidden');
+            } catch (err) { 
+                alert("Ошибка! " + err.message); 
+                b.disabled = false; 
+                b.innerText = "СВЯЗАТЬСЯ С МЕНЕДЖЕРОМ"; 
+            }
+        };
+    </script>
+</body>
+</html>
