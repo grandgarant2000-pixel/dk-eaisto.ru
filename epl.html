@@ -1,7 +1,16 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
+<script type="text/javascript">
+    (function(m,e,t,r,i,k,a){
+        m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+        m[i].l=1*new Date();
+        for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+        k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+    })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=107259265', 'ym');
+    ym(107259265, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
+</script>
+<meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Электронные путевые листы (ЭПЛ) онлайн | АвтоДок РФ</title>
     <link rel="canonical" href="https://dk-eaisto.ru/epl.html">
@@ -31,10 +40,12 @@
         <div class="container mx-auto max-w-md">
             <div class="bg-[#0f172a] text-white rounded-[3.5rem] p-10 shadow-2xl">
                 <h2 class="text-center text-3xl font-black uppercase italic mb-8 text-blue-500">Подключить ЭПЛ</h2>
-                <form id="lead-form" class="space-y-4">
-                    <input type="tel" id="phone" placeholder="+7 (___) ___-__-__" required class="w-full p-6 bg-white/5 border border-white/10 rounded-2xl outline-none focus:border-blue-500 transition font-black text-xl text-white">
-                    <p id="phone-error" class="hidden text-red-500 text-xs font-bold mt-2 ml-2">Введите номер полностью</p>
-                    <button type="submit" id="btn-lead" class="w-full bg-blue-600 text-white font-black py-7 rounded-2xl uppercase shadow-xl active:scale-95 transition-all italic">Связаться с менеджером</button>
+                <form id="lead-form" class="space-y-4 relative">
+                    <div>
+                        <input type="tel" id="phone" placeholder="+7 (___) ___-__-__" required class="w-full p-6 bg-white/5 border border-white/10 rounded-2xl outline-none focus:border-blue-500 transition font-black text-xl text-white">
+                        <p id="phone-error" class="hidden text-red-500 text-xs font-bold mt-2 ml-2 absolute">Введите номер полностью</p>
+                    </div>
+                    <button type="submit" id="btn-lead" class="w-full bg-blue-600 text-white font-black py-7 rounded-2xl uppercase shadow-xl active:scale-95 transition-all italic mt-4">Связаться с менеджером</button>
                 </form>
                 <div id="success" class="hidden text-center py-10">
                     <div class="w-20 h-20 bg-green-500 text-white rounded-full flex items-center justify-center mx-auto mb-6 text-3xl">✓</div>
@@ -61,24 +72,9 @@
             if (input.length >= 9) formatted += '-' + input.substring(8, 10);
             e.target.value = formatted;
             document.getElementById('phone-error').classList.add('hidden');
+            phoneInput.classList.remove('border-red-500');
         });
 
         document.getElementById('lead-form').onsubmit = async (e) => {
             e.preventDefault();
-            const rawPhone = phoneInput.value.replace(/\D/g, '');
-            if (rawPhone.length !== 11) {
-                document.getElementById('phone-error').classList.remove('hidden');
-                return;
-            }
-            const b = document.getElementById('btn-lead');
-            b.disabled = true; b.innerText = "ОТПРАВКА...";
-            const msg = `🚀 <b>ЛИД: ПУТЕВЫЕ (ЭПЛ)</b>\n📞 Тел: <code>+${rawPhone}</code>`;
-            try {
-                await fetch(`https://api.telegram.org/bot${token}/sendMessage?chat_id=${chat_id}&parse_mode=HTML&text=${encodeURIComponent(msg)}`);
-                document.getElementById('lead-form').classList.add('hidden');
-                document.getElementById('success').classList.remove('hidden');
-            } catch (err) { b.disabled = false; b.innerText = "ОШИБКА. ПОВТОРИТЕ"; }
-        };
-    </script>
-</body>
-</html>
+            const rawPhone = phoneInput.value.replace(/\D/g,
