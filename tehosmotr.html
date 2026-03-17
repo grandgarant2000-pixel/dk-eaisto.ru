@@ -12,11 +12,10 @@
 </script>
 <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Оформление техосмотра и диагностических карт онлайн | АвтоДок РФ</title>
+    <title>Оформление техосмотра онлайн | АвтоДок РФ</title>
     <link rel="canonical" href="https://dk-eaisto.ru/tehosmotr.html">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap" rel="stylesheet">
-    
     <style>
         body { font-family: 'Inter', sans-serif; overflow-x: hidden; background: #0f172a; }
         .hero-title { font-size: clamp(2.5rem, 12vw, 6rem); line-height: 0.9; letter-spacing: -0.04em; }
@@ -24,36 +23,22 @@
     </style>
 </head>
 <body class="text-slate-200">
-
     <header class="fixed w-full z-50 bg-[#0f172a]/90 backdrop-blur-lg border-b border-white/5 px-6 py-4">
         <div class="container mx-auto flex justify-between items-center">
             <a href="index.html" class="font-black text-xl italic uppercase tracking-tighter hover:text-blue-500 transition">АвтоДок<span class="text-blue-500">РФ</span></a>
-            <div class="flex items-center gap-4">
-                <a href="index.html" class="text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-white transition hidden md:block">← На главную</a>
-                <span class="w-2 h-2 bg-green-500 rounded-full"></span>
+            <div class="flex items-center gap-4 text-[10px] font-black uppercase tracking-widest text-slate-400">
+                <a href="index.html" class="hover:text-white transition hidden md:block">← На главную</a>
+                <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
             </div>
         </div>
     </header>
 
-    <section class="relative pt-40 pb-20 px-6 hero-gradient min-h-[90vh] flex flex-col justify-center border-b border-slate-800">
+    <section class="relative pt-40 pb-20 px-6 hero-gradient min-h-[80vh] flex flex-col justify-center border-b border-slate-800">
         <div class="container mx-auto text-center">
-            <h1 class="hero-title font-black mb-6 uppercase italic text-white">
-                ТЕХОСМОТР <br> <span class="text-blue-500 font-black">ОНЛАЙН-СЕРВИС</span>
-            </h1>
-
-            <div class="inline-block bg-blue-600 px-6 py-3 rounded-2xl mb-8 shadow-2xl shadow-blue-500/20 transform -rotate-1">
-                <p class="text-white text-lg md:text-2xl font-black uppercase italic tracking-tight">
-                    Не вылезая из кабины!
-                </p>
-            </div>
-            
-            <p class="text-slate-400 text-base md:text-lg mb-12 max-w-xl mx-auto font-medium italic leading-snug">
-                Официальное сопровождение при постановке на учет и обновлении диагностических карт в базе ЕАИСТО-М.
-            </p>
-
+            <h1 class="hero-title font-black mb-6 uppercase italic text-white">ТЕХОСМОТР <br> <span class="text-blue-500">ОНЛАЙН</span></h1>
+            <div class="inline-block bg-blue-600 px-6 py-3 rounded-2xl mb-8 transform -rotate-1 shadow-xl"><p class="text-white text-lg md:text-2xl font-black uppercase italic">ЕАИСТО-М за 10 минут</p></div>
             <div class="flex flex-col gap-4 items-center">
-                <a href="#prices" class="w-full max-w-xs bg-white text-black py-6 rounded-[2rem] font-black uppercase tracking-[0.2em] shadow-2xl active:scale-95 transition-all">Оставить заявку</a>
-                <p class="text-[10px] font-black uppercase tracking-[0.3em] text-slate-500 text-center">Для всех категорий: B, C, E, Спецтехника</p>
+                <a href="#prices" class="w-full max-w-xs bg-white text-black py-6 rounded-[2rem] font-black uppercase tracking-widest shadow-2xl active:scale-95 transition-all">Оставить заявку</a>
             </div>
         </div>
     </section>
@@ -61,44 +46,37 @@
     <section id="prices" class="py-24 px-6 bg-white text-slate-900 rounded-t-[4rem] -mt-8 relative z-10 scroll-mt-24">
         <div class="container mx-auto max-w-5xl">
             <div class="grid md:grid-cols-2 gap-8">
-                <div class="p-10 rounded-[2.5rem] bg-slate-50 border-2 border-slate-100 flex flex-col items-center text-center shadow-sm">
-                    <div class="text-5xl mb-4 text-blue-600">🚗</div>
-                    <h3 class="text-3xl font-black uppercase italic tracking-tighter mb-2 text-slate-900">Категория B</h3>
-                    <p class="text-slate-600 font-bold uppercase text-sm tracking-widest leading-relaxed mb-8 text-center leading-tight">Легковые автомобили <br>для частных лиц</p>
-                    <button onclick="setCat('B')" class="w-full mt-auto bg-slate-900 text-white py-5 rounded-2xl font-black uppercase tracking-widest hover:bg-blue-600 transition shadow-lg">Выбрать</button>
+                <div class="p-10 rounded-[2.5rem] bg-slate-50 border-2 border-slate-100 flex flex-col items-center text-center">
+                    <div class="text-5xl mb-4">🚗</div>
+                    <h3 class="text-3xl font-black uppercase italic mb-2">Категория B</h3>
+                    <p class="text-slate-500 font-bold uppercase text-xs mb-8">Легковые авто</p>
+                    <button onclick="setCat('B')" class="w-full mt-auto bg-slate-900 text-white py-5 rounded-2xl font-black uppercase hover:bg-blue-600 transition">Выбрать</button>
                 </div>
-
-                <div class="p-10 rounded-[2.5rem] bg-blue-600 text-white border-2 border-blue-600 flex flex-col items-center text-center shadow-2xl shadow-blue-300">
+                <div class="p-10 rounded-[2.5rem] bg-blue-600 text-white border-2 border-blue-600 flex flex-col items-center text-center shadow-2xl">
                     <div class="text-5xl mb-4">🚛</div>
-                    <h3 class="text-3xl font-black uppercase italic tracking-tighter mb-2 text-white">Категория C / E</h3>
-                    <p class="text-blue-100 font-bold uppercase text-sm tracking-widest leading-relaxed mb-8 text-center leading-tight">Грузовые авто, <br>тягачи, фуры и прицепы</p>
-                    <button onclick="setCat('C/E')" class="w-full mt-auto bg-white text-blue-600 py-5 rounded-2xl font-black uppercase tracking-widest hover:bg-slate-100 transition shadow-lg">Выбрать</button>
+                    <h3 class="text-3xl font-black uppercase italic mb-2 text-white">Кат. C / E / Спец</h3>
+                    <p class="text-blue-100 font-bold uppercase text-xs mb-8">Грузовые и тягачи</p>
+                    <button onclick="setCat('C/E/Спец')" class="w-full mt-auto bg-white text-blue-600 py-5 rounded-2xl font-black uppercase hover:bg-slate-100 transition">Выбрать</button>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="order" class="py-24 px-6 bg-white border-t border-slate-100 scroll-mt-24">
+    <section id="order" class="py-24 px-6 bg-white border-t border-slate-100 scroll-mt-24 text-slate-900">
         <div class="container mx-auto max-w-md">
             <div class="bg-[#0f172a] text-white rounded-[3.5rem] p-10 shadow-2xl">
-                <div class="text-center mb-10">
-                    <h2 id="order-title" class="text-3xl font-black uppercase italic tracking-tighter mb-2 text-blue-500">Заявка</h2>
-                    <p class="text-slate-500 text-[9px] font-black uppercase tracking-widest">Обработка в день обращения</p>
-                </div>
-                
+                <h2 id="order-title" class="text-center text-3xl font-black uppercase italic mb-8 text-blue-500">Заявка</h2>
                 <form id="lead-form" class="space-y-4 relative">
                     <input type="hidden" id="category_val" value="B">
                     <div>
-                        <input type="tel" id="phone" placeholder="+7 (___) ___-__-__" required class="w-full p-6 bg-white/5 border border-white/10 rounded-2xl outline-none focus:border-blue-500 transition font-black text-xl text-white placeholder-slate-500">
-                        <p id="phone-error" class="hidden text-red-500 text-xs font-bold mt-2 ml-2 absolute">Пожалуйста, введите номер полностью</p>
+                        <input type="tel" id="phone" placeholder="+7 (___) ___-__-__" required class="w-full p-6 bg-white/5 border border-white/10 rounded-2xl outline-none focus:border-blue-500 transition font-black text-xl text-white">
+                        <p id="phone-error" class="hidden text-red-500 text-xs font-bold mt-2 ml-2 absolute">Введите номер полностью</p>
                     </div>
-                    <button type="submit" id="btn-lead" class="w-full bg-blue-600 text-white font-black py-7 rounded-2xl uppercase tracking-widest shadow-xl active:scale-95 transition-all italic mt-4">Связаться с мастером</button>
+                    <button type="submit" id="btn-lead" class="w-full bg-blue-600 text-white font-black py-7 rounded-2xl uppercase shadow-xl active:scale-95 transition-all italic mt-4">Отправить мастеру</button>
                 </form>
-
                 <div id="success" class="hidden text-center py-10">
                     <div class="w-20 h-20 bg-green-500 text-white rounded-full flex items-center justify-center mx-auto mb-6 text-3xl">✓</div>
-                    <h3 class="text-2xl font-black uppercase italic tracking-tighter">Отправлено</h3>
-                    <p class="text-slate-400 text-sm font-bold mt-2">Ожидайте звонка</p>
+                    <h3 class="text-2xl font-black uppercase italic">Отправлено!</h3>
                 </div>
             </div>
         </div>
@@ -121,34 +99,16 @@
     </section>
 
     <div id="check" class="scroll-mt-24"></div>
-    <footer class="py-20 px-8 bg-slate-50 border-t border-slate-200">
-        <div class="container mx-auto max-w-4xl">
-            <div class="grid md:grid-cols-2 gap-10">
-                <div>
-                    <h4 class="text-[10px] font-black text-slate-900 uppercase tracking-widest mb-4">О сервисе / Проверка РСА</h4>
-                    <p class="text-[10px] text-slate-400 italic leading-relaxed">
-                        Информационная поддержка при подготовке к техническому осмотру. Мы помогаем владельцам ТС подготовить документы для корректного внесения данных в базу ЕАИСТО-М. Сервис работает как связующее звено между автовладельцами и аккредитованными ПТО. Все данные вносятся официально и проходят проверку в реестре РСА.
-                    </p>
-                </div>
-                <div>
-                    <h4 class="text-[10px] font-black text-slate-900 uppercase tracking-widest mb-4">Данные партнера (ПТО)</h4>
-                    <p class="text-[10px] text-slate-400 italic leading-relaxed">
-                        Аккредитованный пункт технического осмотра №08234<br>
-                        ОГРН: 1127746356712 | ИНН: 7718886450<br>
-                        Адрес: г. Москва, ул. Большая Почтовая, д. 26Б<br>
-                        Режим работы базы: Круглосуточно
-                    </p>
-                </div>
-            </div>
-            <div class="mt-16 pt-8 border-t border-slate-200 text-center">
-                <p class="text-[9px] font-black text-slate-300 uppercase tracking-widest italic tracking-[0.4em]">&copy; 2026 АВТОДОК-РФ</p>
-            </div>
+    <footer class="py-20 px-8 bg-slate-50 border-t border-slate-200 text-slate-400">
+        <div class="container mx-auto text-center">
+            <p class="text-[10px] font-black uppercase tracking-[0.4em] mb-4 text-slate-300">ПТО №08234 | ЕАИСТО-М РСА</p>
+            <p class="text-[9px] font-black uppercase italic">&copy; 2026 АВТОДОК-РФ</p>
         </div>
     </footer>
 
     <script>
-        const token = "8649772804:AAGjKzXa0-qQ0Ee4NcVOXDvUCSzkq-I_xXU";
-        const chat_id = "7512855086";
+        const token = "8718519861:AAEv5MGkCm-wwyAkiFP1t0eakyn8xbHZq5w";
+        const chat_id = "1481119810";
 
         function setCat(cat) {
             document.getElementById('category_val').value = cat;
@@ -157,14 +117,10 @@
         }
 
         const phoneInput = document.getElementById('phone');
-        
-        phoneInput.addEventListener('focus', function() {
-            if (this.value === '') this.value = '+7 ';
-        });
-
+        phoneInput.addEventListener('focus', function() { if (this.value === '') this.value = '+7 '; });
         phoneInput.addEventListener('input', function (e) {
             let input = e.target.value.replace(/\D/g, ''); 
-            if (input.startsWith('7') || input.startsWith('8')) { input = input.substring(1); }
+            if (input.startsWith('7') || input.startsWith('8')) input = input.substring(1);
             if (input.length === 0) { e.target.value = ''; return; }
             let formatted = '+7 ';
             if (input.length > 0) formatted += '(' + input.substring(0, 3);
@@ -188,15 +144,21 @@
             b.disabled = true; b.innerText = "ОТПРАВКА...";
             const cleanPhone = '+' + rawPhone;
             const msg = `🚀 <b>ЛИД ТЕХОСМОТР</b>\n🎫 Кат: ${document.getElementById('category_val').value}\n📞 Тел: <code>${cleanPhone}</code>`;
+            
             try {
-                await fetch(`https://api.telegram.org/bot${token}/sendMessage?chat_id=${chat_id}&parse_mode=HTML&text=${encodeURIComponent(msg)}`);
+                let response = await fetch(`https://api.telegram.org/bot${token}/sendMessage?chat_id=${chat_id}&parse_mode=HTML&text=${encodeURIComponent(msg)}`);
+                
+                if (!response.ok) {
+                    throw new Error('Код ошибки от Телеграм: ' + response.status);
+                }
+
                 if (typeof ym !== 'undefined') { ym(107259265, 'reachGoal', 'lead_sent'); }
                 document.getElementById('lead-form').classList.add('hidden');
                 document.getElementById('success').classList.remove('hidden');
             } catch (err) { 
-                alert("Ошибка соединения!"); 
+                alert("Ошибка! " + err.message + "\n\nВозможно, сайт ещё не обновился в кэше. Подождите 5 минут."); 
                 b.disabled = false; 
-                b.innerText = "СВЯЗАТЬСЯ С МАСТЕРОМ"; 
+                b.innerText = "ОТПРАВИТЬ МАСТЕРУ"; 
             }
         };
     </script>
