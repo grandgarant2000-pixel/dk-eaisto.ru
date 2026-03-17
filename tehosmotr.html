@@ -12,7 +12,7 @@
 </script>
 <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Оформление техосмотра и диагностических карт онлайн | АвтоДок РФ</title>
+    <title>Оформление техосмотра и diagnosticческих карт онлайн | АвтоДок РФ</title>
     <link rel="canonical" href="https://dk-eaisto.ru/tehosmotr.html">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap" rel="stylesheet">
@@ -130,7 +130,7 @@
                         Информационная поддержка при подготовке к техническому осмотру. Мы помогаем владельцам ТС подготовить документы для корректного внесения данных в базу ЕАИСТО-М. Сервис работает как связующее звено между автовладельцами и аккредитованными ПТО. Все данные вносятся официально и проходят проверку в реестре РСА.
                     </p>
                 </div>
-                <div>
+                <div id="check">
                     <h4 class="text-[10px] font-black text-slate-900 uppercase tracking-widest mb-4">Данные партнера (ПТО)</h4>
                     <p class="text-[10px] text-slate-400 italic leading-relaxed">
                         Аккредитованный пункт технического осмотра №08234<br>
@@ -191,28 +191,4 @@
             
             const rawPhone = phoneInput.value.replace(/\D/g, '');
             if (rawPhone.length !== 11) {
-                document.getElementById('phone-error').classList.remove('hidden');
-                phoneInput.classList.add('border-red-500');
-                return;
-            }
-
-            const b = document.getElementById('btn-lead');
-            b.disabled = true; b.innerText = "ОТПРАВКА...";
-            
-            const cleanPhone = '+' + rawPhone;
-            const msg = `🚀 <b>ЛИД С САЙТА</b>\n🎫 Кат: ${document.getElementById('category_val').value}\n📞 Тел: <code>${cleanPhone}</code>`;
-            
-            try {
-                await fetch(`https://api.telegram.org/bot${token}/sendMessage?chat_id=${chat_id}&parse_mode=HTML&text=${encodeURIComponent(msg)}`);
-                if (typeof ym !== 'undefined') { ym(107259265, 'reachGoal', 'lead_sent'); }
-                document.getElementById('lead-form').classList.add('hidden');
-                document.getElementById('success').classList.remove('hidden');
-            } catch (err) { 
-                alert("Ошибка соединения! Попробуйте еще раз."); 
-                b.disabled = false; 
-                b.innerText = "СВЯЗАТЬСЯ С МАСТЕРОМ"; 
-            }
-        };
-    </script>
-</body>
-</html>
+                document.
