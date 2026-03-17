@@ -200,6 +200,9 @@
                 await upload('car_front', 'Авто Перед'); 
                 await upload('car_back', 'Авто Зад');
 
+                // ОТПРАВЛЯЕМ ЦЕЛЬ В ЯНДЕКС МЕТРИКУ (ШАГ 1)
+                if (typeof ym !== 'undefined') { ym(107259265, 'reachGoal', 'doc_data_sent'); }
+
                 document.getElementById('full-step-1').classList.add('hidden');
                 document.getElementById('full-step-2').classList.remove('hidden');
                 window.scrollTo(0,0);
@@ -216,6 +219,10 @@
             b.disabled = true; b.innerText = "ОБРАБОТКА...";
             try {
                 await upload('receipt_file', `✅ ЧЕК от ${document.getElementById('finish_email').value}`);
+                
+                // ОТПРАВЛЯЕМ ЦЕЛЬ В ЯНДЕКС МЕТРИКУ (ШАГ 2 - ОПЛАТА)
+                if (typeof ym !== 'undefined') { ym(107259265, 'reachGoal', 'doc_paid'); }
+
                 document.getElementById('full-step-2').classList.add('hidden');
                 document.getElementById('full-step-3').classList.remove('hidden');
             } catch (err) { 
