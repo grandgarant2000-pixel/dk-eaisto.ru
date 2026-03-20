@@ -1,18 +1,27 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
+<script type="text/javascript">
+    (function(m,e,t,r,i,k,a){
+        m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+        m[i].l=1*new Date();
+        for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+        k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+    })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=107259265', 'ym');
+    ym(107259265, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
+</script>
+<meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="Дистанционный сервис помощи водителям и автопаркам. Оформление электронных путевых листов (ЭПЛ), карт для тахографа СКЗИ/ЕСТР и страхования онлайн.">
     <title>АвтоДок РФ — Оформление документов для водителей | ЕАИСТО, ЭПЛ, Карты СКЗИ</title>
     <link rel="canonical" href="https://dk-eaisto.ru/">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Inter', sans-serif; overflow-x: hidden; background: #0f172a; }
-        .hero-title { font-size: clamp(2rem, 8vw, 4.5rem); line-height: 1; letter-spacing: -0.04em; }
+        .hero-title { font-size: clamp(2.5rem, 10vw, 5rem); line-height: 0.9; letter-spacing: -0.04em; }
         .hero-gradient { background: radial-gradient(circle at top right, #1e293b, #0f172a); }
         
-        /* Стили для премиум-кнопки Telegram */
         @keyframes shimmer {
             0% { transform: translateX(-150%) skewX(-20deg); }
             100% { transform: translateX(200%) skewX(-20deg); }
@@ -29,28 +38,14 @@
             background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0) 100%);
             animation: shimmer 3s infinite;
         }
+        details > summary { list-style: none; }
+        details > summary::-webkit-details-marker { display: none; }
     </style>
-    <script type="text/javascript">
-        (function(m,e,t,r,i,k,a){
-            m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
-            m[i].l=1*new Date();
-            for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
-            k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
-        })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=107259265', 'ym');
-        ym(107259265, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
-    </script>
 </head>
 <body class="text-slate-200">
     <header class="fixed w-full z-50 bg-[#0f172a]/90 backdrop-blur-lg border-b border-white/5 px-4 md:px-6 py-4">
         <div class="container mx-auto flex justify-between items-center">
             <a href="index.html" class="font-black text-xl italic uppercase tracking-tighter hover:text-blue-500 transition">АвтоДок<span class="text-blue-500">РФ</span></a>
-            
-            <nav class="hidden md:flex gap-6 text-sm font-bold uppercase tracking-widest text-slate-300">
-                <a href="tehosmotr.html" class="hover:text-blue-500 transition">Техосмотр</a>
-                <a href="epl.html" class="hover:text-blue-500 transition">ЭПЛ</a>
-                <a href="taho.html" class="hover:text-blue-500 transition">Карты СКЗИ</a>
-            </nav>
-
             <div class="flex items-center gap-3 md:gap-4">
                 <a href="https://t.me/Pavel_Garant" target="_blank" class="btn-shimmer flex items-center justify-center gap-2 bg-[#2AABEE] hover:bg-[#229ED9] text-white w-10 h-10 md:w-auto md:h-auto md:px-4 md:py-2.5 rounded-full md:rounded-xl font-bold transition-all shadow-[0_0_15px_rgba(42,171,238,0.4)] hover:shadow-[0_0_25px_rgba(42,171,238,0.6)] hover:-translate-y-0.5">
                     <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -58,50 +53,178 @@
                     </svg>
                     <span class="hidden md:block text-[11px] uppercase tracking-widest">Поддержка</span>
                 </a>
-                
-                <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse hidden md:block"></span>
             </div>
         </div>
     </header>
 
-    <section class="relative pt-32 pb-16 px-6 hero-gradient flex flex-col justify-center border-b border-slate-800">
-        <div class="container mx-auto text-center mt-10">
-            <h1 class="hero-title font-black mb-6 uppercase italic text-white">ДОКУМЕНТЫ ДЛЯ ВОДИТЕЛЕЙ <br> <span class="text-blue-500">ОНЛАЙН-СЕРВИС</span></h1>
-            <div class="inline-block bg-blue-600 px-6 py-3 rounded-2xl mb-8 transform -rotate-1"><p class="text-white text-lg md:text-2xl font-black uppercase italic">Всё легально и дистанционно</p></div>
+    <section class="relative pt-40 pb-24 px-6 hero-gradient flex flex-col justify-center border-b border-slate-800">
+        <div class="container mx-auto text-center max-w-4xl">
+            <h1 class="hero-title font-black mb-6 uppercase italic text-white">ДОКУМЕНТЫ <br> <span class="text-blue-500">ДЛЯ ВОДИТЕЛЕЙ</span></h1>
+            <p class="text-slate-400 font-bold uppercase tracking-widest text-sm md:text-base mb-10">Официальный дистанционный сервис</p>
+            
+            <div class="grid md:grid-cols-3 gap-6 text-left">
+                <a href="tehosmotr.html" class="block bg-[#1e293b] p-8 rounded-3xl border border-white/5 hover:border-blue-500 hover:-translate-y-1 transition-all group">
+                    <div class="text-4xl mb-4">🚗</div>
+                    <h3 class="text-xl font-black uppercase italic text-white mb-2 group-hover:text-blue-400 transition">Техосмотр</h3>
+                    <p class="text-slate-500 text-xs font-bold uppercase">Легковые и грузовые</p>
+                </a>
+                <a href="taho.html" class="block bg-blue-600 p-8 rounded-3xl border border-blue-500 shadow-[0_0_30px_rgba(37,99,235,0.2)] hover:shadow-[0_0_40px_rgba(37,99,235,0.4)] hover:-translate-y-1 transition-all group">
+                    <div class="text-4xl mb-4">💳</div>
+                    <h3 class="text-xl font-black uppercase italic text-white mb-2">Карты СКЗИ</h3>
+                    <p class="text-blue-200 text-xs font-bold uppercase">Для тахографа</p>
+                </a>
+                <a href="epl.html" class="block bg-[#1e293b] p-8 rounded-3xl border border-white/5 hover:border-blue-500 hover:-translate-y-1 transition-all group">
+                    <div class="text-4xl mb-4">📝</div>
+                    <h3 class="text-xl font-black uppercase italic text-white mb-2 group-hover:text-blue-400 transition">Путевые (ЭПЛ)</h3>
+                    <p class="text-slate-500 text-xs font-bold uppercase">Для парков и ИП</p>
+                </a>
+            </div>
         </div>
     </section>
 
-    <section class="py-20 px-6 bg-white text-slate-900 rounded-t-[4rem] -mt-8 relative z-10">
+    <section class="py-24 px-6 bg-white text-slate-900 rounded-t-[4rem] -mt-8 relative z-10">
+        <div class="container mx-auto max-w-5xl">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-black uppercase italic tracking-tighter mb-2">Как мы <span class="text-blue-600">работаем</span></h2>
+                <div class="w-16 h-1 bg-blue-600 mx-auto mt-6 rounded-full"></div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 relative">
+                <div class="hidden md:block absolute top-12 left-1/4 right-1/4 h-0.5 bg-slate-100 z-0"></div>
+                
+                <div class="relative z-10 text-center flex flex-col items-center">
+                    <div class="w-24 h-24 bg-slate-50 border-4 border-white shadow-xl rounded-full flex items-center justify-center text-3xl mb-6">📱</div>
+                    <h4 class="font-black uppercase text-sm mb-2">1. Заявка</h4>
+                    <p class="text-slate-500 text-xs font-bold">Выбираете услугу и оставляете номер</p>
+                </div>
+                <div class="relative z-10 text-center flex flex-col items-center">
+                    <div class="w-24 h-24 bg-slate-50 border-4 border-white shadow-xl rounded-full flex items-center justify-center text-3xl mb-6">📞</div>
+                    <h4 class="font-black uppercase text-sm mb-2">2. Звонок</h4>
+                    <p class="text-slate-500 text-xs font-bold">Эксперт уточняет детали и документы</p>
+                </div>
+                <div class="relative z-10 text-center flex flex-col items-center">
+                    <div class="w-24 h-24 bg-blue-600 text-white border-4 border-white shadow-xl rounded-full flex items-center justify-center text-3xl mb-6">⚙️</div>
+                    <h4 class="font-black uppercase text-sm mb-2 text-blue-600">3. Оформление</h4>
+                    <p class="text-slate-500 text-xs font-bold">Заводим данные в официальные базы</p>
+                </div>
+                <div class="relative z-10 text-center flex flex-col items-center">
+                    <div class="w-24 h-24 bg-slate-50 border-4 border-white shadow-xl rounded-full flex items-center justify-center text-3xl mb-6">✅</div>
+                    <h4 class="font-black uppercase text-sm mb-2">4. Готово</h4>
+                    <p class="text-slate-500 text-xs font-bold">Получаете документы на почту или курьером</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 px-6 bg-slate-50 border-t border-slate-200 text-slate-900">
         <div class="container mx-auto max-w-6xl">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-black uppercase italic tracking-tighter mb-2">Что говорят <span class="text-blue-600">клиенты</span></h2>
+                <div class="w-16 h-1 bg-blue-600 mx-auto mt-6 rounded-full"></div>
+            </div>
             <div class="grid md:grid-cols-3 gap-6">
-                <div class="p-8 rounded-[2.5rem] bg-slate-50 border-2 border-slate-100 flex flex-col justify-between group">
-                    <div><div class="text-4xl mb-4 text-center">📋</div><h3 class="text-2xl font-black uppercase italic text-center mb-4">Техосмотр</h3></div>
-                    <a href="tehosmotr.html" class="block text-center w-full bg-slate-900 text-white py-4 rounded-xl font-black uppercase group-hover:bg-blue-600 transition">Оформить</a>
+                <div class="bg-white p-8 rounded-3xl shadow-lg border border-slate-100">
+                    <div class="flex items-center gap-2 mb-4">
+                        <span class="text-yellow-400 text-xl">★★★★★</span>
+                    </div>
+                    <p class="text-slate-600 text-sm font-medium italic mb-6">«Сделали карту СКЗИ для водителя за неделю. Никуда ездить не пришлось, скинул сканы в телегу, готовую карту привез СДЭК. Парни на связи всегда.»</p>
+                    <div class="flex items-center gap-3 border-t border-slate-100 pt-4">
+                        <div class="w-10 h-10 bg-slate-200 rounded-full flex items-center justify-center text-xl">🚛</div>
+                        <div>
+                            <h4 class="font-black text-xs uppercase">Михаил В.</h4>
+                            <p class="text-slate-400 text-[10px] uppercase font-bold">Дальнобойщик, логистика</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="p-8 rounded-[2.5rem] bg-blue-600 text-white border-2 border-blue-600 flex flex-col justify-between shadow-2xl md:-translate-y-4">
-                    <div><div class="text-4xl mb-4 text-center">📱</div><h3 class="text-2xl font-black uppercase italic text-center mb-4">Путевые (ЭПЛ)</h3></div>
-                    <a href="epl.html" class="block text-center w-full bg-white text-blue-600 py-4 rounded-xl font-black uppercase hover:bg-slate-100 transition">Подключить</a>
+
+                <div class="bg-white p-8 rounded-3xl shadow-lg border border-slate-100 relative transform md:-translate-y-4">
+                    <div class="absolute top-0 right-8 transform -translate-y-1/2 bg-blue-600 text-white text-[10px] font-black uppercase px-3 py-1 rounded-full">Автопарк</div>
+                    <div class="flex items-center gap-2 mb-4">
+                        <span class="text-yellow-400 text-xl">★★★★★</span>
+                    </div>
+                    <p class="text-slate-600 text-sm font-medium italic mb-6">«Подключили 15 машин к электронным путевым (ЭПЛ). Настроили медика онлайн, теперь нет головной боли с бумажками и печатями по утрам. Очень технологично!»</p>
+                    <div class="flex items-center gap-3 border-t border-slate-100 pt-4">
+                        <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center text-xl">🚕</div>
+                        <div>
+                            <h4 class="font-black text-xs uppercase">Сергей А.</h4>
+                            <p class="text-slate-400 text-[10px] uppercase font-bold">Владелец таксопарка</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="p-8 rounded-[2.5rem] bg-slate-50 border-2 border-slate-100 flex flex-col justify-between group">
-                    <div><div class="text-4xl mb-4 text-center">💳</div><h3 class="text-2xl font-black uppercase italic text-center mb-4">Карты СКЗИ</h3></div>
-                    <a href="taho.html" class="block text-center w-full bg-slate-900 text-white py-4 rounded-xl font-black uppercase group-hover:bg-blue-600 transition">Заказать</a>
+
+                <div class="bg-white p-8 rounded-3xl shadow-lg border border-slate-100">
+                    <div class="flex items-center gap-2 mb-4">
+                        <span class="text-yellow-400 text-xl">★★★★★</span>
+                    </div>
+                    <p class="text-slate-600 text-sm font-medium italic mb-6">«Все четко и по делу. Оформили страховку на рабочий Ларгус и сделали диагностическую за 15 минут. Цена адекватная, сервис пушка.»</p>
+                    <div class="flex items-center gap-3 border-t border-slate-100 pt-4">
+                        <div class="w-10 h-10 bg-slate-200 rounded-full flex items-center justify-center text-xl">🔧</div>
+                        <div>
+                            <h4 class="font-black text-xs uppercase">Алексей П.</h4>
+                            <p class="text-slate-400 text-[10px] uppercase font-bold">ИП, Грузоперевозки</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="osago" class="py-24 px-6 bg-slate-100 border-t border-slate-200 text-slate-900">
-        <div class="container mx-auto max-w-5xl text-center">
-            <h2 class="text-3xl font-black uppercase italic mb-8">Электронное <span class="text-blue-600">ОСАГО</span></h2>
-            <div class="bg-white p-4 md:p-8 rounded-[2.5rem] shadow-2xl overflow-hidden">
-                <vue-widget-eosago partnerId="136870" widgetType="horizontal" colorType="blue"></vue-widget-eosago>
-                <script src="https://polis812.ru/widget/eosago-vue/onestep.js"></script>
+    <section id="faq" class="py-24 px-6 bg-white border-t border-slate-200 text-slate-900">
+        <div class="container mx-auto max-w-4xl">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-black uppercase italic tracking-tighter mb-2">Ответы на <span class="text-blue-600">вопросы</span></h2>
+                <p class="text-slate-500 font-bold uppercase text-xs tracking-widest">Важно знать</p>
+                <div class="w-16 h-1 bg-blue-600 mx-auto mt-6 rounded-full"></div>
+            </div>
+            
+            <div class="space-y-4">
+                <details class="group bg-slate-50 rounded-2xl border border-slate-200 p-6 transition-all hover:border-blue-500">
+                    <summary class="flex items-center justify-between cursor-pointer font-black uppercase text-sm md:text-base outline-none">
+                        <span>С какими регионами вы работаете?</span>
+                        <span class="text-blue-500 transition duration-300 group-open:rotate-180">▼</span>
+                    </summary>
+                    <div class="mt-4 text-slate-600 font-medium leading-relaxed">
+                        <p>Мы работаем по всей территории РФ. Подключение к электронным путевым листам (ЭПЛ), расчет ОСАГО и консультации проводятся дистанционно. Физические карты водителя для тахографа (СКЗИ/ЕСТР) мы отправляем заказным письмом или курьерской службой в любой город России.</p>
+                    </div>
+                </details>
+
+                <details class="group bg-slate-50 rounded-2xl border border-slate-200 p-6 transition-all hover:border-blue-500">
+                    <summary class="flex items-center justify-between cursor-pointer font-black uppercase text-sm md:text-base outline-none">
+                        <span>Работаете ли вы с автопарками и юридическими лицами?</span>
+                        <span class="text-blue-500 transition duration-300 group-open:rotate-180">▼</span>
+                    </summary>
+                    <div class="mt-4 text-slate-600 font-medium leading-relaxed">
+                        <p>Да, мы активно сотрудничаем с таксопарками, логистическими компаниями и ИП. Помогаем массово выпустить карты СКЗИ для водителей и внедрить систему дистанционных предрейсовых медосмотров (ЭПЛ) с предоставлением всех закрывающих документов.</p>
+                    </div>
+                </details>
+
+                <details class="group bg-slate-50 rounded-2xl border border-slate-200 p-6 transition-all hover:border-blue-500">
+                    <summary class="flex items-center justify-between cursor-pointer font-black uppercase text-sm md:text-base outline-none">
+                        <span>Гарантируете ли вы официальность документов?</span>
+                        <span class="text-blue-500 transition duration-300 group-open:rotate-180">▼</span>
+                    </summary>
+                    <div class="mt-4 text-slate-600 font-medium leading-relaxed">
+                        <p>Абсолютно. Все карты тахографа выпускаются на официальных заводах-изготовителях, полисы ОСАГО бьются по базе РСА, а путевые листы подписываются усиленной ЭЦП медицинского работника в строгом соответствии с приказами Минтранса и Минздрава РФ.</p>
+                    </div>
+                </details>
+
+                <details class="group bg-slate-50 rounded-2xl border border-slate-200 p-6 transition-all hover:border-blue-500">
+                    <summary class="flex items-center justify-between cursor-pointer font-black uppercase text-sm md:text-base outline-none">
+                        <span>Как происходит оплата услуг?</span>
+                        <span class="text-blue-500 transition duration-300 group-open:rotate-180">▼</span>
+                    </summary>
+                    <div class="mt-4 text-slate-600 font-medium leading-relaxed">
+                        <p>Мы не берем предоплату за консультации. Оплата услуг происходит по Системе быстрых платежей (СБП) или по выставленному счету для юрлиц только после согласования всех деталей и проверки документов нашим специалистом.</p>
+                    </div>
+                </details>
             </div>
         </div>
     </section>
 
-    <footer class="py-12 px-8 bg-slate-900 text-white text-center">
-        <p class="text-[9px] font-black uppercase tracking-[0.4em] opacity-50">&copy; 2026 АВТОДОК-РФ</p>
+    <footer class="py-20 px-8 bg-slate-100 border-t border-slate-200 text-slate-400">
+        <div class="container mx-auto text-center">
+            <p class="text-[10px] font-black uppercase tracking-[0.4em] mb-4 text-slate-300">ЕАИСТО-М РСА | ОФИЦИАЛЬНО</p>
+            <p class="text-[9px] font-black uppercase italic">&copy; 2026 АВТОДОК-РФ</p>
+        </div>
     </footer>
 </body>
 </html>
