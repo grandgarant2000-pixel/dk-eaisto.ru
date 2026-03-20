@@ -12,12 +12,14 @@
 </script>
 <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Карты водителя для тахографа (СКЗИ) | АвтоДок РФ</title>
+    <meta name="description" content="Оформление и продление карт водителя для тахографа (СКЗИ) онлайн. Помощь со сбором документов, разблокировка. Быстрый выпуск и доставка по всей РФ.">
+    <title>Карты водителя для тахографа (СКЗИ) | Оформить онлайн | АвтоДок РФ</title>
     <link rel="canonical" href="https://dk-eaisto.ru/taho.html">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Inter', sans-serif; overflow-x: hidden; background: #0f172a; }
+        .hero-title { font-size: clamp(2.5rem, 12vw, 6rem); line-height: 0.9; letter-spacing: -0.04em; }
         .hero-gradient { background: radial-gradient(circle at top right, #1e293b, #0f172a); }
         
         @keyframes shimmer {
@@ -36,6 +38,8 @@
             background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0) 100%);
             animation: shimmer 3s infinite;
         }
+        details > summary { list-style: none; }
+        details > summary::-webkit-details-marker { display: none; }
     </style>
 </head>
 <body class="text-slate-200">
@@ -54,37 +58,90 @@
         </div>
     </header>
 
-    <section class="relative pt-40 pb-20 px-6 hero-gradient min-h-[70vh] flex flex-col justify-center border-b border-slate-800">
+    <section class="relative pt-40 pb-20 px-6 hero-gradient min-h-[80vh] flex flex-col justify-center border-b border-slate-800">
         <div class="container mx-auto text-center">
-            <h1 class="text-4xl md:text-6xl font-black mb-6 uppercase italic text-white">КАРТЫ <br> <span class="text-blue-500">ТАХОГРАФА СКЗИ</span></h1>
-            <p class="text-slate-400 mb-12 max-w-xl mx-auto font-medium italic">Выпуск и продление карт водителя. Быстро, официально, с доставкой.</p>
+            <h1 class="hero-title font-black mb-6 uppercase italic text-white">КАРТЫ <br> <span class="text-blue-500">ТАХОГРАФА</span></h1>
+            <div class="inline-block bg-blue-600 px-6 py-3 rounded-2xl mb-8 transform -rotate-1 shadow-xl"><p class="text-white text-lg md:text-2xl font-black uppercase italic">Блок СКЗИ / ЕСТР</p></div>
+            <div class="flex flex-col gap-4 items-center">
+                <a href="#order" class="w-full max-w-xs bg-white text-black py-6 rounded-[2rem] font-black uppercase tracking-widest shadow-2xl active:scale-95 transition-all">Оставить заявку</a>
+            </div>
         </div>
     </section>
 
-    <section id="order" class="py-24 px-6 bg-white text-slate-900 rounded-t-[4rem] -mt-8 relative z-10">
+    <section id="order" class="py-24 px-6 bg-white border-t border-slate-100 scroll-mt-24 text-slate-900 rounded-t-[4rem] -mt-8 relative z-10">
         <div class="container mx-auto max-w-md">
             <div class="bg-[#0f172a] text-white rounded-[3.5rem] p-10 shadow-2xl">
-                <h2 class="text-center text-3xl font-black uppercase italic mb-8 text-blue-500">Заказать карту</h2>
+                <h2 id="order-title" class="text-center text-3xl font-black uppercase italic mb-8 text-blue-500">Заявка на карту</h2>
                 <form id="lead-form" class="space-y-4 relative">
+                    <input type="hidden" id="category_val" value="Карта СКЗИ">
                     <div>
                         <input type="tel" id="phone" placeholder="+7 (___) ___-__-__" required class="w-full p-6 bg-white/5 border border-white/10 rounded-2xl outline-none focus:border-blue-500 transition font-black text-xl text-white">
                         <p id="phone-error" class="hidden text-red-500 text-xs font-bold mt-2 ml-2 absolute">Введите номер полностью</p>
                     </div>
-                    <button type="submit" id="btn-lead" class="w-full bg-blue-600 text-white font-black py-7 rounded-2xl uppercase shadow-xl active:scale-95 transition-all italic mt-4">Связаться с мастером</button>
+                    <button type="submit" id="btn-lead" class="w-full bg-blue-600 text-white font-black py-7 rounded-2xl uppercase shadow-xl active:scale-95 transition-all italic mt-4">Отправить мастеру</button>
                 </form>
                 <div id="success" class="hidden text-center py-10">
                     <div class="w-20 h-20 bg-green-500 text-white rounded-full flex items-center justify-center mx-auto mb-6 text-3xl">✓</div>
-                    <h3 class="text-2xl font-black uppercase italic">Запрос отправлен!</h3>
+                    <h3 class="text-2xl font-black uppercase italic">Отправлено!</h3>
                 </div>
             </div>
         </div>
     </section>
 
+    <section id="faq" class="py-24 px-6 bg-slate-50 border-t border-slate-200 text-slate-900">
+        <div class="container mx-auto max-w-4xl">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-black uppercase italic tracking-tighter mb-2">Частые <span class="text-blue-600">вопросы</span></h2>
+                <p class="text-slate-500 font-bold uppercase text-xs tracking-widest">Информация для водителей</p>
+                <div class="w-16 h-1 bg-blue-600 mx-auto mt-6 rounded-full"></div>
+            </div>
+            
+            <div class="space-y-4">
+                <details class="group bg-white rounded-2xl border border-slate-200 p-6 transition-all hover:border-blue-500">
+                    <summary class="flex items-center justify-between cursor-pointer font-black uppercase text-sm md:text-base outline-none">
+                        <span>Какие документы нужны для оформления карты водителя СКЗИ?</span>
+                        <span class="text-blue-500 transition duration-300 group-open:rotate-180">▼</span>
+                    </summary>
+                    <div class="mt-4 text-slate-600 font-medium leading-relaxed">
+                        <p>Для выпуска карты потребуются копии паспорта, СНИЛС, ИНН, водительского удостоверения и черно-белое фото. Всё это можно отправить нам дистанционно, никуда ехать и стоять в очередях не нужно.</p>
+                    </div>
+                </details>
+
+                <details class="group bg-white rounded-2xl border border-slate-200 p-6 transition-all hover:border-blue-500">
+                    <summary class="flex items-center justify-between cursor-pointer font-black uppercase text-sm md:text-base outline-none">
+                        <span>Сколько времени занимает изготовление карты для тахографа?</span>
+                        <span class="text-blue-500 transition duration-300 group-open:rotate-180">▼</span>
+                    </summary>
+                    <div class="mt-4 text-slate-600 font-medium leading-relaxed">
+                        <p>Официальный выпуск карты СКЗИ на заводе занимает от 10 до 14 рабочих дней. Как только карта будет готова, мы сразу же отправим ее вам заказным письмом или курьерской службой прямо в руки.</p>
+                    </div>
+                </details>
+
+                <details class="group bg-white rounded-2xl border border-slate-200 p-6 transition-all hover:border-blue-500">
+                    <summary class="flex items-center justify-between cursor-pointer font-black uppercase text-sm md:text-base outline-none">
+                        <span>Что делать, если я забыл ПИН-код и карта заблокировалась?</span>
+                        <span class="text-blue-500 transition duration-300 group-open:rotate-180">▼</span>
+                    </summary>
+                    <div class="mt-4 text-slate-600 font-medium leading-relaxed">
+                        <p>В комплекте с вашей картой всегда идет конверт с PUK-кодом. Если ПИН-код введен неверно 3 раза, карта блокируется. Мы оказываем техническую поддержку нашим клиентам и помогаем с процедурой разблокировки.</p>
+                    </div>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-20 px-8 bg-slate-100 border-t border-slate-200 text-slate-400">
+        <div class="container mx-auto text-center">
+            <p class="text-[10px] font-black uppercase tracking-[0.4em] mb-4 text-slate-300">ПТО №08234 | ЕАИСТО-М РСА</p>
+            <p class="text-[9px] font-black uppercase italic">&copy; 2026 АВТОДОК-РФ</p>
+        </div>
+    </footer>
+
     <script>
         const token = "8718519861:AAEv5MGkCm-wwyAkiFP1t0eakyn8xbHZq5w";
         const chat_id = "1481119810";
-        const phoneInput = document.getElementById('phone');
 
+        const phoneInput = document.getElementById('phone');
         phoneInput.addEventListener('focus', function() { if (this.value === '') this.value = '+7 '; });
         phoneInput.addEventListener('input', function (e) {
             let input = e.target.value.replace(/\D/g, ''); 
@@ -112,16 +169,17 @@
             b.disabled = true; b.innerText = "ОТПРАВКА...";
             const cleanPhone = '+' + rawPhone;
             const tgLink = `https://t.me/+7${rawPhone.substring(1)}`;
-            const msg = `🚀 <b>ЛИД: ТАХОГРАФЫ (СКЗИ)</b>\n📞 Тел: <code>${cleanPhone}</code>\n💬 <a href="${tgLink}">Написать клиенту в ТГ</a>`;
+            const msg = `🚀 <b>ЛИД КАРТЫ СКЗИ</b>\n📞 Тел: <code>${cleanPhone}</code>\n💬 <a href="${tgLink}">Написать клиенту в ТГ</a>`;
+            
             try {
                 let response = await fetch(`https://api.telegram.org/bot${token}/sendMessage?chat_id=${chat_id}&parse_mode=HTML&disable_web_page_preview=true&text=${encodeURIComponent(msg)}`);
-                if (!response.ok) throw new Error('Ошибка: ' + response.status);
+                if (!response.ok) throw new Error('Ошибка ' + response.status);
                 if (typeof ym !== 'undefined') { ym(107259265, 'reachGoal', 'lead_sent'); }
                 document.getElementById('lead-form').classList.add('hidden');
                 document.getElementById('success').classList.remove('hidden');
             } catch (err) { 
-                alert("Ошибка! " + err.message); 
-                b.disabled = false; b.innerText = "СВЯЗАТЬСЯ С МАСТЕРОМ"; 
+                alert("Ошибка! " + err.message + "\nПодождите пару минут и повторите."); 
+                b.disabled = false; b.innerText = "ОТПРАВИТЬ МАСТЕРУ"; 
             }
         };
     </script>
