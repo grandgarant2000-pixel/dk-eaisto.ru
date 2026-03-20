@@ -12,6 +12,7 @@
 </script>
 <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="[ВСТАВЬ СЮДА СВОЙ SEO-ТЕКСТ ДЛЯ ЯНДЕКСА]">
     <title>Оформление техосмотра онлайн | АвтоДок РФ</title>
     <link rel="canonical" href="https://dk-eaisto.ru/tehosmotr.html">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -37,6 +38,9 @@
             background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0) 100%);
             animation: shimmer 3s infinite;
         }
+        /* Убираем стандартный маркер у details в Safari/Chrome */
+        details > summary { list-style: none; }
+        details > summary::-webkit-details-marker { display: none; }
     </style>
 </head>
 <body class="text-slate-200">
@@ -115,6 +119,58 @@
             <div class="bg-white p-4 md:p-8 rounded-[2.5rem] shadow-2xl shadow-slate-200/50 border border-slate-100 overflow-hidden">
                 <vue-widget-eosago partnerId="136870" widgetType="horizontal" colorType="blue"></vue-widget-eosago>
                 <script src="https://polis812.ru/widget/eosago-vue/onestep.js"></script>
+            </div>
+        </div>
+    </section>
+
+    <section id="faq" class="py-24 px-6 bg-white border-t border-slate-200 text-slate-900">
+        <div class="container mx-auto max-w-4xl">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-black uppercase italic tracking-tighter mb-2">Частые <span class="text-blue-600">вопросы</span></h2>
+                <p class="text-slate-500 font-bold uppercase text-xs tracking-widest">Информация для водителей</p>
+                <div class="w-16 h-1 bg-blue-600 mx-auto mt-6 rounded-full"></div>
+            </div>
+            
+            <div class="space-y-4">
+                <details class="group bg-slate-50 rounded-2xl border border-slate-200 p-6 transition-all hover:border-blue-500">
+                    <summary class="flex items-center justify-between cursor-pointer font-black uppercase text-sm md:text-base outline-none">
+                        <span>Вопрос 1: > Карта точно будет в официальной базе ГИБДД (ЕАИСТО-М)?</span>
+                        <span class="text-blue-500 transition duration-300 group-open:rotate-180">▼</span>
+                    </summary>
+                    <div class="mt-4 text-slate-600 font-medium leading-relaxed">
+                        <p>Ответ 1: > Да, мы работаем строго официально аккредитация ПТО. Ваша диагностическая карта получает уникальный 15-значный номер и моментально регистрируется в единой базе ЕАИСТО-М. Вы сможете лично проверить её легальность на официальном сайте ГИБДД или РСА сразу после оформления.</p>
+                    </div>
+                </details>
+
+                <details class="group bg-slate-50 rounded-2xl border border-slate-200 p-6 transition-all hover:border-blue-500">
+                    <summary class="flex items-center justify-between cursor-pointer font-black uppercase text-sm md:text-base outline-none">
+                        <span>Вопрос 2: > Сколько времени занимает оформление техосмотра?</span>
+                        <span class="text-blue-500 transition duration-300 group-open:rotate-180">▼</span>
+                    </summary>
+                    <div class="mt-4 text-slate-600 font-medium leading-relaxed">
+                        <p>Ответ 2: > Весь процесс дистанционного оформления занимает от 10 до 15 минут. Вы оставляете заявку, наш технический эксперт связывается с вами для проверки данных, после чего готовая диагностическая карта (в формате PDF с усиленной ЭЦП) отправляется вам на email или в мессенджер.</p>
+                    </div>
+                </details>
+
+                <details class="group bg-slate-50 rounded-2xl border border-slate-200 p-6 transition-all hover:border-blue-500">
+                    <summary class="flex items-center justify-between cursor-pointer font-black uppercase text-sm md:text-base outline-none">
+                        <span>Вопрос 3: > С какими категориями автомобилей вы работаете?</span>
+                        <span class="text-blue-500 transition duration-300 group-open:rotate-180">▼</span>
+                    </summary>
+                    <div class="mt-4 text-slate-600 font-medium leading-relaxed">
+                        <p>Ответ 3: > Мы проводим технический осмотр и выдаем карты для легковых автомобилей (категория B, включая авто под такси), коммерческого транспорта, грузовиков и тягачей (категории C,E), а также для специализированной техники.</p>
+                    </div>
+                </details>
+
+                <details class="group bg-slate-50 rounded-2xl border border-slate-200 p-6 transition-all hover:border-blue-500">
+                    <summary class="flex items-center justify-between cursor-pointer font-black uppercase text-sm md:text-base outline-none">
+                        <span>Вопрос 4: > Какой штраф за отсутствие техосмотра в 2026 году?</span>
+                        <span class="text-blue-500 transition duration-300 group-open:rotate-180">▼</span>
+                    </summary>
+                    <div class="mt-4 text-slate-600 font-medium leading-relaxed">
+                        <p>Ответ 4: > Для водителей коммерческого транспорта (такси, грузовики, автобусы, спецтехника) штраф за отсутствие действующей диагностической карты составляет 2000 рублей. Важно помнить, что камеры фотовидеофиксации могут выписывать этот штраф автоматически раз в сутки. Оформление карты обойдется дешевле, чем оплата регулярных штрафов.</p>
+                    </div>
+                </details>
             </div>
         </div>
     </section>
