@@ -1,230 +1,1026 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<script type="text/javascript">
-    (function(m,e,t,r,i,k,a){
-        m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
-        m[i].l=1*new Date();
-        for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
-        k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
-    })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=107259265', 'ym');
-    ym(107259265, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
-</script>
 <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="description" content="Дистанционный сервис помощи водителям и автопаркам. Оформление электронных путевых листов (ЭПЛ), карт для тахографа СКЗИ/ЕСТР и страхования онлайн.">
-    <title>АвтоДок РФ — Оформление документов для водителей | ЕАИСТО, ЭПЛ, Карты СКЗИ</title>
-    <link rel="canonical" href="https://dk-eaisto.ru/">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Inter', sans-serif; overflow-x: hidden; background: #0f172a; }
-        .hero-title { font-size: clamp(2.5rem, 10vw, 5rem); line-height: 0.9; letter-spacing: -0.04em; }
-        .hero-gradient { background: radial-gradient(circle at top right, #1e293b, #0f172a); }
-        
-        @keyframes shimmer {
-            0% { transform: translateX(-150%) skewX(-20deg); }
-            100% { transform: translateX(200%) skewX(-20deg); }
-        }
-        .btn-shimmer {
-            position: relative;
-            overflow: hidden;
-        }
-        .btn-shimmer::after {
-            content: '';
-            position: absolute;
-            top: 0; left: 0;
-            width: 50%; height: 100%;
-            background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0) 100%);
-            animation: shimmer 3s infinite;
-        }
-        details > summary { list-style: none; }
-        details > summary::-webkit-details-marker { display: none; }
-    </style>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>АвтоДок РФ — Техосмотр по России</title>
+<meta name="description" content="Организуем техосмотр и диагностическую карту через аккредитованные ПТО. Живой специалист сопровождает заявку до результата.">
+<style>
+  :root{
+    --bg:#0a0d13;
+    --bg-2:#0d1119;
+    --surface:#131826;
+    --surface-2:#171d2d;
+    --border:rgba(255,255,255,.08);
+    --border-strong:rgba(255,255,255,.14);
+    --text:#f2f4f8;
+    --text-dim:#8b93a8;
+    --text-faint:#5b6478;
+    --accent:#4c82ff;
+    --accent-2:#2f5fd6;
+    --accent-soft:rgba(76,130,255,.13);
+    --accent-glow:rgba(76,130,255,.45);
+    --success:#2fd6b4;
+    --success-soft:rgba(47,214,180,.13);
+    --danger:#ff6b6b;
+    --radius-xl:26px;
+    --radius-lg:20px;
+    --radius-md:14px;
+    --radius-sm:10px;
+    --font: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    --font-mono: ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+    --ease: cubic-bezier(.22,1,.36,1);
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    font-family:var(--font);
+    background:var(--bg);
+    color:var(--text);
+    line-height:1.45;
+    min-height:100vh;
+    overflow-x:hidden;
+  }
+
+  /* backdrop ambience — subtle, single spot, not scattered */
+  body::before{
+    content:"";
+    position:fixed;
+    top:-20%;
+    left:50%;
+    transform:translateX(-50%);
+    width:900px;
+    height:900px;
+    background:radial-gradient(circle,rgba(76,130,255,.16) 0%,rgba(76,130,255,0) 62%);
+    pointer-events:none;
+    z-index:0;
+  }
+
+  button{font-family:inherit;}
+  input{font-family:inherit;}
+
+  a{color:inherit;}
+
+  :focus-visible{
+    outline:2px solid var(--accent);
+    outline-offset:3px;
+    border-radius:6px;
+  }
+
+  .app-shell{
+    position:relative;
+    z-index:1;
+    max-width:520px;
+    margin:0 auto;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    padding-bottom:96px; /* room for sticky cta */
+  }
+
+  /* ---------- TOPBAR ---------- */
+  .topbar{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:18px 20px 8px;
+  }
+  .logo{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-weight:700;
+    font-size:17px;
+    letter-spacing:-.01em;
+  }
+  .logo-mark{
+    width:30px;height:30px;
+    border-radius:9px;
+    background:linear-gradient(155deg,var(--accent),var(--accent-2));
+    display:flex;align-items:center;justify-content:center;
+    flex-shrink:0;
+    box-shadow:0 4px 14px rgba(76,130,255,.35);
+  }
+  .logo-mark svg{width:16px;height:16px;}
+  .logo-sub{font-size:11.5px;color:var(--text-faint);font-weight:500;margin-top:1px;}
+
+  .topbar-badge{
+    font-size:12px;
+    color:var(--text-dim);
+    background:var(--surface);
+    border:1px solid var(--border);
+    padding:6px 11px;
+    border-radius:100px;
+    display:flex;
+    align-items:center;
+    gap:6px;
+  }
+  .topbar-badge .dot{
+    width:6px;height:6px;border-radius:50%;
+    background:var(--success);
+    box-shadow:0 0 0 3px var(--success-soft);
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    padding:28px 20px 8px;
+  }
+  .hero h1{
+    font-size:32px;
+    line-height:1.14;
+    font-weight:700;
+    letter-spacing:-.02em;
+    color:var(--text);
+  }
+  .hero p{
+    margin-top:14px;
+    font-size:15.5px;
+    color:var(--text-dim);
+    max-width:38ch;
+  }
+
+  .hero-chips{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    margin-top:20px;
+  }
+  .chip{
+    font-size:12.5px;
+    color:var(--text-dim);
+    background:var(--surface);
+    border:1px solid var(--border);
+    padding:7px 12px;
+    border-radius:100px;
+    white-space:nowrap;
+  }
+
+  .hero-cta{
+    margin-top:24px;
+    width:100%;
+    padding:16px 20px;
+    border-radius:16px;
+    border:none;
+    background:linear-gradient(155deg,var(--accent),var(--accent-2));
+    color:#fff;
+    font-size:16px;
+    font-weight:600;
+    cursor:pointer;
+    box-shadow:0 10px 28px rgba(76,130,255,.32);
+    transition:transform .15s var(--ease), box-shadow .15s var(--ease);
+  }
+  .hero-cta:active{transform:scale(.98);}
+
+  .hero-note{
+    margin-top:12px;
+    font-size:12.5px;
+    color:var(--text-faint);
+    text-align:center;
+  }
+
+  /* ---------- WIZARD CARD ---------- */
+  .wizard-wrap{padding:26px 20px 0;}
+  .wizard{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:var(--radius-xl);
+    padding:22px 18px 18px;
+    position:relative;
+    overflow:hidden;
+  }
+
+  .progress-row{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    margin-bottom:20px;
+  }
+  .progress-track{
+    flex:1;
+    height:4px;
+    background:var(--border);
+    border-radius:100px;
+    overflow:hidden;
+    position:relative;
+  }
+  .progress-fill{
+    position:absolute;
+    inset:0 auto 0 0;
+    width:25%;
+    background:linear-gradient(90deg,var(--accent),#8ab4ff);
+    border-radius:100px;
+    box-shadow:0 0 12px var(--accent-glow);
+    transition:width .45s var(--ease);
+  }
+  .progress-label{
+    font-size:12px;
+    color:var(--text-faint);
+    font-variant-numeric:tabular-nums;
+    flex-shrink:0;
+  }
+
+  .step-title{
+    font-size:19px;
+    font-weight:700;
+    letter-spacing:-.01em;
+    margin-bottom:4px;
+  }
+  .step-hint{
+    font-size:13px;
+    color:var(--text-dim);
+    margin-bottom:18px;
+  }
+
+  .steps-viewport{position:relative;}
+  .step{
+    display:none;
+    animation:stepIn .32s var(--ease);
+  }
+  .step.active{display:block;}
+  @keyframes stepIn{
+    from{opacity:0;transform:translateY(8px);}
+    to{opacity:1;transform:translateY(0);}
+  }
+
+  /* tile choices */
+  .tile-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+  }
+  .tile-grid.single-col{grid-template-columns:1fr;}
+  .tile{
+    background:var(--surface-2);
+    border:1px solid var(--border);
+    border-radius:var(--radius-md);
+    padding:16px 14px;
+    text-align:left;
+    cursor:pointer;
+    color:var(--text);
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+    transition:border-color .15s var(--ease), background .15s var(--ease), transform .1s var(--ease);
+    position:relative;
+  }
+  .tile:active{transform:scale(.98);}
+  .tile-icon{
+    width:34px;height:34px;
+    border-radius:10px;
+    background:var(--accent-soft);
+    display:flex;align-items:center;justify-content:center;
+    color:var(--accent);
+  }
+  .tile-icon svg{width:18px;height:18px;}
+  .tile-label{font-size:14.5px;font-weight:600;}
+  .tile-sub{font-size:11.5px;color:var(--text-faint);}
+
+  .tile.selected{
+    border-color:var(--accent);
+    background:var(--accent-soft);
+    box-shadow:0 0 0 1px var(--accent) inset, 0 6px 20px rgba(76,130,255,.18);
+  }
+  .tile.selected .tile-icon{
+    background:var(--accent);
+    color:#fff;
+  }
+  .tile-check{
+    position:absolute;
+    top:12px;right:12px;
+    width:18px;height:18px;
+    border-radius:50%;
+    border:1.5px solid var(--border-strong);
+    display:flex;align-items:center;justify-content:center;
+    transition:all .15s var(--ease);
+  }
+  .tile.selected .tile-check{
+    background:var(--accent);
+    border-color:var(--accent);
+  }
+  .tile-check svg{width:10px;height:10px;opacity:0;transition:opacity .12s;}
+  .tile.selected .tile-check svg{opacity:1;}
+
+  /* form fields */
+  .field{margin-bottom:14px;}
+  .field label{
+    display:block;
+    font-size:12.5px;
+    color:var(--text-dim);
+    margin-bottom:7px;
+    font-weight:500;
+  }
+  .field input{
+    width:100%;
+    padding:14px 15px;
+    border-radius:var(--radius-md);
+    border:1px solid var(--border);
+    background:var(--surface-2);
+    color:var(--text);
+    font-size:15.5px;
+    transition:border-color .15s var(--ease);
+  }
+  .field input::placeholder{color:var(--text-faint);}
+  .field input:focus{border-color:var(--accent);outline:none;}
+  .field-error{
+    font-size:12px;
+    color:var(--danger);
+    margin-top:6px;
+    display:none;
+  }
+  .field.invalid input{border-color:var(--danger);}
+  .field.invalid .field-error{display:block;}
+
+  .contact-row{display:flex;gap:8px;}
+  .contact-row .tile{flex:1;align-items:center;padding:14px 10px;}
+  .contact-row .tile-icon{width:30px;height:30px;}
+  .contact-row .tile-label{font-size:12.5px;}
+
+  /* wizard nav */
+  .wizard-nav{
+    display:flex;
+    gap:10px;
+    margin-top:20px;
+  }
+  .btn{
+    flex:1;
+    padding:15px 18px;
+    border-radius:14px;
+    border:none;
+    font-size:15px;
+    font-weight:600;
+    cursor:pointer;
+    transition:transform .12s var(--ease), opacity .15s var(--ease);
+  }
+  .btn:active{transform:scale(.97);}
+  .btn-primary{
+    background:linear-gradient(155deg,var(--accent),var(--accent-2));
+    color:#fff;
+    box-shadow:0 8px 22px rgba(76,130,255,.28);
+  }
+  .btn-primary[disabled]{
+    opacity:.35;
+    box-shadow:none;
+    cursor:not-allowed;
+  }
+  .btn-ghost{
+    background:var(--surface-2);
+    color:var(--text-dim);
+    border:1px solid var(--border);
+    flex:0 0 auto;
+    width:52px;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .btn-ghost svg{width:18px;height:18px;}
+  .btn.loading .btn-text{visibility:hidden;}
+  .btn-spinner{
+    display:none;
+    position:absolute;
+    width:18px;height:18px;
+    border:2px solid rgba(255,255,255,.4);
+    border-top-color:#fff;
+    border-radius:50%;
+    animation:spin .7s linear infinite;
+  }
+  .btn.loading{position:relative;}
+  .btn.loading .btn-spinner{
+    display:block;
+    left:50%;top:50%;
+    margin:-9px 0 0 -9px;
+  }
+  @keyframes spin{to{transform:rotate(360deg);}}
+
+  /* trust section */
+  .trust{
+    padding:30px 20px 10px;
+  }
+  .trust-title{
+    font-size:13px;
+    color:var(--text-faint);
+    margin-bottom:12px;
+  }
+  .trust-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+  }
+  .trust-card{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:var(--radius-md);
+    padding:14px;
+  }
+  .trust-card-icon{
+    width:28px;height:28px;
+    border-radius:8px;
+    background:var(--accent-soft);
+    color:var(--accent);
+    display:flex;align-items:center;justify-content:center;
+    margin-bottom:10px;
+  }
+  .trust-card-icon svg{width:15px;height:15px;}
+  .trust-card-text{font-size:13px;color:var(--text-dim);line-height:1.35;}
+
+  .footer-note{
+    padding:22px 20px 10px;
+    font-size:11.5px;
+    color:var(--text-faint);
+    line-height:1.5;
+  }
+
+  /* sticky cta */
+  .sticky-cta{
+    position:fixed;
+    left:0;right:0;bottom:0;
+    z-index:40;
+    padding:12px 20px calc(12px + env(safe-area-inset-bottom));
+    background:linear-gradient(180deg,rgba(10,13,19,0) 0%,var(--bg) 32%);
+    display:flex;
+    justify-content:center;
+    transform:translateY(0);
+    transition:transform .3s var(--ease);
+  }
+  .sticky-cta.hidden{transform:translateY(120%);}
+  .sticky-cta-inner{
+    width:100%;
+    max-width:480px;
+  }
+  .sticky-cta button{
+    width:100%;
+    padding:15px 20px;
+    border-radius:14px;
+    border:none;
+    background:linear-gradient(155deg,var(--accent),var(--accent-2));
+    color:#fff;
+    font-size:15.5px;
+    font-weight:600;
+    box-shadow:0 10px 30px rgba(76,130,255,.4);
+    cursor:pointer;
+  }
+  .sticky-cta button:active{transform:scale(.98);}
+
+  /* success overlay */
+  .success-overlay{
+    position:fixed;
+    inset:0;
+    z-index:80;
+    background:var(--bg);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    padding:32px;
+    text-align:center;
+    opacity:0;
+    pointer-events:none;
+    transition:opacity .3s var(--ease);
+  }
+  .success-overlay.visible{opacity:1;pointer-events:auto;}
+  .success-ring{
+    width:84px;height:84px;
+    border-radius:50%;
+    background:var(--success-soft);
+    display:flex;align-items:center;justify-content:center;
+    margin-bottom:26px;
+  }
+  .success-ring svg{width:38px;height:38px;}
+  .success-check-path{
+    stroke-dasharray:40;
+    stroke-dashoffset:40;
+    animation:drawCheck .5s .2s var(--ease) forwards;
+  }
+  @keyframes drawCheck{to{stroke-dashoffset:0;}}
+  .success-overlay h2{
+    font-size:23px;
+    font-weight:700;
+    letter-spacing:-.01em;
+    margin-bottom:12px;
+    max-width:22ch;
+  }
+  .success-overlay p{
+    font-size:15px;
+    color:var(--text-dim);
+    max-width:34ch;
+    line-height:1.5;
+  }
+  .success-order{
+    margin-top:22px;
+    font-family:var(--font-mono);
+    font-size:12.5px;
+    color:var(--text-faint);
+    background:var(--surface);
+    border:1px solid var(--border);
+    padding:8px 14px;
+    border-radius:100px;
+  }
+  .success-steps{
+    margin-top:28px;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    width:100%;
+    max-width:320px;
+    text-align:left;
+  }
+  .success-step{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    font-size:13px;
+    color:var(--text-dim);
+  }
+  .success-step-num{
+    width:22px;height:22px;
+    border-radius:50%;
+    background:var(--surface);
+    border:1px solid var(--border);
+    display:flex;align-items:center;justify-content:center;
+    font-size:11px;
+    color:var(--text-faint);
+    flex-shrink:0;
+  }
+  .success-close{
+    margin-top:30px;
+    background:none;
+    border:1px solid var(--border);
+    color:var(--text-dim);
+    padding:12px 24px;
+    border-radius:100px;
+    font-size:13.5px;
+    cursor:pointer;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:.001ms !important;transition-duration:.001ms !important;}
+  }
+
+  @media (min-width:560px){
+    body::before{width:1100px;height:1100px;}
+    .hero h1{font-size:36px;}
+  }
+
+/* ===== AVTODOK NEON V3 ===== */
+:root{
+  --bg:#020914;--bg-2:#061326;--surface:#07162c;--surface-2:#0b203d;
+  --border:rgba(61,183,255,.28);--border-strong:rgba(75,200,255,.60);
+  --text:#f8fbff;--text-dim:#a9bfd8;--text-faint:#7089a7;
+  --accent:#00a8ff;--accent-2:#1167ff;--accent-soft:rgba(0,168,255,.14);--accent-glow:rgba(0,174,255,.55)
+}
+body{
+  background:
+    radial-gradient(circle at 50% -10%,rgba(0,132,255,.28),transparent 36%),
+    linear-gradient(180deg,#020914 0%,#03101f 48%,#020914 100%);
+}
+body::before{
+  top:-30%;width:760px;height:760px;
+  background:radial-gradient(circle,rgba(0,174,255,.22) 0%,rgba(0,174,255,0) 65%);
+}
+.app-shell{max-width:520px;padding-bottom:88px}
+.topbar{padding:16px 18px 6px}
+.logo{font-size:16px}.logo-mark{background:linear-gradient(145deg,#0c80ff,#00d0ff);box-shadow:0 0 22px rgba(0,183,255,.45)}
+.logo-sub{color:#6f91b4}.topbar-badge{color:#b9d8f6;background:rgba(3,21,41,.68);border-color:rgba(47,177,255,.25)}
+.topbar-badge .dot{background:#24d6ff;box-shadow:0 0 12px #24d6ff}
+.hero{margin:16px 14px 0;padding:24px 18px 20px;border:1px solid rgba(55,190,255,.56);border-radius:26px;background:linear-gradient(180deg,rgba(5,26,53,.92),rgba(3,16,34,.90));box-shadow:0 0 28px rgba(0,159,255,.15),inset 0 0 34px rgba(0,132,255,.06);position:relative;overflow:hidden}
+.hero::before{content:"";position:absolute;inset:-1px;border-radius:26px;box-shadow:inset 0 0 22px rgba(0,184,255,.22);pointer-events:none}
+.hero h1{font-size:40px;line-height:.98;font-weight:900;letter-spacing:-.045em;text-transform:uppercase;text-shadow:0 4px 18px rgba(0,0,0,.35)}
+.hero p{display:inline-block;margin-top:14px;padding:8px 13px;border-radius:8px;background:linear-gradient(90deg,#0753bb,#1188ff);color:#fff;font-size:14px;font-weight:800;max-width:none;box-shadow:0 0 18px rgba(0,126,255,.22)}
+.hero-chips{margin-top:16px;gap:7px}.chip{padding:7px 11px;background:rgba(4,26,52,.72);border-color:rgba(55,184,255,.26);color:#c7dcf3;font-size:12px}
+.hero-cta{margin-top:18px;padding:16px;border-radius:14px;background:linear-gradient(180deg,#118dff,#0d63e8);font-weight:800;box-shadow:0 0 22px rgba(0,134,255,.35)}
+.hero-note{margin-top:9px;color:#7799bb;font-size:12px}
+.wizard-wrap{padding:14px 14px 0}.wizard{background:linear-gradient(180deg,rgba(7,25,51,.96),rgba(4,17,36,.96));border-color:rgba(55,184,255,.32);border-radius:24px;padding:18px 15px 16px;box-shadow:0 0 24px rgba(0,136,255,.10)}
+.progress-track{background:rgba(97,174,235,.12)}.progress-fill{background:linear-gradient(90deg,#00c8ff,#1769ff);box-shadow:0 0 12px rgba(0,196,255,.6)}
+.step-title{font-size:21px;font-weight:850}.step-hint{font-size:12px;color:#7895b3;margin-bottom:14px}
+.tile{background:linear-gradient(180deg,rgba(11,34,66,.96),rgba(8,27,54,.96));border-color:rgba(62,172,255,.20);border-radius:15px;padding:15px 13px}
+.tile.selected{border-color:#18bfff;background:rgba(0,157,255,.12);box-shadow:0 0 0 1px #18bfff inset,0 0 18px rgba(0,170,255,.16)}
+.tile-icon{background:rgba(0,160,255,.12);color:#35c7ff}.tile.selected .tile-icon{background:linear-gradient(145deg,#0d91ff,#00c8ff)}
+.field input{background:rgba(8,29,56,.94);border-color:rgba(61,165,240,.18);border-radius:13px}.field input:focus{border-color:#17b7ff;box-shadow:0 0 0 3px rgba(0,174,255,.08)}
+.btn-primary,.sticky-cta button{background:linear-gradient(180deg,#118dff,#0d63e8);font-weight:800;box-shadow:0 0 20px rgba(0,134,255,.30)}
+.btn-ghost{background:rgba(8,29,56,.94);border-color:rgba(61,165,240,.18)}
+.trust{display:none}.footer-note{padding:18px 18px 8px;text-align:center;color:#58718c;font-size:10.5px}
+.sticky-cta{background:linear-gradient(180deg,rgba(2,9,20,0),#020914 42%);padding-left:14px;padding-right:14px}
+.success-overlay{background:radial-gradient(circle at 50% 25%,rgba(0,150,255,.18),transparent 34%),#020914}
+@media(max-width:380px){.hero h1{font-size:34px}.hero{margin-left:10px;margin-right:10px}.wizard-wrap{padding-left:10px;padding-right:10px}}
+
+</style>
 </head>
-<body class="text-slate-200">
-    <header class="fixed w-full z-50 bg-[#0f172a]/90 backdrop-blur-lg border-b border-white/5 px-4 md:px-6 py-4">
-        <div class="container mx-auto flex justify-between items-center">
-            <a href="index.html" class="font-black text-xl italic uppercase tracking-tighter hover:text-blue-500 transition">АвтоДок<span class="text-blue-500">РФ</span></a>
-            <div class="flex items-center gap-3 md:gap-4">
-                <a href="https://t.me/Pavel_Garant" target="_blank" class="btn-shimmer flex items-center justify-center gap-2 bg-[#2AABEE] hover:bg-[#229ED9] text-white w-10 h-10 md:w-auto md:h-auto md:px-4 md:py-2.5 rounded-full md:rounded-xl font-bold transition-all shadow-[0_0_15px_rgba(42,171,238,0.4)] hover:shadow-[0_0_25px_rgba(42,171,238,0.6)] hover:-translate-y-0.5">
-                    <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.14.18-.357.295-.6.295-.002 0-.003 0-.005 0l.213-3.054 5.56-5.022c.24-.213-.054-.334-.373-.121l-6.869 4.326-2.96-.924c-.64-.203-.658-.64.135-.954l11.566-4.458c.538-.196 1.006.128.833.94z"/>
-                    </svg>
-                    <span class="hidden md:block text-[11px] uppercase tracking-widest">Поддержка</span>
-                </a>
-            </div>
+<body>
+
+<div class="app-shell">
+
+  <!-- TOPBAR -->
+  <header class="topbar">
+    <div class="logo">
+      <div class="logo-mark">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M4 13l1.6-5.2A2 2 0 0 1 7.5 6.4h9a2 2 0 0 1 1.9 1.4L20 13" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><rect x="3" y="13" width="18" height="6" rx="2" stroke="#fff" stroke-width="1.8"/><circle cx="7.5" cy="19" r="1.1" fill="#fff"/><circle cx="16.5" cy="19" r="1.1" fill="#fff"/></svg>
+      </div>
+      <div>
+        <div>АвтоДок РФ</div>
+        <div class="logo-sub">Техосмотр по России</div>
+      </div>
+    </div>
+    <div class="topbar-badge"><span class="dot"></span>ЕАИСТО</div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <h1>ТЕХОСМОТР АВТО</h1>
+    <p>Техосмотр через аккредитованные ПТО по России.</p>
+
+    <div class="hero-chips">
+      <span class="chip">ЕАИСТО</span>
+      <span class="chip">B · C · E</span>
+      <span class="chip">По России</span>
+    </div>
+
+    <button class="hero-cta" id="heroCta">Оставить заявку</button>
+    <div class="hero-note">Заявка — 1–2 минуты</div>
+  </section>
+
+  <!-- WIZARD -->
+  <section class="wizard-wrap" id="wizardWrap">
+    <div class="wizard">
+
+      <div class="progress-row">
+        <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+        <div class="progress-label"><span id="stepNum">1</span>/4</div>
+      </div>
+
+      <div class="steps-viewport">
+
+        <!-- STEP 1 — category -->
+        <div class="step active" data-step="1">
+          <div class="step-title">Категория авто</div>
+          <div class="step-hint">Выберите вариант</div>
+          <div class="tile-grid" data-group="category">
+            <button class="tile" data-value="B">
+              <div class="tile-check"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4 10-10" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <div class="tile-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M4 13l1.4-4.6A2 2 0 0 1 7.3 7h9.4a2 2 0 0 1 1.9 1.4L20 13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><rect x="3" y="13" width="18" height="5.5" rx="2" stroke="currentColor" stroke-width="1.8"/><circle cx="7.2" cy="18.5" r="1" fill="currentColor"/><circle cx="16.8" cy="18.5" r="1" fill="currentColor"/></svg></div>
+              <div class="tile-label">Категория B</div>
+              <div class="tile-sub">Легковой</div>
+            </button>
+            <button class="tile" data-value="C">
+              <div class="tile-check"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4 10-10" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <div class="tile-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M2 17V8a1 1 0 0 1 1-1h9v10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 11h4.5l3.5 3.5V17" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="6.5" cy="18" r="1.6" stroke="currentColor" stroke-width="1.6"/><circle cx="16" cy="18" r="1.6" stroke="currentColor" stroke-width="1.6"/></svg></div>
+              <div class="tile-label">Категория C</div>
+              <div class="tile-sub">Грузовой</div>
+            </button>
+            <button class="tile" data-value="E">
+              <div class="tile-check"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4 10-10" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <div class="tile-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M2 15h5v-4H2v4z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M7 11h9l4 3v1h-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="5" cy="17" r="1.4" stroke="currentColor" stroke-width="1.6"/><circle cx="16" cy="17" r="1.4" stroke="currentColor" stroke-width="1.6"/></svg></div>
+              <div class="tile-label">E / Прицеп</div>
+              <div class="tile-sub">Прицеп / полуприцеп</div>
+            </button>
+            <button class="tile" data-value="other">
+              <div class="tile-check"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4 10-10" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <div class="tile-icon"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="1.4" fill="currentColor"/><circle cx="6" cy="12" r="1.4" fill="currentColor"/><circle cx="18" cy="12" r="1.4" fill="currentColor"/></svg></div>
+              <div class="tile-label">Другое</div>
+              <div class="tile-sub">Уточним по телефону</div>
+            </button>
+          </div>
         </div>
-    </header>
 
-    <section class="relative pt-40 pb-24 px-6 hero-gradient flex flex-col justify-center border-b border-slate-800">
-        <div class="container mx-auto text-center max-w-4xl">
-            <h1 class="hero-title font-black mb-6 uppercase italic text-white">ДОКУМЕНТЫ <br> <span class="text-blue-500">ДЛЯ ВОДИТЕЛЕЙ</span></h1>
-            <p class="text-slate-400 font-bold uppercase tracking-widest text-sm md:text-base mb-10">Официальный дистанционный сервис</p>
-            
-            <div class="grid md:grid-cols-3 gap-6 text-left">
-                <a href="tehosmotr.html" class="block bg-[#1e293b] p-8 rounded-3xl border border-white/5 hover:border-blue-500 hover:-translate-y-1 transition-all group">
-                    <div class="text-4xl mb-4">🚗</div>
-                    <h3 class="text-xl font-black uppercase italic text-white mb-2 group-hover:text-blue-400 transition">Техосмотр</h3>
-                    <p class="text-slate-500 text-xs font-bold uppercase">Легковые и грузовые</p>
-                </a>
-                <a href="taho.html" class="block bg-blue-600 p-8 rounded-3xl border border-blue-500 shadow-[0_0_30px_rgba(37,99,235,0.2)] hover:shadow-[0_0_40px_rgba(37,99,235,0.4)] hover:-translate-y-1 transition-all group">
-                    <div class="text-4xl mb-4">💳</div>
-                    <h3 class="text-xl font-black uppercase italic text-white mb-2">Карты СКЗИ</h3>
-                    <p class="text-blue-200 text-xs font-bold uppercase">Для тахографа</p>
-                </a>
-                <a href="epl.html" class="block bg-[#1e293b] p-8 rounded-3xl border border-white/5 hover:border-blue-500 hover:-translate-y-1 transition-all group">
-                    <div class="text-4xl mb-4">📝</div>
-                    <h3 class="text-xl font-black uppercase italic text-white mb-2 group-hover:text-blue-400 transition">Путевые (ЭПЛ)</h3>
-                    <p class="text-slate-500 text-xs font-bold uppercase">Для парков и ИП</p>
-                </a>
-            </div>
+        <!-- STEP 2 — purpose -->
+        <div class="step" data-step="2">
+          <div class="step-title">Для чего нужна карта?</div>
+          <div class="step-hint">Выберите вариант</div>
+          <div class="tile-grid single-col" data-group="purpose">
+            <button class="tile" data-value="drive">
+              <div class="tile-check"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4 10-10" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <div class="tile-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3v4M12 17v4M3 12h4M17 12h4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="12" r="4.2" stroke="currentColor" stroke-width="1.8"/></svg></div>
+              <div class="tile-label">Просто для езды</div>
+              <div class="tile-sub">Для эксплуатации</div>
+            </button>
+            <button class="tile" data-value="registration">
+              <div class="tile-check"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4 10-10" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <div class="tile-icon"><svg viewBox="0 0 24 24" fill="none"><rect x="4" y="3.5" width="16" height="17" rx="2" stroke="currentColor" stroke-width="1.8"/><path d="M8 8h8M8 12h8M8 16h5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></div>
+              <div class="tile-label">Для постановки на учёт</div>
+              <div class="tile-sub">Для ГИБДД</div>
+            </button>
+          </div>
         </div>
-    </section>
 
-    <section class="py-24 px-6 bg-white text-slate-900 rounded-t-[4rem] -mt-8 relative z-10">
-        <div class="container mx-auto max-w-5xl">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl font-black uppercase italic tracking-tighter mb-2">Как мы <span class="text-blue-600">работаем</span></h2>
-                <div class="w-16 h-1 bg-blue-600 mx-auto mt-6 rounded-full"></div>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 relative">
-                <div class="hidden md:block absolute top-12 left-1/4 right-1/4 h-0.5 bg-slate-100 z-0"></div>
-                
-                <div class="relative z-10 text-center flex flex-col items-center">
-                    <div class="w-24 h-24 bg-slate-50 border-4 border-white shadow-xl rounded-full flex items-center justify-center text-3xl mb-6">📱</div>
-                    <h4 class="font-black uppercase text-sm mb-2">1. Заявка</h4>
-                    <p class="text-slate-500 text-xs font-bold">Выбираете услугу и оставляете номер</p>
-                </div>
-                <div class="relative z-10 text-center flex flex-col items-center">
-                    <div class="w-24 h-24 bg-slate-50 border-4 border-white shadow-xl rounded-full flex items-center justify-center text-3xl mb-6">📞</div>
-                    <h4 class="font-black uppercase text-sm mb-2">2. Звонок</h4>
-                    <p class="text-slate-500 text-xs font-bold">Эксперт уточняет детали и документы</p>
-                </div>
-                <div class="relative z-10 text-center flex flex-col items-center">
-                    <div class="w-24 h-24 bg-blue-600 text-white border-4 border-white shadow-xl rounded-full flex items-center justify-center text-3xl mb-6">⚙️</div>
-                    <h4 class="font-black uppercase text-sm mb-2 text-blue-600">3. Оформление</h4>
-                    <p class="text-slate-500 text-xs font-bold">Заводим данные в официальные базы</p>
-                </div>
-                <div class="relative z-10 text-center flex flex-col items-center">
-                    <div class="w-24 h-24 bg-slate-50 border-4 border-white shadow-xl rounded-full flex items-center justify-center text-3xl mb-6">✅</div>
-                    <h4 class="font-black uppercase text-sm mb-2">4. Готово</h4>
-                    <p class="text-slate-500 text-xs font-bold">Получаете документы на почту или курьером</p>
-                </div>
-            </div>
+        <!-- STEP 3 — city / model -->
+        <div class="step" data-step="3">
+          <div class="step-title">Ваш автомобиль</div>
+          <div class="step-hint">Город и марка</div>
+          <div class="field" id="fieldCity">
+            <label for="inputCity">Город</label>
+            <input id="inputCity" type="text" inputmode="text" placeholder="Например, Тольятти" autocomplete="address-level2">
+            <div class="field-error">Укажите город</div>
+          </div>
+          <div class="field" id="fieldModel">
+            <label for="inputModel">Марка и модель</label>
+            <input id="inputModel" type="text" inputmode="text" placeholder="Например, Hyundai Solaris">
+            <div class="field-error">Укажите марку и модель</div>
+          </div>
         </div>
-    </section>
 
-    <section class="py-24 px-6 bg-slate-50 border-t border-slate-200 text-slate-900">
-        <div class="container mx-auto max-w-6xl">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl font-black uppercase italic tracking-tighter mb-2">Что говорят <span class="text-blue-600">клиенты</span></h2>
-                <div class="w-16 h-1 bg-blue-600 mx-auto mt-6 rounded-full"></div>
-            </div>
-            <div class="grid md:grid-cols-3 gap-6">
-                <div class="bg-white p-8 rounded-3xl shadow-lg border border-slate-100">
-                    <div class="flex items-center gap-2 mb-4">
-                        <span class="text-yellow-400 text-xl">★★★★★</span>
-                    </div>
-                    <p class="text-slate-600 text-sm font-medium italic mb-6">«Сделали карту СКЗИ для водителя за неделю. Никуда ездить не пришлось, скинул сканы в телегу, готовую карту привез СДЭК. Парни на связи всегда.»</p>
-                    <div class="flex items-center gap-3 border-t border-slate-100 pt-4">
-                        <div class="w-10 h-10 bg-slate-200 rounded-full flex items-center justify-center text-xl">🚛</div>
-                        <div>
-                            <h4 class="font-black text-xs uppercase">Михаил В.</h4>
-                            <p class="text-slate-400 text-[10px] uppercase font-bold">Дальнобойщик, логистика</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="bg-white p-8 rounded-3xl shadow-lg border border-slate-100 relative transform md:-translate-y-4">
-                    <div class="absolute top-0 right-8 transform -translate-y-1/2 bg-blue-600 text-white text-[10px] font-black uppercase px-3 py-1 rounded-full">Автопарк</div>
-                    <div class="flex items-center gap-2 mb-4">
-                        <span class="text-yellow-400 text-xl">★★★★★</span>
-                    </div>
-                    <p class="text-slate-600 text-sm font-medium italic mb-6">«Подключили 15 машин к электронным путевым (ЭПЛ). Настроили медика онлайн, теперь нет головной боли с бумажками и печатями по утрам. Очень технологично!»</p>
-                    <div class="flex items-center gap-3 border-t border-slate-100 pt-4">
-                        <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center text-xl">🚕</div>
-                        <div>
-                            <h4 class="font-black text-xs uppercase">Сергей А.</h4>
-                            <p class="text-slate-400 text-[10px] uppercase font-bold">Владелец таксопарка</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="bg-white p-8 rounded-3xl shadow-lg border border-slate-100">
-                    <div class="flex items-center gap-2 mb-4">
-                        <span class="text-yellow-400 text-xl">★★★★★</span>
-                    </div>
-                    <p class="text-slate-600 text-sm font-medium italic mb-6">«Все четко и по делу. Оформили страховку на рабочий Ларгус и сделали диагностическую за 15 минут. Цена адекватная, сервис пушка.»</p>
-                    <div class="flex items-center gap-3 border-t border-slate-100 pt-4">
-                        <div class="w-10 h-10 bg-slate-200 rounded-full flex items-center justify-center text-xl">🔧</div>
-                        <div>
-                            <h4 class="font-black text-xs uppercase">Алексей П.</h4>
-                            <p class="text-slate-400 text-[10px] uppercase font-bold">ИП, Грузоперевозки</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <!-- STEP 4 — contact -->
+        <div class="step" data-step="4">
+          <div class="step-title">Ваш телефон</div>
+          <div class="step-hint">Позвоним и согласуем детали</div>
+          <div class="field" id="fieldName">
+            <label for="inputName">Имя</label>
+            <input id="inputName" type="text" placeholder="Ваше имя" autocomplete="given-name">
+            <div class="field-error">Укажите имя</div>
+          </div>
+          <div class="field" id="fieldPhone">
+            <label for="inputPhone">Телефон</label>
+            <input id="inputPhone" type="tel" inputmode="tel" placeholder="+7 (___) ___-__-__" autocomplete="tel">
+            <div class="field-error">Введите корректный номер</div>
+          </div>
         </div>
-    </section>
 
-    <section id="faq" class="py-24 px-6 bg-white border-t border-slate-200 text-slate-900">
-        <div class="container mx-auto max-w-4xl">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl font-black uppercase italic tracking-tighter mb-2">Ответы на <span class="text-blue-600">вопросы</span></h2>
-                <p class="text-slate-500 font-bold uppercase text-xs tracking-widest">Важно знать</p>
-                <div class="w-16 h-1 bg-blue-600 mx-auto mt-6 rounded-full"></div>
-            </div>
-            
-            <div class="space-y-4">
-                <details class="group bg-slate-50 rounded-2xl border border-slate-200 p-6 transition-all hover:border-blue-500">
-                    <summary class="flex items-center justify-between cursor-pointer font-black uppercase text-sm md:text-base outline-none">
-                        <span>С какими регионами вы работаете?</span>
-                        <span class="text-blue-500 transition duration-300 group-open:rotate-180">▼</span>
-                    </summary>
-                    <div class="mt-4 text-slate-600 font-medium leading-relaxed">
-                        <p>Мы работаем по всей территории РФ. Подключение к электронным путевым листам (ЭПЛ), расчет ОСАГО и консультации проводятся дистанционно. Физические карты водителя для тахографа (СКЗИ/ЕСТР) мы отправляем заказным письмом или курьерской службой в любой город России.</p>
-                    </div>
-                </details>
+      </div>
 
-                <details class="group bg-slate-50 rounded-2xl border border-slate-200 p-6 transition-all hover:border-blue-500">
-                    <summary class="flex items-center justify-between cursor-pointer font-black uppercase text-sm md:text-base outline-none">
-                        <span>Работаете ли вы с автопарками и юридическими лицами?</span>
-                        <span class="text-blue-500 transition duration-300 group-open:rotate-180">▼</span>
-                    </summary>
-                    <div class="mt-4 text-slate-600 font-medium leading-relaxed">
-                        <p>Да, мы активно сотрудничаем с таксопарками, логистическими компаниями и ИП. Помогаем массово выпустить карты СКЗИ для водителей и внедрить систему дистанционных предрейсовых медосмотров (ЭПЛ) с предоставлением всех закрывающих документов.</p>
-                    </div>
-                </details>
+      <div class="wizard-nav">
+        <button class="btn btn-ghost" id="btnBack" aria-label="Назад" disabled>
+          <svg viewBox="0 0 24 24" fill="none"><path d="M15 5l-7 7 7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <button class="btn btn-primary" id="btnNext" disabled>
+          <span class="btn-text">Далее</span>
+          <span class="btn-spinner"></span>
+        </button>
+      </div>
 
-                <details class="group bg-slate-50 rounded-2xl border border-slate-200 p-6 transition-all hover:border-blue-500">
-                    <summary class="flex items-center justify-between cursor-pointer font-black uppercase text-sm md:text-base outline-none">
-                        <span>Гарантируете ли вы официальность документов?</span>
-                        <span class="text-blue-500 transition duration-300 group-open:rotate-180">▼</span>
-                    </summary>
-                    <div class="mt-4 text-slate-600 font-medium leading-relaxed">
-                        <p>Абсолютно. Все карты тахографа выпускаются на официальных заводах-изготовителях, полисы ОСАГО бьются по базе РСА, а путевые листы подписываются усиленной ЭЦП медицинского работника в строгом соответствии с приказами Минтранса и Минздрава РФ.</p>
-                    </div>
-                </details>
+    </div>
+  </section>
 
-                <details class="group bg-slate-50 rounded-2xl border border-slate-200 p-6 transition-all hover:border-blue-500">
-                    <summary class="flex items-center justify-between cursor-pointer font-black uppercase text-sm md:text-base outline-none">
-                        <span>Как происходит оплата услуг?</span>
-                        <span class="text-blue-500 transition duration-300 group-open:rotate-180">▼</span>
-                    </summary>
-                    <div class="mt-4 text-slate-600 font-medium leading-relaxed">
-                        <p>Мы не берем предоплату за консультации. Оплата услуг происходит по Системе быстрых платежей (СБП) или по выставленному счету для юрлиц только после согласования всех деталей и проверки документов нашим специалистом.</p>
-                    </div>
-                </details>
-            </div>
-        </div>
-    </section>
+  <!-- TRUST -->
+  <section class="trust">
+    <div class="trust-title"></div>
+    <div class="trust-grid">
+      <div class="trust-card">
+        <div class="trust-card-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><rect x="3.5" y="4" width="17" height="16" rx="3" stroke="currentColor" stroke-width="1.6"/></svg></div>
+        <div class="trust-card-text">Аккредитованные ПТО</div>
+      </div>
+      <div class="trust-card">
+        <div class="trust-card-icon"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8.2" stroke="currentColor" stroke-width="1.6"/><path d="M12 3.8v16.4M3.8 12h16.4" stroke="currentColor" stroke-width="1.4"/></svg></div>
+        <div class="trust-card-text">Карта в ЕАИСТО</div>
+      </div>
+      <div class="trust-card">
+        <div class="trust-card-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3l2.4 5.2L20 9l-4 4 1 5.5L12 16l-5 2.5 1-5.5-4-4 5.6-.8L12 3z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg></div>
+        <div class="trust-card-text">Помощь специалиста</div>
+      </div>
+      <div class="trust-card">
+        <div class="trust-card-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M4 12a8 8 0 0 1 13.6-5.7M20 12a8 8 0 0 1-13.6 5.7" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M18 3v4h-4M6 21v-4h4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="trust-card-text">Работа по России</div>
+      </div>
+    </div>
+  </section>
 
-    <footer class="py-20 px-8 bg-slate-100 border-t border-slate-200 text-slate-400">
-        <div class="container mx-auto text-center">
-            <p class="text-[10px] font-black uppercase tracking-[0.4em] mb-4 text-slate-300">ЕАИСТО-М РСА | ОФИЦИАЛЬНО</p>
-            <p class="text-[9px] font-black uppercase italic">&copy; 2026 АВТОДОК-РФ</p>
-        </div>
-    </footer>
+  <p class="footer-note">Стоимость и срок подтверждаем после проверки заявки. Отправляя форму, вы соглашаетесь на обработку контактных данных.</p>
+
+</div>
+
+<!-- STICKY CTA -->
+<div class="sticky-cta" id="stickyCta">
+  <div class="sticky-cta-inner">
+    <button id="stickyCtaBtn">Оставить заявку</button>
+  </div>
+</div>
+
+<!-- SUCCESS OVERLAY -->
+<div class="success-overlay" id="successOverlay">
+  <div class="success-ring">
+    <svg viewBox="0 0 24 24" fill="none"><path class="success-check-path" d="M5 13l4 4 10-10" stroke="#2fd6b4" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </div>
+  <h2>Заявка принята</h2>
+  <p>Проверим данные и свяжемся с вами.</p>
+  <div class="success-order" id="successOrderId">№ —</div>
+
+  <div class="success-steps">
+    <div class="success-step"><span class="success-step-num">1</span>Проверим заявку</div>
+    <div class="success-step"><span class="success-step-num">2</span>Согласуем детали</div>
+    <div class="success-step"><span class="success-step-num">3</span>Пришлём ссылку на документы</div>
+  </div>
+
+  <button class="success-close" id="successClose">Закрыть</button>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  // Paste the deployed Google Apps Script Web App URL here before launch.
+  var BACKEND_URL = "https://script.google.com/macros/s/AKfycbztBI9UVUOqLb5rxB07pRssnkBJZXkCCr052W7s8F2cn2rQ7zFu7gMro09hMlksXWYN/exec";
+
+  /* ======================================================================
+     ARCHITECTURE NOTES — read before wiring up real integrations
+     ======================================================================
+     This file implements STAGE 1: a short qualifying lead form.
+     STAGE 2 (full order page: СТС, фото, пробег, тахограф, статусы заказа)
+     is a separate page/route, e.g. /order/{orderId}?t={accessToken}, that
+     a specialist sends the client after the qualifying call. It is not
+     built here — this file only needs to produce a `leadPayload` object
+     that a backend can turn into an order record with a unique orderId.
+
+     Suggested lead payload → order record mapping (for stage 2 backend):
+       orderId            -> generated by backend on lead creation
+       status              -> "Данные получены" (initial), then
+                               "Проверяем" → "Передано ПТО" → "В работе" → "Готово"
+       category            -> "B" | "C" | "E" | "other"
+                               (if category === "B", stage-2 order page should
+                               additionally ask: обычная B or B Такси)
+       purpose             -> "drive" | "registration"
+       tachographFields     -> only rendered in stage 2 when category === "C"
+       documents            -> sts_front, sts_back, photo_front, photo_back,
+                               payment_receipt (all uploaded in stage 2)
+
+     NEVER put bot tokens / API secrets in this file. This is a static
+     frontend (GitHub Pages). Real delivery must go through a serverless
+     endpoint you control, e.g.:
+       fetch('https://your-worker.example.workers.dev/lead', {
+         method:'POST', headers:{'Content-Type':'application/json'},
+         body: JSON.stringify(leadPayload)
+       })
+     That endpoint (Cloudflare Worker / Vercel function / Apps Script
+     web app) is the only place that should hold:
+       - Telegram Bot Token (send full lead to an internal chat)
+       - MAX integration token (short push notification)
+       - Google Sheets service account (optional lead log)
+     ====================================================================== */
+
+  // ---- capture acquisition context (Avito UTM / referrer) once on load
+  var qs = new URLSearchParams(window.location.search);
+  var acquisition = {
+    utm_source:   qs.get('utm_source')   || '',
+    utm_campaign: qs.get('utm_campaign') || '',
+    utm_medium:   qs.get('utm_medium')   || '',
+    ad:           qs.get('ad')           || '',
+    city_param:   qs.get('city')         || '',
+    referrer:     document.referrer || '',
+    landing_url:  window.location.href,
+    ts:           new Date().toISOString()
+  };
+
+  // ---- state
+  var state = {
+    step: 1,
+    totalSteps: 4,
+    data: {
+      category: null,
+      purpose: null,
+      city: '',
+      model: '',
+      name: '',
+      phone: ''
+    }
+  };
+
+  var $ = function(sel, ctx){ return (ctx||document).querySelector(sel); };
+  var $$ = function(sel, ctx){ return Array.prototype.slice.call((ctx||document).querySelectorAll(sel)); };
+
+  var wizardWrap   = $('#wizardWrap');
+  var steps        = $$('.step');
+  var progressFill = $('#progressFill');
+  var stepNumEl    = $('#stepNum');
+  var btnBack      = $('#btnBack');
+  var btnNext      = $('#btnNext');
+  var stickyCta    = $('#stickyCta');
+  var successOverlay = $('#successOverlay');
+
+  // ---- tile group wiring (category / purpose)
+  function wireTileGroup(group){
+    var els = $$('.tile[data-value]', group);
+    els.forEach(function(el){
+      el.addEventListener('click', function(){
+        els.forEach(function(o){ o.classList.remove('selected'); });
+        el.classList.add('selected');
+        var key = group.getAttribute('data-group');
+        state.data[key] = el.getAttribute('data-value');
+        validateStep(state.step);
+      });
+    });
+  }
+  $$('[data-group]').forEach(wireTileGroup);
+
+  // ---- phone mask
+  var phoneInput = $('#inputPhone');
+  phoneInput.addEventListener('input', function(){
+    var digits = phoneInput.value.replace(/\D/g,'');
+    if (digits.startsWith('8')) digits = '7' + digits.slice(1);
+    if (!digits.startsWith('7')) digits = '7' + digits;
+    digits = digits.slice(0,11);
+    var d = digits.slice(1);
+    var out = '+7';
+    if (d.length > 0) out += ' (' + d.slice(0,3);
+    if (d.length >= 3) out += ')';
+    if (d.length > 3) out += ' ' + d.slice(3,6);
+    if (d.length > 6) out += '-' + d.slice(6,8);
+    if (d.length > 8) out += '-' + d.slice(8,10);
+    phoneInput.value = out;
+    state.data.phone = out;
+    validateStep(state.step);
+  });
+
+  $('#inputCity').addEventListener('input', function(e){ state.data.city = e.target.value.trim(); validateStep(state.step); });
+  $('#inputModel').addEventListener('input', function(e){ state.data.model = e.target.value.trim(); validateStep(state.step); });
+  $('#inputName').addEventListener('input', function(e){ state.data.name = e.target.value.trim(); validateStep(state.step); });
+
+  // ---- validation per step
+  function validateStep(n){
+    var valid = false;
+    if (n === 1) valid = !!state.data.category;
+    if (n === 2) valid = !!state.data.purpose;
+    if (n === 3) valid = state.data.city.length > 1 && state.data.model.length > 1;
+    if (n === 4){
+      var phoneDigits = state.data.phone.replace(/\D/g,'');
+      valid = state.data.name.length > 1 && phoneDigits.length === 11;
+    }
+    btnNext.disabled = !valid;
+    return valid;
+  }
+
+  // ---- navigation
+  function renderStep(){
+    steps.forEach(function(s){
+      s.classList.toggle('active', Number(s.getAttribute('data-step')) === state.step);
+    });
+    progressFill.style.width = (state.step / state.totalSteps * 100) + '%';
+    stepNumEl.textContent = state.step;
+    btnBack.disabled = state.step === 1;
+    btnNext.querySelector('.btn-text').textContent = state.step === state.totalSteps ? 'Отправить' : 'Далее';
+    validateStep(state.step);
+  }
+
+  btnBack.addEventListener('click', function(){
+    if (state.step > 1){ state.step -= 1; renderStep(); }
+  });
+
+  btnNext.addEventListener('click', function(){
+    if (!validateStep(state.step)) return;
+    if (state.step < state.totalSteps){
+      state.step += 1;
+      renderStep();
+    } else {
+      submitLead();
+    }
+  });
+
+  renderStep();
+
+  // ---- scroll-to-wizard from hero / sticky cta
+  function scrollToWizard(){
+    wizardWrap.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+  $('#heroCta').addEventListener('click', scrollToWizard);
+  $('#stickyCtaBtn').addEventListener('click', scrollToWizard);
+
+  // hide sticky cta once wizard card is visible, or once success is shown
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      stickyCta.classList.toggle('hidden', entry.isIntersecting);
+    });
+  }, { threshold: 0.35 });
+  io.observe(wizardWrap);
+
+  // ---- submit
+  function buildPayload(){
+    return {
+      category: state.data.category,
+      purpose: state.data.purpose,
+      city: state.data.city,
+      model: state.data.model,
+      name: state.data.name,
+      phone: state.data.phone,
+      acquisition: acquisition
+    };
+  }
+
+  function sendLead(payload){
+    if (!BACKEND_URL) {
+      console.log('[preview lead]', payload);
+      return Promise.resolve({ preview: true });
+    }
+    return fetch(BACKEND_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify({ type: 'lead', payload: payload })
+    });
+  }
+
+  function submitLead(){
+    btnNext.classList.add('loading');
+    btnNext.disabled = true;
+    btnBack.disabled = true;
+
+    var payload = buildPayload();
+
+    sendLead(payload).then(function(){
+      btnNext.classList.remove('loading');
+      $('#successOrderId').textContent = 'Телефон получен';
+      successOverlay.classList.add('visible');
+      stickyCta.classList.add('hidden');
+    });
+  }
+
+  $('#successClose').addEventListener('click', function(){
+    successOverlay.classList.remove('visible');
+  });
+
+})();
+</script>
 </body>
 </html>
