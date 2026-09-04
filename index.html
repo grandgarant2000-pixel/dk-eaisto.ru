@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="autodoc-version" content="v8-final">
 <title>АвтоДок РФ — Техосмотр по России</title>
 <meta name="description" content="Организуем техосмотр и диагностическую карту через аккредитованные ПТО. Живой специалист сопровождает заявку до результата.">
 <style>
@@ -863,6 +864,8 @@ body::before{
 
   // Paste the deployed Google Apps Script Web App URL here before launch.
   var BACKEND_URL = "https://script.google.com/macros/s/AKfycbztBI9UVUOqLb5rxB07pRssnkBJZXkCCr052W7s8F2cn2rQ7zFu7gMro09hMlksXWYN/exec";
+  var TG_BOT_USERNAME = "avtodok_lead_bot";
+  var MAX_BOT_NAME = "id642101454567_bot";
 
   /* ======================================================================
      ARCHITECTURE NOTES — read before wiring up real integrations
@@ -1092,9 +1095,13 @@ body::before{
         var ch = channel === 'max' ? 'MAX' : 'Telegram';
         $('#successText').textContent = 'Подключите ' + ch + ' один раз — после звонка ссылка придёт туда автоматически.';
         connect.textContent = 'Продолжить в ' + ch;
-        connect.href = BACKEND_URL + '?action=connect&channel=' + encodeURIComponent(channel) + '&lead=' + encodeURIComponent(state.data.lead_token);
+        if (channel === 'tg') {
+          connect.href = 'https://t.me/' + TG_BOT_USERNAME + '?start=lead_' + encodeURIComponent(state.data.lead_token);
+        } else {
+          connect.href = 'https://max.ru/' + MAX_BOT_NAME + '?start=lead_' + encodeURIComponent(state.data.lead_token);
+        }
         connect.style.display = 'block';
-        $('#successConnectHint').textContent = 'Откройте ' + ch + ' и запустите бота.';
+        $('#successConnectHint').textContent = 'Откройте ' + ch + ' и нажмите «Запустить».';
       }
       successOverlay.classList.add('visible');
       stickyCta.classList.add('hidden');

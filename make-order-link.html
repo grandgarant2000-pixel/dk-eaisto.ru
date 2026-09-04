@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="autodoc-version" content="v8-final">
 <title>АвтоДок — новый заказ</title>
 <style>
 :root{--bg:#020914;--s:#07162c;--s2:#0b203d;--b:rgba(61,183,255,.28);--t:#f8fbff;--d:#91abc6;--a:#118dff}
@@ -43,6 +44,8 @@ h1{font-size:27px;margin:4px 0 5px}p{color:var(--d);font-size:13px;margin:0 0 16
 </div>
 <script>
 const BACKEND_URL="https://script.google.com/macros/s/AKfycbztBI9UVUOqLb5rxB07pRssnkBJZXkCCr052W7s8F2cn2rQ7zFu7gMro09hMlksXWYN/exec";
+const TG_BOT_USERNAME="avtodok_lead_bot";
+const MAX_BOT_NAME="id642101454567_bot";
 const ORDER_BASE='https://dk-eaisto.ru/order.html';
 const $=id=>document.getElementById(id);
 function token(){const a=new Uint8Array(12);crypto.getRandomValues(a);return Array.from(a).map(x=>x.toString(16).padStart(2,'0')).join('');}
@@ -84,7 +87,9 @@ $('create').onclick=async function(){
       $('waBtn').href='https://wa.me/'+digits(data.phone)+'?text='+encodeURIComponent(msg);
       $('waBtn').classList.remove('hidden');
     } else {
-      const connect=BACKEND_URL+'?action=connect&channel='+encodeURIComponent(data.channel)+'&lead='+encodeURIComponent(leadToken);
+      const connect=data.channel==='tg'
+        ? 'https://t.me/'+TG_BOT_USERNAME+'?start=lead_'+encodeURIComponent(leadToken)
+        : 'https://max.ru/'+MAX_BOT_NAME+'?start=lead_'+encodeURIComponent(leadToken);
       const invite='Для продолжения оформления откройте ссылку:\n'+connect;
       $('msg').value=invite;
       $('smsBtn').href='sms:'+digits(data.phone)+'?body='+encodeURIComponent(invite);
