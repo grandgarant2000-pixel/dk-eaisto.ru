@@ -601,6 +601,9 @@ body::before{
 .success-overlay{background:radial-gradient(circle at 50% 25%,rgba(0,150,255,.18),transparent 34%),#020914}
 @media(max-width:380px){.hero h1{font-size:34px}.hero{margin-left:10px;margin-right:10px}.wizard-wrap{padding-left:10px;padding-right:10px}}
 
+
+.success-connect{display:block;width:100%;max-width:320px;margin-top:18px;padding:15px 18px;border-radius:14px;background:linear-gradient(180deg,#118dff,#0d63e8);color:#fff;text-decoration:none;font-weight:800;box-shadow:0 0 20px rgba(0,134,255,.30)}
+.success-connect-hint{margin-top:8px;max-width:320px;font-size:11.5px;line-height:1.35;color:var(--text-faint)}
 </style>
 </head>
 <body>
@@ -729,6 +732,21 @@ body::before{
             <input id="inputPhone" type="tel" inputmode="tel" placeholder="+7 (___) ___-__-__" autocomplete="tel">
             <div class="field-error">Введите корректный номер</div>
           </div>
+          <div class="field" style="margin-bottom:0">
+            <label>Куда прислать документы после звонка?</label>
+            <div class="contact-row" data-group="channel">
+              <button class="tile" data-value="tg" type="button">
+                <div class="tile-icon">TG</div>
+                <div class="tile-label">Telegram</div>
+                <div class="tile-check"><svg viewBox="0 0 12 12"><path d="M2 6.3l2.2 2.2L10 3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              </button>
+              <button class="tile" data-value="max" type="button">
+                <div class="tile-icon">M</div>
+                <div class="tile-label">MAX</div>
+                <div class="tile-check"><svg viewBox="0 0 12 12"><path d="M2 6.3l2.2 2.2L10 3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              </button>
+            </div>
+          </div>
         </div>
 
       </div>
@@ -786,8 +804,10 @@ body::before{
     <svg viewBox="0 0 24 24" fill="none"><path class="success-check-path" d="M5 13l4 4 10-10" stroke="#2fd6b4" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
   </div>
   <h2>Заявка принята</h2>
-  <p>Проверим данные и свяжемся с вами.</p>
+  <p id="successText">Проверим данные и свяжемся с вами.</p>
   <div class="success-order" id="successOrderId">№ —</div>
+  <a class="success-connect" id="successConnectBtn" href="#" style="display:none">Продолжить</a>
+  <div class="success-connect-hint" id="successConnectHint"></div>
 
   <div class="success-steps">
     <div class="success-step"><span class="success-step-num">1</span>Проверим заявку</div>
@@ -864,7 +884,9 @@ body::before{
       city: '',
       model: '',
       name: '',
-      phone: ''
+      phone: '',
+      channel: null,
+      lead_token: ''
     }
   };
 
@@ -926,7 +948,7 @@ body::before{
     if (n === 3) valid = state.data.city.length > 1 && state.data.model.length > 1;
     if (n === 4){
       var phoneDigits = state.data.phone.replace(/\D/g,'');
-      valid = state.data.name.length > 1 && phoneDigits.length === 11;
+      valid = state.data.name.length > 1 && phoneDigits.length === 11 && !!state.data.channel;
     }
     btnNext.disabled = !valid;
     return valid;
@@ -984,8 +1006,17 @@ body::before{
       model: state.data.model,
       name: state.data.name,
       phone: state.data.phone,
+      channel: state.data.channel,
+      lead_token: state.data.lead_token,
       acquisition: acquisition
     };
+  }
+
+  function makeLeadToken(){
+    var bytes = new Uint8Array(12);
+    if (window.crypto && crypto.getRandomValues) crypto.getRandomValues(bytes);
+    else for (var i=0;i<bytes.length;i++) bytes[i]=Math.floor(Math.random()*256);
+    return Array.from(bytes).map(function(b){return b.toString(16).padStart(2,'0');}).join('');
   }
 
   function sendLead(payload){
@@ -1006,11 +1037,19 @@ body::before{
     btnNext.disabled = true;
     btnBack.disabled = true;
 
+    if (!state.data.lead_token) state.data.lead_token = makeLeadToken();
     var payload = buildPayload();
 
     sendLead(payload).then(function(){
       btnNext.classList.remove('loading');
-      $('#successOrderId').textContent = 'Телефон получен';
+      $('#successOrderId').textContent = 'Заявка отправлена';
+      var ch = state.data.channel === 'max' ? 'MAX' : 'Telegram';
+      $('#successText').textContent = 'Откройте ' + ch + ' — туда придёт ссылка после согласования.';
+      var connect = $('#successConnectBtn');
+      connect.textContent = 'Продолжить в ' + ch;
+      connect.href = BACKEND_URL + '?action=connect&channel=' + encodeURIComponent(state.data.channel) + '&lead=' + encodeURIComponent(state.data.lead_token);
+      connect.style.display = 'block';
+      $('#successConnectHint').textContent = 'Нажмите один раз, чтобы привязать заявку к вашему ' + ch + '.';
       successOverlay.classList.add('visible');
       stickyCta.classList.add('hidden');
     });
