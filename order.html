@@ -29,6 +29,25 @@ h2{font-size:21px;font-weight:850}.hint{font-size:12px;color:#7895b3;margin-bott
 .success .ok{background:rgba(0,196,255,.10);color:#24d8ff;box-shadow:0 0 24px rgba(0,183,255,.15)}
 @media(max-width:380px){.hero h1{font-size:29px}.shell{padding-left:10px;padding-right:10px}}
 
+
+/* ===== FINAL MOBILE POLISH V7 ===== */
+.top{justify-content:center;position:relative}
+.top .pill{position:absolute;right:0}
+.hero{text-align:center}
+.hero h1{text-align:center}
+.hero p{text-align:center;margin-left:auto;margin-right:auto}
+.summary{text-align:center}
+.card h2,.hint{text-align:center}
+.label{text-align:center}
+.input,textarea{text-align:center}
+.choices .choice{text-align:center}
+.upload{text-align:center}
+.paybox{text-align:center}
+.price{text-align:center}
+.nav{justify-content:center}
+.success{text-align:center}
+@media(max-width:380px){.top .pill{position:static;margin-left:10px}.top{justify-content:space-between}}
+
 </style>
 </head>
 <body>
@@ -199,6 +218,7 @@ async function submitAll(){
  var meta={type:'order',order:orderId,category:category,purpose:purpose,price:price,name:clientName,phone:phone,city:city,model:model,data:state.data,ts:new Date().toISOString()};
  await post(meta);
  for(const id of ['sts_front','sts_back','car_front','car_back','receipt']){var file=$('#'+id).files[0];if(file){var payload=await fileToBase64(file);await post({type:'file',order:orderId,field:id,name:clientName,phone:phone,file:payload});}}
+ await post({type:'order_complete',order:orderId,name:clientName,phone:phone,category:category,price:price});
 }
 render();
 })();

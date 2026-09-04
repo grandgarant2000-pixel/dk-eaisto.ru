@@ -1,1 +1,107 @@
-<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>АвтоДок — звонок → заказ</title><style>:root{--bg:#020914;--s:#07162c;--s2:#0b203d;--b:rgba(61,183,255,.28);--t:#f8fbff;--d:#8faecc;--a:#087cff}*{box-sizing:border-box}body{font-family:system-ui;background:radial-gradient(circle at 50% -10%,rgba(0,132,255,.22),transparent 35%),var(--bg);color:var(--t);max-width:520px;margin:auto;padding:18px 14px 70px}h1{font-size:26px;margin:4px 0 6px}p{color:var(--d);font-size:13px;margin:0 0 14px}.box{background:linear-gradient(180deg,#071b35,#041224);border:1px solid var(--b);border-radius:22px;padding:15px}.g{margin:10px 0}label{display:block;color:var(--d);font-size:12px;margin-bottom:6px}input,select,textarea,button{width:100%;box-sizing:border-box;padding:13px;border-radius:12px;border:1px solid var(--b);background:var(--s2);color:#fff;font-size:16px}button{background:linear-gradient(180deg,#118dff,#0d63e8);font-weight:800;margin-top:10px}.secondary{background:var(--s2)}.row{display:grid;grid-template-columns:1fr 1fr;gap:8px}.price{font-size:24px;font-weight:850;padding:7px 0}textarea{min-height:92px;font-size:12px}.ok{display:none;margin-top:14px;padding:14px;border:1px solid rgba(30,200,255,.35);border-radius:14px;background:rgba(0,168,255,.08)}@media(max-width:380px){.row{grid-template-columns:1fr}}</style></head><body><h1>Новый заказ</h1><p>Для клиента, который уже согласен по телефону.</p><div class="box"><div class="g"><label>PIN оператора</label><input id="pin" type="password" inputmode="numeric" placeholder="PIN"></div><div class="row"><div class="g"><label>Категория</label><select id="cat"><option value="B">B / B-такси</option><option value="C">C</option><option value="E">Прицеп / полуприцеп</option></select></div><div class="g"><label>Цена</label><div id="price" class="price">6 990 ₽</div></div></div><div class="g"><label>Цель</label><select id="purpose"><option value="drive">Для езды</option><option value="registration">Постановка на учёт</option></select></div><div class="row"><div class="g"><label>Город</label><input id="city" placeholder="Москва"></div><div class="g"><label>Марка и модель</label><input id="model" placeholder="Kia Rio"></div></div><div class="row"><div class="g"><label>Имя</label><input id="name"></div><div class="g"><label>Телефон</label><input id="phone" inputmode="tel"></div></div><div class="g"><label>Куда отправить документы</label><select id="channel"><option value="tg">Telegram</option><option value="max">MAX</option></select></div><button id="go">Создать и подготовить отправку</button><div class="ok" id="ok"><b>Готово.</b><p id="status" style="margin:5px 0 10px">Отправь клиенту приглашение. После нажатия бот сам пришлёт ему документы.</p><textarea id="invite" readonly></textarea><button class="secondary" id="share">Поделиться клиенту</button><button class="secondary" id="copy">Копировать приглашение</button></div></div><script>const BACKEND_URL='https://script.google.com/macros/s/AKfycbztBI9UVUOqLb5rxB07pRssnkBJZXkCCr052W7s8F2cn2rQ7zFu7gMro09hMlksXWYN/exec';const $=id=>document.getElementById(id),prices={B:6990,C:9990,E:9990};function token(){let a=new Uint8Array(12);crypto.getRandomValues(a);return Array.from(a).map(x=>x.toString(16).padStart(2,'0')).join('')}function upd(){$('price').textContent=prices[$('cat').value].toLocaleString('ru-RU')+' ₽'}$('cat').onchange=upd;upd();$('pin').value=sessionStorage.getItem('autodoc_pin')||'';$('go').onclick=()=>{let t=token(),cat=$('cat').value,price=prices[cat],order='AD-'+String(Date.now()).slice(-8),payload={lead_token:t,category:cat,purpose:$('purpose').value,city:$('city').value.trim(),model:$('model').value.trim(),name:$('name').value.trim(),phone:$('phone').value.trim(),channel:$('channel').value,approved:true};sessionStorage.setItem('autodoc_pin',$('pin').value);fetch(BACKEND_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({type:'manual_order',operator_pin:$('pin').value,order_id:order,payload})});let link=BACKEND_URL+'?action=connect&channel='+encodeURIComponent(payload.channel)+'&lead='+t;$('invite').value='Откройте ссылку — бот пришлёт форму документов:\n'+link;$('ok').style.display='block'};$('copy').onclick=async()=>{try{await navigator.clipboard.writeText($('invite').value);$('copy').textContent='Скопировано ✓'}catch(e){$('invite').select();document.execCommand('copy')}};$('share').onclick=async()=>{let text=$('invite').value;if(navigator.share){try{await navigator.share({text})}catch(e){}}else{try{await navigator.clipboard.writeText(text)}catch(e){}}};</script></body></html>
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>АвтоДок — новый заказ</title>
+<style>
+:root{--bg:#020914;--s:#07162c;--s2:#0b203d;--b:rgba(61,183,255,.28);--t:#f8fbff;--d:#91abc6;--a:#118dff}
+*{box-sizing:border-box}body{font-family:system-ui,-apple-system,sans-serif;background:radial-gradient(circle at 50% -10%,rgba(0,132,255,.24),transparent 36%),var(--bg);color:var(--t);max-width:520px;margin:auto;padding:18px 14px 70px;text-align:center}
+h1{font-size:27px;margin:4px 0 5px}p{color:var(--d);font-size:13px;margin:0 0 16px}.box{max-width:480px;margin:0 auto;text-align:center;background:linear-gradient(180deg,#071a34,#041224);border:1px solid var(--b);border-radius:22px;padding:15px}
+.g{margin:10px 0}label{display:block;color:var(--d);font-size:12px;margin-bottom:6px}input,select,textarea{width:100%;padding:13px;border-radius:12px;border:1px solid var(--b);background:var(--s2);color:#fff;font-size:16px;text-align:center}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:8px}button,a.action{display:block;width:100%;box-sizing:border-box;margin-top:10px;padding:14px;border:0;border-radius:12px;background:linear-gradient(180deg,#118dff,#0d63e8);color:#fff;text-align:center;text-decoration:none;font-weight:800;font-size:16px}
+.secondary{background:var(--s2)!important;border:1px solid var(--b)!important}#result{display:none;margin-top:14px;padding-top:14px;border-top:1px solid var(--b)}.ok{color:#45d6ff;font-weight:800}.hidden{display:none!important}
+@media(max-width:380px){.row{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<h1>Новый заказ</h1>
+<p>Когда клиент сразу позвонил и уже согласен.</p>
+<div class="box">
+  <div class="row">
+    <div class="g"><label>Категория</label><select id="cat"><option value="B">B / такси — 6 990 ₽</option><option value="C">C — 9 990 ₽</option><option value="E">Прицеп — 9 990 ₽</option></select></div>
+    <div class="g"><label>Цель</label><select id="purpose"><option value="drive">Для езды</option><option value="registration">Постановка на учёт</option></select></div>
+  </div>
+  <div class="g"><label>Канал клиента</label><select id="channel"><option value="tg">Telegram</option><option value="wa">WhatsApp</option><option value="max">MAX</option></select></div>
+  <div class="g"><label>Город</label><input id="city" placeholder="Казань"></div>
+  <div class="g"><label>Марка и модель</label><input id="model" placeholder="Kia Rio"></div>
+  <div class="row">
+    <div class="g"><label>Имя</label><input id="name"></div>
+    <div class="g"><label>Телефон</label><input id="phone" inputmode="tel" placeholder="+7..."></div>
+  </div>
+  <div class="g"><label>PIN оператора</label><input id="pin" inputmode="numeric" type="password" placeholder="Ваш PIN"></div>
+  <button id="create">Создать заказ</button>
+
+  <div id="result">
+    <div class="ok" id="created"></div>
+    <a class="action hidden" id="waBtn" href="#">🟢 Открыть WhatsApp клиента</a>
+    <a class="action hidden" id="smsBtn" href="#">📨 Отправить приглашение по SMS</a>
+    <a class="action hidden" id="maxShare" href="#">📤 Поделиться в MAX</a>
+    <button class="secondary" id="copyMsg">Скопировать текст</button>
+    <textarea id="msg" readonly></textarea>
+  </div>
+</div>
+<script>
+const BACKEND_URL="https://script.google.com/macros/s/AKfycbztBI9UVUOqLb5rxB07pRssnkBJZXkCCr052W7s8F2cn2rQ7zFu7gMro09hMlksXWYN/exec";
+const ORDER_BASE='https://dk-eaisto.ru/order.html';
+const $=id=>document.getElementById(id);
+function token(){const a=new Uint8Array(12);crypto.getRandomValues(a);return Array.from(a).map(x=>x.toString(16).padStart(2,'0')).join('');}
+
+function applyPhoneMask(value){
+  var digits=String(value||'').replace(/\D/g,'');
+  if(digits.startsWith('8')) digits='7'+digits.slice(1);
+  if(!digits.startsWith('7')) digits='7'+digits;
+  digits=digits.slice(0,11);
+  var d=digits.slice(1), out='+7';
+  if(d.length>0) out+=' ('+d.slice(0,3);
+  if(d.length>=3) out+=')';
+  if(d.length>3) out+=' '+d.slice(3,6);
+  if(d.length>6) out+='-'+d.slice(6,8);
+  if(d.length>8) out+='-'+d.slice(8,10);
+  return out;
+}
+$('phone').addEventListener('input',function(){ this.value=applyPhoneMask(this.value); });
+$('phone').addEventListener('focus',function(){ if(!this.value) this.value='+7'; });
+
+function digits(s){let d=String(s||'').replace(/\D/g,'');if(d.length===11&&d[0]==='8')d='7'+d.slice(1);if(d.length===10)d='7'+d;return d;}
+function orderId(){return 'AD-'+String(Date.now()).slice(-8)}
+function orderUrl(data,id){const p=new URLSearchParams({order:id,price:data.category==='B'?'6990':'9990',category:data.category,purpose:data.purpose,city:data.city,model:data.model,name:data.name,phone:data.phone,channel:data.channel});return ORDER_BASE+'?'+p.toString();}
+
+$('create').onclick=async function(){
+  const leadToken=token(), oid=orderId();
+  const data={lead_token:leadToken,category:$('cat').value,purpose:$('purpose').value,city:$('city').value.trim(),model:$('model').value.trim(),name:$('name').value.trim(),phone:$('phone').value.trim(),channel:$('channel').value};
+  if(!data.city||!data.model||!data.name||digits(data.phone).length<11){alert('Заполните город, авто, имя и телефон');return;}
+  this.disabled=true;this.textContent='Создаю…';
+  try{
+    await fetch(BACKEND_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({type:'manual_order',operator_pin:$('pin').value,order_id:oid,payload:data})});
+    const ourl=orderUrl(data,oid);
+    const msg='Всё согласовали. Откройте ссылку и загрузите документы:\n'+ourl;
+    $('created').textContent='✅ '+oid+' создан';
+    $('msg').value=msg;
+    ['waBtn','smsBtn','maxShare'].forEach(x=>$(x).classList.add('hidden'));
+
+    if(data.channel==='wa'){
+      $('waBtn').href='https://wa.me/'+digits(data.phone)+'?text='+encodeURIComponent(msg);
+      $('waBtn').classList.remove('hidden');
+    } else {
+      const connect=BACKEND_URL+'?action=connect&channel='+encodeURIComponent(data.channel)+'&lead='+encodeURIComponent(leadToken);
+      const invite='Для продолжения оформления откройте ссылку:\n'+connect;
+      $('msg').value=invite;
+      $('smsBtn').href='sms:'+digits(data.phone)+'?body='+encodeURIComponent(invite);
+      $('smsBtn').classList.remove('hidden');
+      if(data.channel==='max'){
+        $('maxShare').href='https://max.ru/:share?text='+encodeURIComponent(invite);
+        $('maxShare').classList.remove('hidden');
+      }
+    }
+    $('result').style.display='block';
+  }catch(e){alert('Не удалось отправить. Проверьте интернет.');}
+  finally{this.disabled=false;this.textContent='Создать заказ';}
+};
+$('copyMsg').onclick=async function(){
+  try{await navigator.clipboard.writeText($('msg').value);this.textContent='Скопировано ✓';}
+  catch(e){$('msg').select();document.execCommand('copy');}
+};
+</script>
+</body>
+</html>

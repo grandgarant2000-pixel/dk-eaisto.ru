@@ -604,6 +604,38 @@ body::before{
 
 .success-connect{display:block;width:100%;max-width:320px;margin-top:18px;padding:15px 18px;border-radius:14px;background:linear-gradient(180deg,#118dff,#0d63e8);color:#fff;text-decoration:none;font-weight:800;box-shadow:0 0 20px rgba(0,134,255,.30)}
 .success-connect-hint{margin-top:8px;max-width:320px;font-size:11.5px;line-height:1.35;color:var(--text-faint)}
+
+/* ===== FINAL MOBILE POLISH V7 ===== */
+.topbar{justify-content:center;position:relative;padding-top:14px}
+.logo{text-align:left}
+.topbar-badge{position:absolute;right:14px;top:16px}
+.hero{text-align:center;padding-left:14px;padding-right:14px}
+.hero h1{font-size:38px;line-height:1.02;text-align:center;max-width:430px;margin:0 auto}
+.hero p{display:block;margin:14px auto 0;max-width:390px;text-align:center}
+.hero-chips{justify-content:center}
+.hero-note{text-align:center}
+.wizard-wrap{padding-left:12px;padding-right:12px}
+.step-title,.step-hint{text-align:center}
+.tile{text-align:center;align-items:center}
+.tile-icon{margin-left:auto;margin-right:auto}
+.tile-check{right:9px;top:9px}
+.field label{text-align:center}
+.field input{text-align:center}
+.channel-field label{margin-bottom:10px}
+.contact-row-3{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}
+.contact-row-3 .channel-tile{padding:12px 5px;min-width:0}
+.contact-row-3 .tile-icon{width:32px;height:32px;font-size:11px;font-weight:900}
+.contact-row-3 .tile-label{font-size:11.5px;white-space:nowrap}
+.success-overlay{text-align:center}
+.success-steps{max-width:300px}
+.success-step{justify-content:flex-start}
+.footer-note{text-align:center}
+@media(max-width:370px){
+  .hero h1{font-size:33px}
+  .topbar-badge{display:none}
+  .contact-row-3 .tile-label{font-size:10.5px}
+}
+
 </style>
 </head>
 <body>
@@ -732,21 +764,28 @@ body::before{
             <input id="inputPhone" type="tel" inputmode="tel" placeholder="+7 (___) ___-__-__" autocomplete="tel">
             <div class="field-error">Введите корректный номер</div>
           </div>
-          <div class="field" style="margin-bottom:0">
-            <label>Куда прислать документы после звонка?</label>
-            <div class="contact-row" data-group="channel">
-              <button class="tile" data-value="tg" type="button">
+          
+          <div class="field channel-field" style="margin-bottom:0">
+            <label>Куда прислать ссылку после звонка?</label>
+            <div class="contact-row contact-row-3" data-group="channel">
+              <button class="tile channel-tile" data-value="tg" type="button">
                 <div class="tile-icon">TG</div>
                 <div class="tile-label">Telegram</div>
                 <div class="tile-check"><svg viewBox="0 0 12 12"><path d="M2 6.3l2.2 2.2L10 3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
               </button>
-              <button class="tile" data-value="max" type="button">
+              <button class="tile channel-tile" data-value="wa" type="button">
+                <div class="tile-icon">WA</div>
+                <div class="tile-label">WhatsApp</div>
+                <div class="tile-check"><svg viewBox="0 0 12 12"><path d="M2 6.3l2.2 2.2L10 3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              </button>
+              <button class="tile channel-tile" data-value="max" type="button">
                 <div class="tile-icon">M</div>
                 <div class="tile-label">MAX</div>
                 <div class="tile-check"><svg viewBox="0 0 12 12"><path d="M2 6.3l2.2 2.2L10 3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
               </button>
             </div>
           </div>
+
         </div>
 
       </div>
@@ -1043,13 +1082,20 @@ body::before{
     sendLead(payload).then(function(){
       btnNext.classList.remove('loading');
       $('#successOrderId').textContent = 'Заявка отправлена';
-      var ch = state.data.channel === 'max' ? 'MAX' : 'Telegram';
-      $('#successText').textContent = 'Откройте ' + ch + ' — туда придёт ссылка после согласования.';
+      var channel = state.data.channel;
       var connect = $('#successConnectBtn');
-      connect.textContent = 'Продолжить в ' + ch;
-      connect.href = BACKEND_URL + '?action=connect&channel=' + encodeURIComponent(state.data.channel) + '&lead=' + encodeURIComponent(state.data.lead_token);
-      connect.style.display = 'block';
-      $('#successConnectHint').textContent = 'Нажмите один раз, чтобы привязать заявку к вашему ' + ch + '.';
+      if (channel === 'wa') {
+        $('#successText').textContent = 'Заявка принята. После звонка пришлём ссылку в WhatsApp на указанный номер.';
+        connect.style.display = 'none';
+        $('#successConnectHint').textContent = 'Больше ничего делать не нужно.';
+      } else {
+        var ch = channel === 'max' ? 'MAX' : 'Telegram';
+        $('#successText').textContent = 'Подключите ' + ch + ' один раз — после звонка ссылка придёт туда автоматически.';
+        connect.textContent = 'Продолжить в ' + ch;
+        connect.href = BACKEND_URL + '?action=connect&channel=' + encodeURIComponent(channel) + '&lead=' + encodeURIComponent(state.data.lead_token);
+        connect.style.display = 'block';
+        $('#successConnectHint').textContent = 'Откройте ' + ch + ' и запустите бота.';
+      }
       successOverlay.classList.add('visible');
       stickyCta.classList.add('hidden');
     });
