@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="autodoc-version" content="v11-final">
+<meta name="autodoc-version" content="v11.1-final">
 <title>АвтоДок РФ — ОФОРМЛЕНИЕ</title>
 <style>
 :root{--bg:#0a0d13;--surface:#131826;--surface2:#171d2d;--border:rgba(255,255,255,.09);--text:#f2f4f8;--dim:#8b93a8;--faint:#5b6478;--accent:#4c82ff;--accent2:#2f5fd6;--accentSoft:rgba(76,130,255,.13);--success:#2fd6b4;--danger:#ff6b6b;--font:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;--ease:cubic-bezier(.22,1,.36,1)}
@@ -127,19 +127,36 @@ h2{font-size:21px;font-weight:850}.hint{font-size:12px;color:#7895b3;margin-bott
 <script>
 (function(){
 'use strict';
-var BACKEND_URL="https://script.google.com/macros/s/AKfycbw0OYfKGVxbgJizlpHTbbQ_O5gIgov4p1kW_EsIjCuIX9aBAqogWGRle8XlgbvQcBqr/exec"; // paste deployed Apps Script URL before launch
+var BACKEND_URL="https://script.google.com/macros/s/AKfycbw0OYfKGVxbgJizlpHTbbQ_O5gIgov4p1kW_EsIjCuIX9aBAqogWGRle8XlgbvQcBqr/exec";
+var GATEWAY_URL="https://autodoc-max-proxy-v1.vercel.app/api/max";
 var qs=new URLSearchParams(location.search);
-var category=String(qs.get('category')||'').toUpperCase();
-var allowedCategories=['A','B','C','E'];
-if(allowedCategories.indexOf(category)===-1){document.body.innerHTML='<div style="max-width:520px;margin:80px auto;padding:24px;color:white;text-align:center;font-family:system-ui"><h2>Ошибка ссылки заказа</h2><p>Категория автомобиля не определена. Вернитесь в бот и откройте ссылку на документы ещё раз.</p></div>';return;}
-var purpose=qs.get('purpose')||'drive';
 var orderId=qs.get('order')||'';
+var access=qs.get('access')||'';
+var rawCategory=String(qs.get('category')||'').toUpperCase();
+var allowedCategories=['A','B','C','E'];
+function showLinkError(text){document.body.innerHTML='<div style="max-width:520px;margin:80px auto;padding:24px;color:white;text-align:center;font-family:system-ui"><h2>Ошибка ссылки заказа</h2><p>'+text+'</p></div>';}
+async function loadOrderData(){
+  if(!orderId||!access){showLinkError('Ссылка заказа неполная. Вернитесь в мессенджер и откройте ссылку на документы ещё раз.');return;}
+  document.body.innerHTML='<div style="max-width:520px;margin:80px auto;padding:24px;color:white;text-align:center;font-family:system-ui"><h2>Загружаем заказ…</h2><p>Подождите несколько секунд.</p></div>';
+  try{
+    var r=await fetch(GATEWAY_URL+'?action=order-data&order='+encodeURIComponent(orderId)+'&access='+encodeURIComponent(access),{cache:'no-store'});
+    var j=await r.json();
+    if(!r.ok||!j.ok||!j.order)throw new Error('not found');
+    var d=j.order,p=new URLSearchParams();
+    p.set('order',d.order||orderId);p.set('access',access);p.set('category',d.category||'');p.set('purpose',d.purpose||'drive');p.set('price',d.price||'');p.set('city',d.city||'');p.set('model',d.model||'');p.set('name',d.name||'');p.set('phone',d.phone||'');p.set('channel',d.channel||'');
+    location.replace(location.pathname+'?'+p.toString());
+  }catch(e){showLinkError('Не удалось получить данные заказа. Вернитесь в мессенджер и откройте ссылку ещё раз.');}
+}
+if(allowedCategories.indexOf(rawCategory)===-1){loadOrderData();return;}
+var category=rawCategory;
+var purpose=qs.get('purpose')||'drive';
 var price=qs.get('price')||((category==='A'||category==='B')?'6990':'9990');
 var model=qs.get('model')||'';
 var clientName=qs.get('name')||'';
 var phone=qs.get('phone')||'';
 var city=qs.get('city')||'';
 var channel=String(qs.get('channel')||'').toLowerCase();
+if(orderId&&access){history.replaceState(null,'',location.pathname+'?order='+encodeURIComponent(orderId)+'&access='+encodeURIComponent(access));}
 var TG_BOT_USERNAME='avtodok_lead_bot';
 var MAX_BOT_NAME='id642101454567_bot';
 var state={step:1,data:{b_type:'',fuel:'',brakes:'',e_type:'',mileage:'',tires:'',tacho_model:'',tacho_serial:'',tacho_unknown:false,comment:''}};
