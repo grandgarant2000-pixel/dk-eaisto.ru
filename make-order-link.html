@@ -3,110 +3,35 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="autodoc-version" content="v11-final">
-<title>АвтоДок — новый заказ</title>
+<meta name="autodoc-version" content="v12-final">
+<title>АвтоДок — ссылка клиенту</title>
 <style>
-:root{--bg:#020914;--s:#07162c;--s2:#0b203d;--b:rgba(61,183,255,.28);--t:#f8fbff;--d:#91abc6;--a:#118dff}
-*{box-sizing:border-box}body{font-family:system-ui,-apple-system,sans-serif;background:radial-gradient(circle at 50% -10%,rgba(0,132,255,.24),transparent 36%),var(--bg);color:var(--t);max-width:520px;margin:auto;padding:18px 14px 70px;text-align:center}
-h1{font-size:27px;margin:4px 0 5px}p{color:var(--d);font-size:13px;margin:0 0 16px}.box{max-width:480px;margin:0 auto;text-align:center;background:linear-gradient(180deg,#071a34,#041224);border:1px solid var(--b);border-radius:22px;padding:15px}
-.g{margin:10px 0}label{display:block;color:var(--d);font-size:12px;margin-bottom:6px}input,select,textarea{width:100%;padding:13px;border-radius:12px;border:1px solid var(--b);background:var(--s2);color:#fff;font-size:16px;text-align:center}
-.row{display:grid;grid-template-columns:1fr 1fr;gap:8px}button,a.action{display:block;width:100%;box-sizing:border-box;margin-top:10px;padding:14px;border:0;border-radius:12px;background:linear-gradient(180deg,#118dff,#0d63e8);color:#fff;text-align:center;text-decoration:none;font-weight:800;font-size:16px}
-.secondary{background:var(--s2)!important;border:1px solid var(--b)!important}#result{display:none;margin-top:14px;padding-top:14px;border-top:1px solid var(--b)}.ok{color:#45d6ff;font-weight:800}.hidden{display:none!important}
-@media(max-width:380px){.row{grid-template-columns:1fr}}
+:root{--bg:#020914;--s:#07162c;--s2:#0b203d;--b:rgba(61,183,255,.28);--t:#f8fbff;--d:#91abc6;--a:#118dff}*{box-sizing:border-box}body{font-family:system-ui,-apple-system,sans-serif;background:radial-gradient(circle at 50% -10%,rgba(0,132,255,.24),transparent 36%),var(--bg);color:var(--t);max-width:520px;margin:auto;padding:18px 14px 70px;text-align:center}h1{font-size:27px;margin:4px 0 5px}p{color:var(--d);font-size:13px;margin:0 0 16px}.box{background:linear-gradient(180deg,#071a34,#041224);border:1px solid var(--b);border-radius:22px;padding:15px}.g{margin:10px 0}label{display:block;color:var(--d);font-size:12px;margin-bottom:6px}input,select{width:100%;padding:13px;border-radius:12px;border:1px solid var(--b);background:var(--s2);color:#fff;font-size:16px;text-align:center}.row{display:grid;grid-template-columns:1fr 1fr;gap:8px}button,a.action{display:block;width:100%;margin-top:10px;padding:14px;border:0;border-radius:12px;background:linear-gradient(180deg,#118dff,#0d63e8);color:#fff;text-decoration:none;font-weight:800;font-size:16px}.secondary{background:var(--s2)!important;border:1px solid var(--b)!important}#result{display:none;margin-top:14px;padding-top:14px;border-top:1px solid var(--b)}.linkbox{word-break:break-all;font-size:12px;color:#bcd7ef;background:var(--s2);border:1px solid var(--b);border-radius:12px;padding:11px}@media(max-width:380px){.row{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
-<h1>Новый заказ</h1>
-<p>Когда клиент сразу позвонил и уже согласен.</p>
+<h1>Ссылка клиенту</h1>
+<p>Для клиента, который уже позвонил: создайте предзаполненную ссылку на единую форму. Заказ заранее не создаётся.</p>
 <div class="box">
-  <div class="row">
-    <div class="g"><label>Категория</label><select id="cat"><option value="A">A / мото — 6 990 ₽</option><option value="B">B / легковой / такси — 6 990 ₽</option><option value="C">C / грузовой — 9 990 ₽</option><option value="E">E / прицеп — 9 990 ₽</option></select></div>
-    <div class="g"><label>Цель</label><select id="purpose"><option value="drive">Для езды</option><option value="registration">Постановка на учёт</option></select></div>
-  </div>
-  <div class="g"><label>Канал клиента</label><select id="channel"><option value="tg">Telegram</option><option value="wa">WhatsApp</option><option value="max">MAX</option></select></div>
-  <div class="g"><label>Город</label><input id="city" placeholder="Казань"></div>
-  <div class="g"><label>Марка и модель</label><input id="model" placeholder="Kia Rio"></div>
-  <div class="row">
-    <div class="g"><label>Имя</label><input id="name"></div>
-    <div class="g"><label>Телефон</label><input id="phone" inputmode="tel" placeholder="+7..."></div>
-  </div>
-  <div class="g"><label>PIN оператора</label><input id="pin" inputmode="numeric" type="password" placeholder="Ваш PIN"></div>
-  <button id="create">Создать заказ</button>
-
-  <div id="result">
-    <div class="ok" id="created"></div>
-    <a class="action hidden" id="waBtn" href="#">🟢 Открыть WhatsApp клиента</a>
-    <a class="action hidden" id="smsBtn" href="#">📨 Отправить приглашение по SMS</a>
-    <a class="action hidden" id="maxShare" href="#">📤 Поделиться в MAX</a>
-    <button class="secondary" id="copyMsg">Скопировать текст</button>
-    <textarea id="msg" readonly></textarea>
-  </div>
+  <div class="row"><div class="g"><label>Категория</label><select id="category"><option value="B">B — легковой</option><option value="A">A — мотоцикл</option><option value="C">C — грузовой</option><option value="E">E — прицеп</option></select></div><div class="g"><label>Цель</label><select id="purpose"><option value="drive">Для езды</option><option value="registration">Постановка на учёт</option></select></div></div>
+  <div class="g"><label>Город</label><input id="city" placeholder="Самара"></div>
+  <div class="g"><label>Марка и модель</label><input id="model" placeholder="Hyundai Solaris"></div>
+  <div class="row"><div class="g"><label>Имя</label><input id="name" placeholder="Иван"></div><div class="g"><label>Телефон</label><input id="phone" type="tel" placeholder="+7 (___) ___-__-__"></div></div>
+  <div class="g"><label>Мессенджер</label><select id="channel"><option value="tg">Telegram</option><option value="max">MAX</option><option value="wa">WhatsApp</option></select></div>
+  <button id="make">Создать ссылку</button>
+  <div id="result"><div class="linkbox" id="link"></div><button class="secondary" id="copy">Скопировать ссылку</button><a class="action" id="wa" href="#" style="display:none">Открыть WhatsApp клиента</a></div>
 </div>
 <script>
-const BACKEND_URL="https://script.google.com/macros/s/AKfycbw0OYfKGVxbgJizlpHTbbQ_O5gIgov4p1kW_EsIjCuIX9aBAqogWGRle8XlgbvQcBqr/exec";
-const TG_BOT_USERNAME="avtodok_lead_bot";
-const MAX_BOT_NAME="id642101454567_bot";
-const ORDER_BASE='https://dk-eaisto.ru/order.html';
-const $=id=>document.getElementById(id);
-function token(){const a=new Uint8Array(12);crypto.getRandomValues(a);return Array.from(a).map(x=>x.toString(16).padStart(2,'0')).join('');}
-
-function applyPhoneMask(value){
-  var digits=String(value||'').replace(/\D/g,'');
-  if(digits.startsWith('8')) digits='7'+digits.slice(1);
-  if(!digits.startsWith('7')) digits='7'+digits;
-  digits=digits.slice(0,11);
-  var d=digits.slice(1), out='+7';
-  if(d.length>0) out+=' ('+d.slice(0,3);
-  if(d.length>=3) out+=')';
-  if(d.length>3) out+=' '+d.slice(3,6);
-  if(d.length>6) out+='-'+d.slice(6,8);
-  if(d.length>8) out+='-'+d.slice(8,10);
-  return out;
-}
-$('phone').addEventListener('input',function(){ this.value=applyPhoneMask(this.value); });
-$('phone').addEventListener('focus',function(){ if(!this.value) this.value='+7'; });
-
-function digits(s){let d=String(s||'').replace(/\D/g,'');if(d.length===11&&d[0]==='8')d='7'+d.slice(1);if(d.length===10)d='7'+d;return d;}
-function orderId(){return 'AD-'+String(Date.now()).slice(-8)}
-function orderUrl(data,id){const p=new URLSearchParams({order:id,price:(data.category==='A'||data.category==='B')?'6990':'9990',category:data.category,purpose:data.purpose,city:data.city,model:data.model,name:data.name,phone:data.phone,channel:data.channel});return ORDER_BASE+'?'+p.toString();}
-
-$('create').onclick=async function(){
-  const leadToken=token(), oid=orderId();
-  const data={lead_token:leadToken,category:$('cat').value,purpose:$('purpose').value,city:$('city').value.trim(),model:$('model').value.trim(),name:$('name').value.trim(),phone:$('phone').value.trim(),channel:$('channel').value};
-  if(!data.city||!data.model||!data.name||digits(data.phone).length<11){alert('Заполните город, авто, имя и телефон');return;}
-  this.disabled=true;this.textContent='Создаю…';
-  try{
-    await fetch(BACKEND_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({type:'manual_order',operator_pin:$('pin').value,order_id:oid,payload:data})});
-    const ourl=orderUrl(data,oid);
-    const msg='Всё согласовали. Откройте ссылку и загрузите документы:\n'+ourl;
-    $('created').textContent='✅ '+oid+' создан';
-    $('msg').value=msg;
-    ['waBtn','smsBtn','maxShare'].forEach(x=>$(x).classList.add('hidden'));
-
-    if(data.channel==='wa'){
-      $('waBtn').href='https://wa.me/'+digits(data.phone)+'?text='+encodeURIComponent(msg);
-      $('waBtn').classList.remove('hidden');
-    } else {
-      const connect=data.channel==='tg'
-        ? 'https://t.me/'+TG_BOT_USERNAME+'?start=lead_'+encodeURIComponent(leadToken)
-        : 'https://max.ru/'+MAX_BOT_NAME+'?start=lead_'+encodeURIComponent(leadToken);
-      const invite='Для продолжения оформления откройте ссылку:\n'+connect;
-      $('msg').value=invite;
-      $('smsBtn').href='sms:'+digits(data.phone)+'?body='+encodeURIComponent(invite);
-      $('smsBtn').classList.remove('hidden');
-      if(data.channel==='max'){
-        $('maxShare').href='https://max.ru/:share?text='+encodeURIComponent(invite);
-        $('maxShare').classList.remove('hidden');
-      }
-    }
-    $('result').style.display='block';
-  }catch(e){alert('Не удалось отправить. Проверьте интернет.');}
-  finally{this.disabled=false;this.textContent='Создать заказ';}
-};
-$('copyMsg').onclick=async function(){
-  try{await navigator.clipboard.writeText($('msg').value);this.textContent='Скопировано ✓';}
-  catch(e){$('msg').select();document.execCommand('copy');}
-};
+(function(){
+'use strict';
+var BASE='https://dk-eaisto.ru/?';
+var $=s=>document.querySelector(s);
+var phone=$('#phone');
+phone.addEventListener('input',function(){var digits=phone.value.replace(/\D/g,'');if(digits.startsWith('8'))digits='7'+digits.slice(1);if(!digits.startsWith('7'))digits='7'+digits;digits=digits.slice(0,11);var d=digits.slice(1),out='+7';if(d.length>0)out+=' ('+d.slice(0,3);if(d.length>=3)out+=')';if(d.length>3)out+=' '+d.slice(3,6);if(d.length>6)out+='-'+d.slice(6,8);if(d.length>8)out+='-'+d.slice(8,10);phone.value=out;});
+function build(){var p=new URLSearchParams();['category','purpose','city','model','name','phone','channel'].forEach(id=>{var v=$('#'+id).value.trim();if(v)p.set(id,v);});return BASE+p.toString();}
+$('#make').addEventListener('click',function(){var url=build();$('#link').textContent=url;$('#result').style.display='block';var digits=phone.value.replace(/\D/g,'');var wa=$('#wa');if($('#channel').value==='wa'&&digits.length===11){wa.style.display='block';wa.href='https://wa.me/'+digits+'?text='+encodeURIComponent('Заполните, пожалуйста, заявку и приложите документы по этой ссылке: '+url);}else wa.style.display='none';});
+$('#copy').addEventListener('click',async function(){var text=$('#link').textContent;if(!text)return;try{await navigator.clipboard.writeText(text);this.textContent='Скопировано ✓';setTimeout(()=>this.textContent='Скопировать ссылку',1500);}catch(e){alert(text);}});
+})();
 </script>
 </body>
 </html>

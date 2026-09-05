@@ -3,1112 +3,125 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="autodoc-version" content="v11-final">
+<meta name="autodoc-version" content="v12-final">
 <title>АвтоДок РФ — Техосмотр по России</title>
-<meta name="description" content="Организуем техосмотр и диагностическую карту через аккредитованные ПТО. Живой специалист сопровождает заявку до результата.">
+<meta name="description" content="Оформление техосмотра: данные автомобиля, документы, оплата и отправка заявки в одном месте.">
 <style>
-  :root{
-    --bg:#0a0d13;
-    --bg-2:#0d1119;
-    --surface:#131826;
-    --surface-2:#171d2d;
-    --border:rgba(255,255,255,.08);
-    --border-strong:rgba(255,255,255,.14);
-    --text:#f2f4f8;
-    --text-dim:#8b93a8;
-    --text-faint:#5b6478;
-    --accent:#4c82ff;
-    --accent-2:#2f5fd6;
-    --accent-soft:rgba(76,130,255,.13);
-    --accent-glow:rgba(76,130,255,.45);
-    --success:#2fd6b4;
-    --success-soft:rgba(47,214,180,.13);
-    --danger:#ff6b6b;
-    --radius-xl:26px;
-    --radius-lg:20px;
-    --radius-md:14px;
-    --radius-sm:10px;
-    --font: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
-    --font-mono: ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
-    --ease: cubic-bezier(.22,1,.36,1);
-  }
-
-  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
-  html{-webkit-text-size-adjust:100%;}
-  body{
-    font-family:var(--font);
-    background:var(--bg);
-    color:var(--text);
-    line-height:1.45;
-    min-height:100vh;
-    overflow-x:hidden;
-  }
-
-  /* backdrop ambience — subtle, single spot, not scattered */
-  body::before{
-    content:"";
-    position:fixed;
-    top:-20%;
-    left:50%;
-    transform:translateX(-50%);
-    width:900px;
-    height:900px;
-    background:radial-gradient(circle,rgba(76,130,255,.16) 0%,rgba(76,130,255,0) 62%);
-    pointer-events:none;
-    z-index:0;
-  }
-
-  button{font-family:inherit;}
-  input{font-family:inherit;}
-
-  a{color:inherit;}
-
-  :focus-visible{
-    outline:2px solid var(--accent);
-    outline-offset:3px;
-    border-radius:6px;
-  }
-
-  .app-shell{
-    position:relative;
-    z-index:1;
-    max-width:520px;
-    margin:0 auto;
-    min-height:100vh;
-    display:flex;
-    flex-direction:column;
-    padding-bottom:96px; /* room for sticky cta */
-  }
-
-  /* ---------- TOPBAR ---------- */
-  .topbar{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    padding:18px 20px 8px;
-  }
-  .logo{
-    display:flex;
-    align-items:center;
-    gap:10px;
-    font-weight:700;
-    font-size:17px;
-    letter-spacing:-.01em;
-  }
-  .logo-mark{
-    width:30px;height:30px;
-    border-radius:9px;
-    background:linear-gradient(155deg,var(--accent),var(--accent-2));
-    display:flex;align-items:center;justify-content:center;
-    flex-shrink:0;
-    box-shadow:0 4px 14px rgba(76,130,255,.35);
-  }
-  .logo-mark svg{width:16px;height:16px;}
-  .logo-sub{font-size:11.5px;color:var(--text-faint);font-weight:500;margin-top:1px;}
-
-  .topbar-badge{
-    font-size:12px;
-    color:var(--text-dim);
-    background:var(--surface);
-    border:1px solid var(--border);
-    padding:6px 11px;
-    border-radius:100px;
-    display:flex;
-    align-items:center;
-    gap:6px;
-  }
-  .topbar-badge .dot{
-    width:6px;height:6px;border-radius:50%;
-    background:var(--success);
-    box-shadow:0 0 0 3px var(--success-soft);
-  }
-
-  /* ---------- HERO ---------- */
-  .hero{
-    padding:28px 20px 8px;
-  }
-  .hero h1{
-    font-size:32px;
-    line-height:1.14;
-    font-weight:700;
-    letter-spacing:-.02em;
-    color:var(--text);
-  }
-  .hero p{
-    margin-top:14px;
-    font-size:15.5px;
-    color:var(--text-dim);
-    max-width:38ch;
-  }
-
-  .hero-chips{
-    display:flex;
-    flex-wrap:wrap;
-    gap:8px;
-    margin-top:20px;
-  }
-  .chip{
-    font-size:12.5px;
-    color:var(--text-dim);
-    background:var(--surface);
-    border:1px solid var(--border);
-    padding:7px 12px;
-    border-radius:100px;
-    white-space:nowrap;
-  }
-
-  .hero-cta{
-    margin-top:24px;
-    width:100%;
-    padding:16px 20px;
-    border-radius:16px;
-    border:none;
-    background:linear-gradient(155deg,var(--accent),var(--accent-2));
-    color:#fff;
-    font-size:16px;
-    font-weight:600;
-    cursor:pointer;
-    box-shadow:0 10px 28px rgba(76,130,255,.32);
-    transition:transform .15s var(--ease), box-shadow .15s var(--ease);
-  }
-  .hero-cta:active{transform:scale(.98);}
-
-  .hero-note{
-    margin-top:12px;
-    font-size:12.5px;
-    color:var(--text-faint);
-    text-align:center;
-  }
-
-  /* ---------- WIZARD CARD ---------- */
-  .wizard-wrap{padding:26px 20px 0;}
-  .wizard{
-    background:var(--surface);
-    border:1px solid var(--border);
-    border-radius:var(--radius-xl);
-    padding:22px 18px 18px;
-    position:relative;
-    overflow:hidden;
-  }
-
-  .progress-row{
-    display:flex;
-    align-items:center;
-    gap:8px;
-    margin-bottom:20px;
-  }
-  .progress-track{
-    flex:1;
-    height:4px;
-    background:var(--border);
-    border-radius:100px;
-    overflow:hidden;
-    position:relative;
-  }
-  .progress-fill{
-    position:absolute;
-    inset:0 auto 0 0;
-    width:25%;
-    background:linear-gradient(90deg,var(--accent),#8ab4ff);
-    border-radius:100px;
-    box-shadow:0 0 12px var(--accent-glow);
-    transition:width .45s var(--ease);
-  }
-  .progress-label{
-    font-size:12px;
-    color:var(--text-faint);
-    font-variant-numeric:tabular-nums;
-    flex-shrink:0;
-  }
-
-  .step-title{
-    font-size:19px;
-    font-weight:700;
-    letter-spacing:-.01em;
-    margin-bottom:4px;
-  }
-  .step-hint{
-    font-size:13px;
-    color:var(--text-dim);
-    margin-bottom:18px;
-  }
-
-  .steps-viewport{position:relative;}
-  .step{
-    display:none;
-    animation:stepIn .32s var(--ease);
-  }
-  .step.active{display:block;}
-  @keyframes stepIn{
-    from{opacity:0;transform:translateY(8px);}
-    to{opacity:1;transform:translateY(0);}
-  }
-
-  /* tile choices */
-  .tile-grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:10px;
-  }
-  .tile-grid.single-col{grid-template-columns:1fr;}
-  .tile{
-    background:var(--surface-2);
-    border:1px solid var(--border);
-    border-radius:var(--radius-md);
-    padding:16px 14px;
-    text-align:left;
-    cursor:pointer;
-    color:var(--text);
-    display:flex;
-    flex-direction:column;
-    gap:8px;
-    transition:border-color .15s var(--ease), background .15s var(--ease), transform .1s var(--ease);
-    position:relative;
-  }
-  .tile:active{transform:scale(.98);}
-  .tile-icon{
-    width:34px;height:34px;
-    border-radius:10px;
-    background:var(--accent-soft);
-    display:flex;align-items:center;justify-content:center;
-    color:var(--accent);
-  }
-  .tile-icon svg{width:18px;height:18px;}
-  .tile-label{font-size:14.5px;font-weight:600;}
-  .tile-sub{font-size:11.5px;color:var(--text-faint);}
-
-  .tile.selected{
-    border-color:var(--accent);
-    background:var(--accent-soft);
-    box-shadow:0 0 0 1px var(--accent) inset, 0 6px 20px rgba(76,130,255,.18);
-  }
-  .tile.selected .tile-icon{
-    background:var(--accent);
-    color:#fff;
-  }
-  .tile-check{
-    position:absolute;
-    top:12px;right:12px;
-    width:18px;height:18px;
-    border-radius:50%;
-    border:1.5px solid var(--border-strong);
-    display:flex;align-items:center;justify-content:center;
-    transition:all .15s var(--ease);
-  }
-  .tile.selected .tile-check{
-    background:var(--accent);
-    border-color:var(--accent);
-  }
-  .tile-check svg{width:10px;height:10px;opacity:0;transition:opacity .12s;}
-  .tile.selected .tile-check svg{opacity:1;}
-
-  /* form fields */
-  .field{margin-bottom:14px;}
-  .field label{
-    display:block;
-    font-size:12.5px;
-    color:var(--text-dim);
-    margin-bottom:7px;
-    font-weight:500;
-  }
-  .field input{
-    width:100%;
-    padding:14px 15px;
-    border-radius:var(--radius-md);
-    border:1px solid var(--border);
-    background:var(--surface-2);
-    color:var(--text);
-    font-size:15.5px;
-    transition:border-color .15s var(--ease);
-  }
-  .field input::placeholder{color:var(--text-faint);}
-  .field input:focus{border-color:var(--accent);outline:none;}
-  .field-error{
-    font-size:12px;
-    color:var(--danger);
-    margin-top:6px;
-    display:none;
-  }
-  .field.invalid input{border-color:var(--danger);}
-  .field.invalid .field-error{display:block;}
-
-  .contact-row{display:flex;gap:8px;}
-  .contact-row .tile{flex:1;align-items:center;padding:14px 10px;}
-  .contact-row .tile-icon{width:30px;height:30px;}
-  .contact-row .tile-label{font-size:12.5px;}
-
-  /* wizard nav */
-  .wizard-nav{
-    display:flex;
-    gap:10px;
-    margin-top:20px;
-  }
-  .btn{
-    flex:1;
-    padding:15px 18px;
-    border-radius:14px;
-    border:none;
-    font-size:15px;
-    font-weight:600;
-    cursor:pointer;
-    transition:transform .12s var(--ease), opacity .15s var(--ease);
-  }
-  .btn:active{transform:scale(.97);}
-  .btn-primary{
-    background:linear-gradient(155deg,var(--accent),var(--accent-2));
-    color:#fff;
-    box-shadow:0 8px 22px rgba(76,130,255,.28);
-  }
-  .btn-primary[disabled]{
-    opacity:.35;
-    box-shadow:none;
-    cursor:not-allowed;
-  }
-  .btn-ghost{
-    background:var(--surface-2);
-    color:var(--text-dim);
-    border:1px solid var(--border);
-    flex:0 0 auto;
-    width:52px;
-    display:flex;align-items:center;justify-content:center;
-  }
-  .btn-ghost svg{width:18px;height:18px;}
-  .btn.loading .btn-text{visibility:hidden;}
-  .btn-spinner{
-    display:none;
-    position:absolute;
-    width:18px;height:18px;
-    border:2px solid rgba(255,255,255,.4);
-    border-top-color:#fff;
-    border-radius:50%;
-    animation:spin .7s linear infinite;
-  }
-  .btn.loading{position:relative;}
-  .btn.loading .btn-spinner{
-    display:block;
-    left:50%;top:50%;
-    margin:-9px 0 0 -9px;
-  }
-  @keyframes spin{to{transform:rotate(360deg);}}
-
-  /* trust section */
-  .trust{
-    padding:30px 20px 10px;
-  }
-  .trust-title{
-    font-size:13px;
-    color:var(--text-faint);
-    margin-bottom:12px;
-  }
-  .trust-grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:10px;
-  }
-  .trust-card{
-    background:var(--surface);
-    border:1px solid var(--border);
-    border-radius:var(--radius-md);
-    padding:14px;
-  }
-  .trust-card-icon{
-    width:28px;height:28px;
-    border-radius:8px;
-    background:var(--accent-soft);
-    color:var(--accent);
-    display:flex;align-items:center;justify-content:center;
-    margin-bottom:10px;
-  }
-  .trust-card-icon svg{width:15px;height:15px;}
-  .trust-card-text{font-size:13px;color:var(--text-dim);line-height:1.35;}
-
-  .footer-note{
-    padding:22px 20px 10px;
-    font-size:11.5px;
-    color:var(--text-faint);
-    line-height:1.5;
-  }
-
-  /* sticky cta */
-  .sticky-cta{
-    position:fixed;
-    left:0;right:0;bottom:0;
-    z-index:40;
-    padding:12px 20px calc(12px + env(safe-area-inset-bottom));
-    background:linear-gradient(180deg,rgba(10,13,19,0) 0%,var(--bg) 32%);
-    display:flex;
-    justify-content:center;
-    transform:translateY(0);
-    transition:transform .3s var(--ease);
-  }
-  .sticky-cta.hidden{transform:translateY(120%);}
-  .sticky-cta-inner{
-    width:100%;
-    max-width:480px;
-  }
-  .sticky-cta button{
-    width:100%;
-    padding:15px 20px;
-    border-radius:14px;
-    border:none;
-    background:linear-gradient(155deg,var(--accent),var(--accent-2));
-    color:#fff;
-    font-size:15.5px;
-    font-weight:600;
-    box-shadow:0 10px 30px rgba(76,130,255,.4);
-    cursor:pointer;
-  }
-  .sticky-cta button:active{transform:scale(.98);}
-
-  /* success overlay */
-  .success-overlay{
-    position:fixed;
-    inset:0;
-    z-index:80;
-    background:var(--bg);
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    padding:32px;
-    text-align:center;
-    opacity:0;
-    pointer-events:none;
-    transition:opacity .3s var(--ease);
-  }
-  .success-overlay.visible{opacity:1;pointer-events:auto;}
-  .success-ring{
-    width:84px;height:84px;
-    border-radius:50%;
-    background:var(--success-soft);
-    display:flex;align-items:center;justify-content:center;
-    margin-bottom:26px;
-  }
-  .success-ring svg{width:38px;height:38px;}
-  .success-check-path{
-    stroke-dasharray:40;
-    stroke-dashoffset:40;
-    animation:drawCheck .5s .2s var(--ease) forwards;
-  }
-  @keyframes drawCheck{to{stroke-dashoffset:0;}}
-  .success-overlay h2{
-    font-size:23px;
-    font-weight:700;
-    letter-spacing:-.01em;
-    margin-bottom:12px;
-    max-width:22ch;
-  }
-  .success-overlay p{
-    font-size:15px;
-    color:var(--text-dim);
-    max-width:34ch;
-    line-height:1.5;
-  }
-  .success-order{
-    margin-top:22px;
-    font-family:var(--font-mono);
-    font-size:12.5px;
-    color:var(--text-faint);
-    background:var(--surface);
-    border:1px solid var(--border);
-    padding:8px 14px;
-    border-radius:100px;
-  }
-  .success-steps{
-    margin-top:28px;
-    display:flex;
-    flex-direction:column;
-    gap:10px;
-    width:100%;
-    max-width:320px;
-    text-align:left;
-  }
-  .success-step{
-    display:flex;
-    align-items:center;
-    gap:12px;
-    font-size:13px;
-    color:var(--text-dim);
-  }
-  .success-step-num{
-    width:22px;height:22px;
-    border-radius:50%;
-    background:var(--surface);
-    border:1px solid var(--border);
-    display:flex;align-items:center;justify-content:center;
-    font-size:11px;
-    color:var(--text-faint);
-    flex-shrink:0;
-  }
-  .success-close{
-    margin-top:30px;
-    background:none;
-    border:1px solid var(--border);
-    color:var(--text-dim);
-    padding:12px 24px;
-    border-radius:100px;
-    font-size:13.5px;
-    cursor:pointer;
-  }
-
-  @media (prefers-reduced-motion: reduce){
-    *{animation-duration:.001ms !important;transition-duration:.001ms !important;}
-  }
-
-  @media (min-width:560px){
-    body::before{width:1100px;height:1100px;}
-    .hero h1{font-size:36px;}
-  }
-
-/* ===== AVTODOK NEON V3 ===== */
-:root{
-  --bg:#020914;--bg-2:#061326;--surface:#07162c;--surface-2:#0b203d;
-  --border:rgba(61,183,255,.28);--border-strong:rgba(75,200,255,.60);
-  --text:#f8fbff;--text-dim:#a9bfd8;--text-faint:#7089a7;
-  --accent:#00a8ff;--accent-2:#1167ff;--accent-soft:rgba(0,168,255,.14);--accent-glow:rgba(0,174,255,.55)
-}
-body{
-  background:
-    radial-gradient(circle at 50% -10%,rgba(0,132,255,.28),transparent 36%),
-    linear-gradient(180deg,#020914 0%,#03101f 48%,#020914 100%);
-}
-body::before{
-  top:-30%;width:760px;height:760px;
-  background:radial-gradient(circle,rgba(0,174,255,.22) 0%,rgba(0,174,255,0) 65%);
-}
-.app-shell{max-width:520px;padding-bottom:88px}
-.topbar{padding:16px 18px 6px}
-.logo{font-size:16px}.logo-mark{background:linear-gradient(145deg,#0c80ff,#00d0ff);box-shadow:0 0 22px rgba(0,183,255,.45)}
-.logo-sub{color:#6f91b4}.topbar-badge{color:#b9d8f6;background:rgba(3,21,41,.68);border-color:rgba(47,177,255,.25)}
-.topbar-badge .dot{background:#24d6ff;box-shadow:0 0 12px #24d6ff}
-.hero{margin:16px 14px 0;padding:24px 18px 20px;border:1px solid rgba(55,190,255,.56);border-radius:26px;background:linear-gradient(180deg,rgba(5,26,53,.92),rgba(3,16,34,.90));box-shadow:0 0 28px rgba(0,159,255,.15),inset 0 0 34px rgba(0,132,255,.06);position:relative;overflow:hidden}
-.hero::before{content:"";position:absolute;inset:-1px;border-radius:26px;box-shadow:inset 0 0 22px rgba(0,184,255,.22);pointer-events:none}
-.hero h1{font-size:40px;line-height:.98;font-weight:900;letter-spacing:-.045em;text-transform:uppercase;text-shadow:0 4px 18px rgba(0,0,0,.35)}
-.hero p{display:inline-block;margin-top:14px;padding:8px 13px;border-radius:8px;background:linear-gradient(90deg,#0753bb,#1188ff);color:#fff;font-size:14px;font-weight:800;max-width:none;box-shadow:0 0 18px rgba(0,126,255,.22)}
-.hero-chips{margin-top:16px;gap:7px}.chip{padding:7px 11px;background:rgba(4,26,52,.72);border-color:rgba(55,184,255,.26);color:#c7dcf3;font-size:12px}
-.hero-cta{margin-top:18px;padding:16px;border-radius:14px;background:linear-gradient(180deg,#118dff,#0d63e8);font-weight:800;box-shadow:0 0 22px rgba(0,134,255,.35)}
-.hero-note{margin-top:9px;color:#7799bb;font-size:12px}
-.wizard-wrap{padding:14px 14px 0}.wizard{background:linear-gradient(180deg,rgba(7,25,51,.96),rgba(4,17,36,.96));border-color:rgba(55,184,255,.32);border-radius:24px;padding:18px 15px 16px;box-shadow:0 0 24px rgba(0,136,255,.10)}
-.progress-track{background:rgba(97,174,235,.12)}.progress-fill{background:linear-gradient(90deg,#00c8ff,#1769ff);box-shadow:0 0 12px rgba(0,196,255,.6)}
-.step-title{font-size:21px;font-weight:850}.step-hint{font-size:12px;color:#7895b3;margin-bottom:14px}
-.tile{background:linear-gradient(180deg,rgba(11,34,66,.96),rgba(8,27,54,.96));border-color:rgba(62,172,255,.20);border-radius:15px;padding:15px 13px}
-.tile.selected{border-color:#18bfff;background:rgba(0,157,255,.12);box-shadow:0 0 0 1px #18bfff inset,0 0 18px rgba(0,170,255,.16)}
-.tile-icon{background:rgba(0,160,255,.12);color:#35c7ff}.tile.selected .tile-icon{background:linear-gradient(145deg,#0d91ff,#00c8ff)}
-.field input{background:rgba(8,29,56,.94);border-color:rgba(61,165,240,.18);border-radius:13px}.field input:focus{border-color:#17b7ff;box-shadow:0 0 0 3px rgba(0,174,255,.08)}
-.btn-primary,.sticky-cta button{background:linear-gradient(180deg,#118dff,#0d63e8);font-weight:800;box-shadow:0 0 20px rgba(0,134,255,.30)}
-.btn-ghost{background:rgba(8,29,56,.94);border-color:rgba(61,165,240,.18)}
-.trust{display:none}.footer-note{padding:18px 18px 8px;text-align:center;color:#58718c;font-size:10.5px}
-.sticky-cta{background:linear-gradient(180deg,rgba(2,9,20,0),#020914 42%);padding-left:14px;padding-right:14px}
-.success-overlay{background:radial-gradient(circle at 50% 25%,rgba(0,150,255,.18),transparent 34%),#020914}
-@media(max-width:380px){.hero h1{font-size:34px}.hero{margin-left:10px;margin-right:10px}.wizard-wrap{padding-left:10px;padding-right:10px}}
-
-
-.success-connect{display:block;width:100%;max-width:320px;margin-top:18px;padding:15px 18px;border-radius:14px;background:linear-gradient(180deg,#118dff,#0d63e8);color:#fff;text-decoration:none;font-weight:800;box-shadow:0 0 20px rgba(0,134,255,.30)}
-.success-connect-hint{margin-top:8px;max-width:320px;font-size:11.5px;line-height:1.35;color:var(--text-faint)}
-
-/* ===== FINAL MOBILE POLISH V7 ===== */
-.topbar{justify-content:center;position:relative;padding-top:14px}
-.logo{text-align:left}
-.topbar-badge{position:absolute;right:14px;top:16px}
-.hero{text-align:center;padding-left:14px;padding-right:14px}
-.hero h1{font-size:38px;line-height:1.02;text-align:center;max-width:430px;margin:0 auto}
-.hero p{display:block;margin:14px auto 0;max-width:390px;text-align:center}
-.hero-chips{justify-content:center}
-.hero-note{text-align:center}
-.wizard-wrap{padding-left:12px;padding-right:12px}
-.step-title,.step-hint{text-align:center}
-.tile{text-align:center;align-items:center}
-.tile-icon{margin-left:auto;margin-right:auto}
-.tile-check{right:9px;top:9px}
-.field label{text-align:center}
-.field input{text-align:center}
-.channel-field label{margin-bottom:10px}
-.contact-row-3{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}
-.contact-row-3 .channel-tile{padding:12px 5px;min-width:0}
-.contact-row-3 .tile-icon{width:32px;height:32px;font-size:11px;font-weight:900}
-.contact-row-3 .tile-label{font-size:11.5px;white-space:nowrap}
-.success-overlay{text-align:center}
-.success-steps{max-width:300px}
-.success-step{justify-content:flex-start}
-.footer-note{text-align:center}
-@media(max-width:370px){
-  .hero h1{font-size:33px}
-  .topbar-badge{display:none}
-  .contact-row-3 .tile-label{font-size:10.5px}
-}
-
-.hero-info{margin-top:18px;font-size:13px;color:var(--text-dim);text-align:center;letter-spacing:.01em}.hero-info::before{content:"✓ ";color:var(--success);font-weight:800}
+:root{--bg:#020914;--s:#07162c;--s2:#0b203d;--b:rgba(61,183,255,.26);--t:#f8fbff;--d:#9db8d2;--f:#6985a1;--a:#118dff;--a2:#0d63e8;--ok:#24d8ff;--bad:#ff6b6b}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}html{scroll-behavior:smooth}body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:radial-gradient(circle at 50% -10%,rgba(0,132,255,.24),transparent 34%),linear-gradient(180deg,#020914,#03101f 48%,#020914);color:var(--t);min-height:100vh;line-height:1.45}.shell{max-width:560px;margin:auto;padding:14px 14px 80px}.top{display:flex;justify-content:space-between;align-items:center;padding:4px 2px 10px}.brand{font-weight:900}.brand small{display:block;color:var(--f);font-weight:600;font-size:11px}.pill{font-size:11px;color:#c7dcf3;border:1px solid var(--b);background:rgba(4,26,52,.72);padding:6px 9px;border-radius:999px}.hero{padding:24px 17px 18px;border:1px solid rgba(55,190,255,.48);border-radius:24px;background:linear-gradient(180deg,rgba(5,26,53,.94),rgba(3,16,34,.94));box-shadow:0 0 26px rgba(0,159,255,.11)}.hero h1{font-size:33px;line-height:1.03;font-weight:950;letter-spacing:-.04em}.hero p{color:var(--d);font-size:14px;margin-top:10px}.hero-info{margin-top:14px;color:#8fb3d5;font-size:12px}.hero-info::before{content:"✓ ";color:var(--ok);font-weight:900}.card{margin-top:12px;padding:16px;border:1px solid var(--b);border-radius:22px;background:linear-gradient(180deg,rgba(7,25,51,.97),rgba(4,17,36,.97));box-shadow:0 0 22px rgba(0,136,255,.07)}.card h2{font-size:20px;margin-bottom:3px}.hint{font-size:12.5px;color:var(--d);margin-bottom:15px}.group{margin-bottom:14px}.label{display:block;font-size:12px;color:var(--d);margin-bottom:6px}.input,textarea{width:100%;border:1px solid var(--b);background:var(--s2);color:#fff;border-radius:13px;padding:13px 14px;font-size:16px;outline:none}.input:focus,textarea:focus{border-color:#2daeff}textarea{min-height:78px;resize:vertical}.choices,.tile-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.choice,.tile{position:relative;border:1px solid rgba(61,183,255,.22);background:linear-gradient(180deg,rgba(11,34,66,.96),rgba(8,27,54,.96));color:#fff;border-radius:13px;padding:13px 11px;text-align:center;cursor:pointer}.choice.selected,.tile.selected{border-color:#16a8ff;box-shadow:0 0 0 1px #16a8ff inset,0 0 15px rgba(0,160,255,.15);background:rgba(17,104,192,.22)}.choice b,.tile b{font-size:13px}.choice small,.tile small{display:block;color:var(--f);font-size:10.5px;margin-top:3px}.category-grid{grid-template-columns:1fr 1fr}.price-line{margin-top:10px;padding:12px 14px;border-radius:13px;background:rgba(0,147,255,.08);border:1px solid rgba(61,183,255,.18);text-align:center}.price-line strong{font-size:24px}.upload-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.upload{position:relative;border:1px dashed rgba(61,183,255,.35);background:var(--s2);border-radius:13px;min-height:104px;padding:14px 10px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;cursor:pointer}.upload.done{border-style:solid;border-color:var(--ok);background:rgba(36,216,255,.07)}.upload strong{font-size:12.5px}.upload span{font-size:10.5px;color:var(--f);margin-top:5px}.upload input{display:none}.upload-note{margin-top:9px;color:var(--f);font-size:11px;text-align:center}.check{display:flex;gap:9px;align-items:flex-start;padding:12px;border:1px solid var(--b);border-radius:12px;background:var(--s2);color:var(--d);font-size:12px}.check input{margin-top:3px;accent-color:var(--a)}.hidden{display:none!important}.payment-card{text-align:center;padding:15px;border:1px solid rgba(0,191,255,.3);border-radius:15px;background:var(--s2)}.price{font-size:31px;font-weight:900;margin:8px 0 14px}.btn-row{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:11px}.mini{border:1px solid var(--b);background:var(--s2);color:#fff;border-radius:11px;padding:10px 13px;font-weight:700}.submit{width:100%;border:0;border-radius:15px;padding:16px 18px;background:linear-gradient(180deg,var(--a),var(--a2));color:#fff;font-size:17px;font-weight:900;box-shadow:0 8px 24px rgba(0,132,255,.28);cursor:pointer}.submit:disabled{opacity:.45;box-shadow:none}.agreement{margin:13px 2px;color:var(--f);font-size:10.5px;text-align:center}.wait,.success{display:none;position:fixed;inset:0;z-index:50;background:radial-gradient(circle at 50% 25%,rgba(0,150,255,.17),transparent 34%),#020914;padding:28px 18px;overflow:auto}.wait.show,.success.show{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}.round{width:72px;height:72px;border-radius:50%;display:grid;place-items:center;background:rgba(36,216,255,.1);color:var(--ok);font-size:32px;margin-bottom:17px}.wait h2,.success h2{font-size:25px}.wait p,.success p{max-width:380px;color:var(--d);font-size:14px;margin-top:9px}.progressText{font-size:24px;font-weight:900;margin-top:20px}.order-id{margin-top:14px;padding:8px 12px;border:1px solid var(--b);border-radius:999px;color:#b8d6f3;font-weight:800}.messenger-action{display:block;width:100%;max-width:330px;margin-top:18px;padding:15px;border-radius:14px;background:linear-gradient(180deg,var(--a),var(--a2));color:#fff;text-decoration:none;font-weight:900}.messenger-note{max-width:330px;color:var(--f);font-size:11.5px;margin-top:8px}.errorbox{display:none;margin:0 0 12px;padding:11px;border-radius:12px;background:rgba(255,107,107,.08);border:1px solid rgba(255,107,107,.3);color:#ffb6b6;font-size:12px}.errorbox.show{display:block}@media(max-width:380px){.choices,.tile-grid,.upload-grid{grid-template-columns:1fr}.hero h1{font-size:30px}}
 </style>
 </head>
 <body>
-
-<div class="app-shell">
-
-  <!-- TOPBAR -->
-  <header class="topbar">
-    <div class="logo">
-      <div class="logo-mark">
-        <svg viewBox="0 0 24 24" fill="none"><path d="M4 13l1.6-5.2A2 2 0 0 1 7.5 6.4h9a2 2 0 0 1 1.9 1.4L20 13" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><rect x="3" y="13" width="18" height="6" rx="2" stroke="#fff" stroke-width="1.8"/><circle cx="7.5" cy="19" r="1.1" fill="#fff"/><circle cx="16.5" cy="19" r="1.1" fill="#fff"/></svg>
-      </div>
-      <div>
-        <div>АвтоДок РФ</div>
-        <div class="logo-sub">Техосмотр по России</div>
-      </div>
-    </div>
-    <div class="topbar-badge"><span class="dot"></span>ЕАИСТО</div>
-  </header>
-
-  <!-- HERO -->
+<div class="shell" id="formShell">
+  <header class="top"><div class="brand">АвтоДок РФ<small>Техосмотр по России</small></div><div class="pill">ЕАИСТО</div></header>
   <section class="hero">
     <h1>ТЕХОСМОТР АВТО</h1>
-    <p>Техосмотр через аккредитованные ПТО по России.</p>
-
-    <div class="hero-info" aria-label="Информация">Категории A, B, C, E · По России · ЕАИСТО</div>
-
-    <button class="hero-cta" id="heroCta">Оставить заявку</button>
-    <div class="hero-note">Заявка — 1–2 минуты</div>
+    <p>Заполните данные, приложите документы и чек. Всё отправится специалисту одной заявкой.</p>
+    <div class="hero-info">Категории A, B, C, E · По России · Без лишних переходов</div>
   </section>
 
-  <!-- WIZARD -->
-  <section class="wizard-wrap" id="wizardWrap">
-    <div class="wizard">
-
-      <div class="progress-row">
-        <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
-        <div class="progress-label"><span id="stepNum">1</span>/4</div>
-      </div>
-
-      <div class="steps-viewport">
-
-        <!-- STEP 1 — category -->
-        <div class="step active" data-step="1">
-          <div class="step-title">Категория авто</div>
-          <div class="step-hint">Выберите вариант</div>
-          <div class="tile-grid" data-group="category">
-            <button class="tile" data-value="A">
-              <div class="tile-check"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4 10-10" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-              <div class="tile-icon"><svg viewBox="0 0 24 24" fill="none"><circle cx="7" cy="17" r="3" stroke="currentColor" stroke-width="1.8"/><circle cx="17" cy="17" r="3" stroke="currentColor" stroke-width="1.8"/><path d="M9 17l3-7h3l2 7M11 10H8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-              <div class="tile-label">Категория A</div>
-              <div class="tile-sub">Мотоцикл</div>
-            </button>
-            <button class="tile" data-value="B">
-              <div class="tile-check"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4 10-10" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-              <div class="tile-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M4 13l1.4-4.6A2 2 0 0 1 7.3 7h9.4a2 2 0 0 1 1.9 1.4L20 13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><rect x="3" y="13" width="18" height="5.5" rx="2" stroke="currentColor" stroke-width="1.8"/><circle cx="7.2" cy="18.5" r="1" fill="currentColor"/><circle cx="16.8" cy="18.5" r="1" fill="currentColor"/></svg></div>
-              <div class="tile-label">Категория B</div>
-              <div class="tile-sub">Легковой</div>
-            </button>
-            <button class="tile" data-value="C">
-              <div class="tile-check"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4 10-10" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-              <div class="tile-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M2 17V8a1 1 0 0 1 1-1h9v10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 11h4.5l3.5 3.5V17" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="6.5" cy="18" r="1.6" stroke="currentColor" stroke-width="1.6"/><circle cx="16" cy="18" r="1.6" stroke="currentColor" stroke-width="1.6"/></svg></div>
-              <div class="tile-label">Категория C</div>
-              <div class="tile-sub">Грузовой</div>
-            </button>
-            <button class="tile" data-value="E">
-              <div class="tile-check"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4 10-10" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-              <div class="tile-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M2 15h5v-4H2v4z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M7 11h9l4 3v1h-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="5" cy="17" r="1.4" stroke="currentColor" stroke-width="1.6"/><circle cx="16" cy="17" r="1.4" stroke="currentColor" stroke-width="1.6"/></svg></div>
-              <div class="tile-label">E / Прицеп</div>
-              <div class="tile-sub">Прицеп / полуприцеп</div>
-            </button>
-          </div>
-        </div>
-
-        <!-- STEP 2 — purpose -->
-        <div class="step" data-step="2">
-          <div class="step-title">Для чего нужна карта?</div>
-          <div class="step-hint">Выберите вариант</div>
-          <div class="tile-grid single-col" data-group="purpose">
-            <button class="tile" data-value="drive">
-              <div class="tile-check"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4 10-10" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-              <div class="tile-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3v4M12 17v4M3 12h4M17 12h4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="12" r="4.2" stroke="currentColor" stroke-width="1.8"/></svg></div>
-              <div class="tile-label">Просто для езды</div>
-              <div class="tile-sub">Для эксплуатации</div>
-            </button>
-            <button class="tile" data-value="registration">
-              <div class="tile-check"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4 10-10" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-              <div class="tile-icon"><svg viewBox="0 0 24 24" fill="none"><rect x="4" y="3.5" width="16" height="17" rx="2" stroke="currentColor" stroke-width="1.8"/><path d="M8 8h8M8 12h8M8 16h5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></div>
-              <div class="tile-label">Для постановки на учёт</div>
-              <div class="tile-sub">Для ГИБДД</div>
-            </button>
-          </div>
-        </div>
-
-        <!-- STEP 3 — city / model -->
-        <div class="step" data-step="3">
-          <div class="step-title">Ваш автомобиль</div>
-          <div class="step-hint">Город и марка</div>
-          <div class="field" id="fieldCity">
-            <label for="inputCity">Город</label>
-            <input id="inputCity" type="text" inputmode="text" placeholder="Например, Тольятти" autocomplete="address-level2">
-            <div class="field-error">Укажите город</div>
-          </div>
-          <div class="field" id="fieldModel">
-            <label for="inputModel">Марка и модель</label>
-            <input id="inputModel" type="text" inputmode="text" placeholder="Например, Hyundai Solaris">
-            <div class="field-error">Укажите марку и модель</div>
-          </div>
-        </div>
-
-        <!-- STEP 4 — contact -->
-        <div class="step" data-step="4">
-          <div class="step-title">Ваш телефон</div>
-          <div class="step-hint">Позвоним и согласуем детали</div>
-          <div class="field" id="fieldName">
-            <label for="inputName">Имя</label>
-            <input id="inputName" type="text" placeholder="Ваше имя" autocomplete="given-name">
-            <div class="field-error">Укажите имя</div>
-          </div>
-          <div class="field" id="fieldPhone">
-            <label for="inputPhone">Телефон</label>
-            <input id="inputPhone" type="tel" inputmode="tel" placeholder="+7 (___) ___-__-__" autocomplete="tel">
-            <div class="field-error">Введите корректный номер</div>
-          </div>
-          
-          <div class="field channel-field" style="margin-bottom:0">
-            <label>Куда прислать ссылку после звонка?</label>
-            <div class="contact-row contact-row-3" data-group="channel">
-              <button class="tile channel-tile" data-value="tg" type="button">
-                <div class="tile-icon">TG</div>
-                <div class="tile-label">Telegram</div>
-                <div class="tile-check"><svg viewBox="0 0 12 12"><path d="M2 6.3l2.2 2.2L10 3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-              </button>
-              <button class="tile channel-tile" data-value="wa" type="button">
-                <div class="tile-icon">WA</div>
-                <div class="tile-label">WhatsApp</div>
-                <div class="tile-check"><svg viewBox="0 0 12 12"><path d="M2 6.3l2.2 2.2L10 3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-              </button>
-              <button class="tile channel-tile" data-value="max" type="button">
-                <div class="tile-icon">M</div>
-                <div class="tile-label">MAX</div>
-                <div class="tile-check"><svg viewBox="0 0 12 12"><path d="M2 6.3l2.2 2.2L10 3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-              </button>
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-
-      <div class="wizard-nav">
-        <button class="btn btn-ghost" id="btnBack" aria-label="Назад" disabled>
-          <svg viewBox="0 0 24 24" fill="none"><path d="M15 5l-7 7 7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </button>
-        <button class="btn btn-primary" id="btnNext" disabled>
-          <span class="btn-text">Далее</span>
-          <span class="btn-spinner"></span>
-        </button>
-      </div>
-
+  <section class="card" id="secVehicle">
+    <h2>1. Автомобиль</h2><div class="hint">Категория и цель оформления</div>
+    <div class="tile-grid category-grid" data-group="category">
+      <button type="button" class="tile" data-value="A"><b>A — мотоцикл</b><small>6 990 ₽</small></button>
+      <button type="button" class="tile" data-value="B"><b>B — легковой</b><small>6 990 ₽</small></button>
+      <button type="button" class="tile" data-value="C"><b>C — грузовой</b><small>9 990 ₽</small></button>
+      <button type="button" class="tile" data-value="E"><b>E — прицеп</b><small>9 990 ₽</small></button>
     </div>
+    <div class="group" style="margin-top:14px"><span class="label">Для чего нужна диагностическая карта</span><div class="choices" data-group="purpose"><button type="button" class="choice" data-value="drive"><b>Для езды</b></button><button type="button" class="choice" data-value="registration"><b>Постановка на учёт</b></button></div></div>
+    <div class="price-line"><span style="color:var(--d);font-size:11px">Стоимость</span><br><strong id="pricePreview">—</strong></div>
   </section>
 
-  <!-- TRUST -->
-  <section class="trust">
-    <div class="trust-title"></div>
-    <div class="trust-grid">
-      <div class="trust-card">
-        <div class="trust-card-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><rect x="3.5" y="4" width="17" height="16" rx="3" stroke="currentColor" stroke-width="1.6"/></svg></div>
-        <div class="trust-card-text">Аккредитованные ПТО</div>
-      </div>
-      <div class="trust-card">
-        <div class="trust-card-icon"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8.2" stroke="currentColor" stroke-width="1.6"/><path d="M12 3.8v16.4M3.8 12h16.4" stroke="currentColor" stroke-width="1.4"/></svg></div>
-        <div class="trust-card-text">Карта в ЕАИСТО</div>
-      </div>
-      <div class="trust-card">
-        <div class="trust-card-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3l2.4 5.2L20 9l-4 4 1 5.5L12 16l-5 2.5 1-5.5-4-4 5.6-.8L12 3z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg></div>
-        <div class="trust-card-text">Помощь специалиста</div>
-      </div>
-      <div class="trust-card">
-        <div class="trust-card-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M4 12a8 8 0 0 1 13.6-5.7M20 12a8 8 0 0 1-13.6 5.7" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M18 3v4h-4M6 21v-4h4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-        <div class="trust-card-text">Работа по России</div>
-      </div>
+  <section class="card" id="secContact">
+    <h2>2. Контакты</h2><div class="hint">Куда оформить и кому сообщать статус</div>
+    <div class="group"><label class="label" for="city">Город</label><input class="input" id="city" placeholder="Например, Самара" autocomplete="address-level2"></div>
+    <div class="group"><label class="label" for="model">Марка и модель</label><input class="input" id="model" placeholder="Например, Hyundai Solaris"></div>
+    <div class="group"><label class="label" for="name">Имя</label><input class="input" id="name" placeholder="Ваше имя" autocomplete="given-name"></div>
+    <div class="group"><label class="label" for="phone">Телефон</label><input class="input" id="phone" type="tel" inputmode="tel" placeholder="+7 (___) ___-__-__" autocomplete="tel"></div>
+  </section>
+
+  <section class="card" id="secTech">
+    <h2>3. Данные автомобиля</h2><div class="hint">Поля меняются в зависимости от категории</div>
+    <div id="bSubtype" class="group hidden"><span class="label">Категория B</span><div class="choices" data-key="b_type"><button type="button" class="choice" data-value="B"><b>B обычная</b></button><button type="button" class="choice" data-value="B taxi"><b>B / B Такси</b></button></div></div>
+    <div id="fuelGroup" class="group"><span class="label">Топливо</span><div class="choices" data-key="fuel"><button type="button" class="choice" data-value="petrol"><b>Бензин</b></button><button type="button" class="choice" data-value="diesel"><b>Дизель</b></button></div></div>
+    <div class="group"><span class="label">Тип тормозной системы</span><div class="choices" data-key="brakes"><button type="button" class="choice" data-value="hydraulic"><b>Гидравлический</b></button><button type="button" class="choice" data-value="combined"><b>Комбинированный</b></button><button type="button" class="choice" data-value="mechanical"><b>Механический</b></button><button type="button" class="choice" data-value="none"><b>Отсутствует</b></button><button type="button" class="choice" data-value="pneumatic"><b>Пневматический</b></button></div></div>
+    <div id="eSubtype" class="group hidden"><span class="label">Что оформляем</span><div class="choices" data-key="e_type"><button type="button" class="choice" data-value="trailer"><b>Прицеп</b></button><button type="button" class="choice" data-value="semi"><b>Полуприцеп</b></button></div></div>
+    <div class="group"><label class="label" for="mileage">Пробег, км</label><input class="input" id="mileage" inputmode="numeric" placeholder="Например, 145000"></div>
+    <div class="group"><label class="label" for="tires">Марка шин</label><input class="input" id="tires" placeholder="Например, Cordiant"></div>
+    <div id="tacho" class="hidden"><div class="group"><label class="label" for="tachoModel">Марка и модель тахографа</label><input class="input" id="tachoModel" placeholder="Например, АТОЛ Drive 5"></div><div class="group"><label class="label" for="tachoSerial">Серийный номер тахографа</label><input class="input" id="tachoSerial" placeholder="Серийный номер"></div><label class="check"><input type="checkbox" id="tachoUnknown"><span><b>Данных тахографа нет</b><br>Подтверждаю, что данные тахографа мне неизвестны</span></label></div>
+  </section>
+
+  <section class="card" id="secPhotos">
+    <h2>4. Документы и фото</h2><div class="hint">Можно выбрать уже сделанные фотографии из галереи</div>
+    <div class="upload-grid">
+      <label class="upload" data-upload="sts_front"><strong>СТС — лицевая сторона</strong><span>Добавить фото</span><input type="file" id="sts_front" accept="image/*"></label>
+      <label class="upload" data-upload="sts_back"><strong>СТС — оборот</strong><span>Добавить фото</span><input type="file" id="sts_back" accept="image/*"></label>
+      <label class="upload" data-upload="car_front"><strong>Авто спереди</strong><span>Добавить фото</span><input type="file" id="car_front" accept="image/*"></label>
+      <label class="upload" data-upload="car_back"><strong>Авто сзади</strong><span>Добавить фото</span><input type="file" id="car_back" accept="image/*"></label>
     </div>
+    <div class="upload-note">Камера не запускается принудительно — можно выбрать фото из галереи.</div>
+    <div class="group" style="margin-top:14px"><label class="label" for="comment">Комментарий <span style="color:var(--f)">необязательно</span></label><textarea id="comment" placeholder="Если есть важное уточнение"></textarea></div>
   </section>
 
-  <p class="footer-note">Стоимость и срок подтверждаем после проверки заявки. Отправляя форму, вы соглашаетесь на обработку контактных данных.</p>
+  <section class="card" id="secPayment">
+    <h2>5. Оплата</h2><div class="hint">Переведите сумму и приложите чек</div>
+    <div class="payment-card"><div class="price" id="priceBig">—</div><b>Перевод на карту</b><div id="cardNumber" style="font-size:20px;font-weight:900;letter-spacing:.03em;margin-top:10px">2200 3961 •••• 3390</div><div class="btn-row"><button type="button" class="mini" id="showCard">Показать реквизиты</button><button type="button" class="mini" id="copyCard">Скопировать номер</button></div><div id="copyCardStatus" style="display:none;color:var(--ok);font-size:12px;margin-top:8px">Номер карты скопирован ✓</div></div>
+    <div style="margin-top:10px"><label class="upload" data-upload="receipt"><strong>Прикрепить чек</strong><span>Фото или скриншот</span><input type="file" id="receipt" accept="image/*"></label></div>
+  </section>
 
+  <section class="card" id="secChannel">
+    <h2>6. Куда присылать статус</h2><div class="hint">После отправки заявки откройте выбранный мессенджер</div>
+    <div class="tile-grid" data-group="channel"><button type="button" class="tile" data-value="tg"><b>Telegram</b><small>Статусы и PDF автоматически</small></button><button type="button" class="tile" data-value="max"><b>MAX</b><small>Статусы и PDF автоматически</small></button><button type="button" class="tile" data-value="wa"><b>WhatsApp</b><small>На указанный номер</small></button></div>
+  </section>
+
+  <section class="card">
+    <div class="errorbox" id="errorBox"></div>
+    <button class="submit" id="submitBtn" type="button">ОПЛАТИЛ — ОТПРАВИТЬ ЗАЯВКУ</button>
+    <div class="agreement">Нажимая кнопку, вы подтверждаете корректность введённых данных и приложенного чека.</div>
+  </section>
 </div>
 
-<!-- STICKY CTA -->
-<div class="sticky-cta" id="stickyCta">
-  <div class="sticky-cta-inner">
-    <button id="stickyCtaBtn">Оставить заявку</button>
-  </div>
-</div>
-
-<!-- SUCCESS OVERLAY -->
-<div class="success-overlay" id="successOverlay">
-  <div class="success-ring">
-    <svg viewBox="0 0 24 24" fill="none"><path class="success-check-path" d="M5 13l4 4 10-10" stroke="#2fd6b4" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-  </div>
-  <h2>Заявка принята</h2>
-  <p id="successText">Проверим данные и свяжемся с вами.</p>
-  <div class="success-order" id="successOrderId">№ —</div>
-  <a class="success-connect" id="successConnectBtn" href="#" style="display:none">Продолжить</a>
-  <div class="success-connect-hint" id="successConnectHint"></div>
-
-  <div class="success-steps">
-    <div class="success-step"><span class="success-step-num">1</span>Проверим заявку</div>
-    <div class="success-step"><span class="success-step-num">2</span>Согласуем детали</div>
-    <div class="success-step"><span class="success-step-num">3</span>Пришлём ссылку на документы</div>
-  </div>
-
-  <button class="success-close" id="successClose">Закрыть</button>
-</div>
+<section class="wait" id="uploadWait"><div class="round">↥</div><h2>ОТПРАВЛЯЕМ ЗАЯВКУ</h2><p><b>Не закрывайте страницу.</b><br>Фото и документы ещё загружаются. Дождитесь подтверждения отправки.</p><div class="progressText" id="uploadProgress">Подготовка…</div></section>
+<section class="success" id="success"><div class="round">✓</div><h2>ЗАЯВКА ОТПРАВЛЕНА</h2><p id="successMsg">Документы и чек получены.</p><div class="order-id" id="successOrder">Заказ —</div><a class="messenger-action" id="messengerAction" href="#" style="display:none">Перейти в мессенджер</a><div class="messenger-note" id="messengerNote"></div></section>
 
 <script>
 (function(){
-  "use strict";
-
-  // Paste the deployed Google Apps Script Web App URL here before launch.
-  var BACKEND_URL = "https://script.google.com/macros/s/AKfycbw0OYfKGVxbgJizlpHTbbQ_O5gIgov4p1kW_EsIjCuIX9aBAqogWGRle8XlgbvQcBqr/exec";
-  var TG_BOT_USERNAME = "avtodok_lead_bot";
-  var MAX_BOT_NAME = "id642101454567_bot";
-
-  /* ======================================================================
-     ARCHITECTURE NOTES — read before wiring up real integrations
-     ======================================================================
-     This file implements STAGE 1: a short qualifying lead form.
-     STAGE 2 (full order page: СТС, фото, пробег, тахограф, статусы заказа)
-     is a separate page/route, e.g. /order/{orderId}?t={accessToken}, that
-     a specialist sends the client after the qualifying call. It is not
-     built here — this file only needs to produce a `leadPayload` object
-     that a backend can turn into an order record with a unique orderId.
-
-     Suggested lead payload → order record mapping (for stage 2 backend):
-       orderId            -> generated by backend on lead creation
-       status              -> "Данные получены" (initial), then
-                               "Проверяем" → "Передано ПТО" → "В работе" → "Готово"
-       category            -> "B" | "C" | "E" | "other"
-                               (if category === "B", stage-2 order page should
-                               additionally ask: обычная B or B Такси)
-       purpose             -> "drive" | "registration"
-       tachographFields     -> only rendered in stage 2 when category === "C"
-       documents            -> sts_front, sts_back, photo_front, photo_back,
-                               payment_receipt (all uploaded in stage 2)
-
-     NEVER put bot tokens / API secrets in this file. This is a static
-     frontend (GitHub Pages). Real delivery must go through a serverless
-     endpoint you control, e.g.:
-       fetch('https://your-worker.example.workers.dev/lead', {
-         method:'POST', headers:{'Content-Type':'application/json'},
-         body: JSON.stringify(leadPayload)
-       })
-     That endpoint (Cloudflare Worker / Vercel function / Apps Script
-     web app) is the only place that should hold:
-       - Telegram Bot Token (send full lead to an internal chat)
-       - MAX integration token (short push notification)
-       - Google Sheets service account (optional lead log)
-     ====================================================================== */
-
-  // ---- capture acquisition context (Avito UTM / referrer) once on load
-  var qs = new URLSearchParams(window.location.search);
-  var acquisition = {
-    utm_source:   qs.get('utm_source')   || '',
-    utm_campaign: qs.get('utm_campaign') || '',
-    utm_medium:   qs.get('utm_medium')   || '',
-    ad:           qs.get('ad')           || '',
-    city_param:   qs.get('city')         || '',
-    referrer:     document.referrer || '',
-    landing_url:  window.location.href,
-    ts:           new Date().toISOString()
-  };
-
-  // ---- state
-  var state = {
-    step: 1,
-    totalSteps: 4,
-    data: {
-      category: null,
-      purpose: null,
-      city: '',
-      model: '',
-      name: '',
-      phone: '',
-      channel: null,
-      lead_token: ''
-    }
-  };
-
-  var $ = function(sel, ctx){ return (ctx||document).querySelector(sel); };
-  var $$ = function(sel, ctx){ return Array.prototype.slice.call((ctx||document).querySelectorAll(sel)); };
-
-  var wizardWrap   = $('#wizardWrap');
-  var steps        = $$('.step');
-  var progressFill = $('#progressFill');
-  var stepNumEl    = $('#stepNum');
-  var btnBack      = $('#btnBack');
-  var btnNext      = $('#btnNext');
-  var stickyCta    = $('#stickyCta');
-  var successOverlay = $('#successOverlay');
-
-  // ---- tile group wiring (category / purpose)
-  function wireTileGroup(group){
-    var els = $$('.tile[data-value]', group);
-    els.forEach(function(el){
-      el.addEventListener('click', function(){
-        els.forEach(function(o){ o.classList.remove('selected'); });
-        el.classList.add('selected');
-        var key = group.getAttribute('data-group');
-        state.data[key] = el.getAttribute('data-value');
-        validateStep(state.step);
-      });
-    });
-  }
-  $$('[data-group]').forEach(wireTileGroup);
-
-  // ---- phone mask
-  var phoneInput = $('#inputPhone');
-  phoneInput.addEventListener('input', function(){
-    var digits = phoneInput.value.replace(/\D/g,'');
-    if (digits.startsWith('8')) digits = '7' + digits.slice(1);
-    if (!digits.startsWith('7')) digits = '7' + digits;
-    digits = digits.slice(0,11);
-    var d = digits.slice(1);
-    var out = '+7';
-    if (d.length > 0) out += ' (' + d.slice(0,3);
-    if (d.length >= 3) out += ')';
-    if (d.length > 3) out += ' ' + d.slice(3,6);
-    if (d.length > 6) out += '-' + d.slice(6,8);
-    if (d.length > 8) out += '-' + d.slice(8,10);
-    phoneInput.value = out;
-    state.data.phone = out;
-    validateStep(state.step);
-  });
-
-  $('#inputCity').addEventListener('input', function(e){ state.data.city = e.target.value.trim(); validateStep(state.step); });
-  $('#inputModel').addEventListener('input', function(e){ state.data.model = e.target.value.trim(); validateStep(state.step); });
-  $('#inputName').addEventListener('input', function(e){ state.data.name = e.target.value.trim(); validateStep(state.step); });
-
-  // ---- validation per step
-  function validateStep(n){
-    var valid = false;
-    if (n === 1) valid = !!state.data.category;
-    if (n === 2) valid = !!state.data.purpose;
-    if (n === 3) valid = state.data.city.length > 1 && state.data.model.length > 1;
-    if (n === 4){
-      var phoneDigits = state.data.phone.replace(/\D/g,'');
-      valid = state.data.name.length > 1 && phoneDigits.length === 11 && !!state.data.channel;
-    }
-    btnNext.disabled = !valid;
-    return valid;
-  }
-
-  // ---- navigation
-  function renderStep(){
-    steps.forEach(function(s){
-      s.classList.toggle('active', Number(s.getAttribute('data-step')) === state.step);
-    });
-    progressFill.style.width = (state.step / state.totalSteps * 100) + '%';
-    stepNumEl.textContent = state.step;
-    btnBack.disabled = state.step === 1;
-    btnNext.querySelector('.btn-text').textContent = state.step === state.totalSteps ? 'Отправить' : 'Далее';
-    validateStep(state.step);
-  }
-
-  btnBack.addEventListener('click', function(){
-    if (state.step > 1){ state.step -= 1; renderStep(); }
-  });
-
-  btnNext.addEventListener('click', function(){
-    if (!validateStep(state.step)) return;
-    if (state.step < state.totalSteps){
-      state.step += 1;
-      renderStep();
-    } else {
-      submitLead();
-    }
-  });
-
-  renderStep();
-
-  // ---- scroll-to-wizard from hero / sticky cta
-  function scrollToWizard(){
-    wizardWrap.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }
-  $('#heroCta').addEventListener('click', scrollToWizard);
-  $('#stickyCtaBtn').addEventListener('click', scrollToWizard);
-
-  // hide sticky cta once wizard card is visible, or once success is shown
-  var io = new IntersectionObserver(function(entries){
-    entries.forEach(function(entry){
-      stickyCta.classList.toggle('hidden', entry.isIntersecting);
-    });
-  }, { threshold: 0.35 });
-  io.observe(wizardWrap);
-
-  // ---- submit
-  function buildPayload(){
-    return {
-      category: state.data.category,
-      purpose: state.data.purpose,
-      city: state.data.city,
-      model: state.data.model,
-      name: state.data.name,
-      phone: state.data.phone,
-      channel: state.data.channel,
-      lead_token: state.data.lead_token,
-      acquisition: acquisition
-    };
-  }
-
-  function makeLeadToken(){
-    var bytes = new Uint8Array(12);
-    if (window.crypto && crypto.getRandomValues) crypto.getRandomValues(bytes);
-    else for (var i=0;i<bytes.length;i++) bytes[i]=Math.floor(Math.random()*256);
-    return Array.from(bytes).map(function(b){return b.toString(16).padStart(2,'0');}).join('');
-  }
-
-  function sendLead(payload){
-    if (!BACKEND_URL) {
-      console.log('[preview lead]', payload);
-      return Promise.resolve({ preview: true });
-    }
-    return fetch(BACKEND_URL, {
-      method: 'POST',
-      mode: 'no-cors',
-      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-      body: JSON.stringify({ type: 'lead', payload: payload })
-    });
-  }
-
-  function submitLead(){
-    btnNext.classList.add('loading');
-    btnNext.disabled = true;
-    btnBack.disabled = true;
-
-    if (!state.data.lead_token) state.data.lead_token = makeLeadToken();
-    var payload = buildPayload();
-
-    sendLead(payload).then(function(){
-      btnNext.classList.remove('loading');
-      $('#successOrderId').textContent = 'Заявка отправлена';
-      var channel = state.data.channel;
-      var connect = $('#successConnectBtn');
-      if (channel === 'wa') {
-        $('#successText').textContent = 'Заявка принята. После звонка пришлём ссылку в WhatsApp на указанный номер.';
-        connect.style.display = 'none';
-        $('#successConnectHint').textContent = 'Больше ничего делать не нужно.';
-      } else {
-        var ch = channel === 'max' ? 'MAX' : 'Telegram';
-        $('#successText').textContent = 'Для продолжения оформления обязательно перейдите в ' + ch + '. После согласования ссылка на документы придёт туда автоматически.';
-        connect.textContent = 'Продолжить в ' + ch;
-        if (channel === 'tg') {
-          connect.href = 'https://t.me/' + TG_BOT_USERNAME + '?start=lead_' + encodeURIComponent(state.data.lead_token);
-        } else {
-          connect.href = 'https://max.ru/' + MAX_BOT_NAME + '?start=lead_' + encodeURIComponent(state.data.lead_token);
-        }
-        connect.style.display = 'block';
-        $('#successConnectHint').textContent = 'Обязательно перейдите в ' + ch + ' и нажмите «Запустить». Без этого мы не сможем прислать вам документы и статус заказа.';
-      }
-      successOverlay.classList.add('visible');
-      stickyCta.classList.add('hidden');
-    });
-  }
-
-  $('#successClose').addEventListener('click', function(){
-    successOverlay.classList.remove('visible');
-  });
-
+'use strict';
+var BACKEND_URL='https://script.google.com/macros/s/AKfycbw0OYfKGVxbgJizlpHTbbQ_O5gIgov4p1kW_EsIjCuIX9aBAqogWGRle8XlgbvQcBqr/exec';
+var TG_BOT_USERNAME='avtodok_lead_bot';
+var MAX_BOT_NAME='id642101454567_bot';
+var PAYMENT_CARD='2200396127223390';
+var PAYMENT_CARD_MASKED='2200 3961 •••• 3390';
+var qs=new URLSearchParams(location.search);
+var acquisition={utm_source:qs.get('utm_source')||'',utm_campaign:qs.get('utm_campaign')||'',utm_medium:qs.get('utm_medium')||'',ad:qs.get('ad')||'',referrer:document.referrer||'',landing_url:location.href,ts:new Date().toISOString()};
+var state={category:'',purpose:'',city:'',model:'',name:'',phone:'',channel:'',data:{b_type:'',fuel:'',brakes:'',e_type:'',mileage:'',tires:'',tacho_model:'',tacho_serial:'',tacho_unknown:false,comment:''}};
+var $=(s,c)=>(c||document).querySelector(s), $$=(s,c)=>Array.from((c||document).querySelectorAll(s));
+function makeLeadToken(){var bytes=new Uint8Array(12);if(window.crypto&&crypto.getRandomValues)crypto.getRandomValues(bytes);else for(var i=0;i<bytes.length;i++)bytes[i]=Math.floor(Math.random()*256);return Array.from(bytes).map(b=>b.toString(16).padStart(2,'0')).join('');}
+function makeOrderId(){var bytes=new Uint8Array(4);if(window.crypto&&crypto.getRandomValues)crypto.getRandomValues(bytes);else for(var i=0;i<bytes.length;i++)bytes[i]=Math.floor(Math.random()*256);var rnd=Array.from(bytes).map(b=>b.toString(16).padStart(2,'0')).join('').toUpperCase();return 'AD-'+String(Date.now()).slice(-6)+'-'+rnd.slice(0,6);}
+var leadToken=makeLeadToken(),orderId=makeOrderId();
+function priceFor(category){return (category==='A'||category==='B')?6990:((category==='C'||category==='E')?9990:0);}
+function priceText(){var p=priceFor(state.category);return p?p.toLocaleString('ru-RU')+' ₽':'—';}
+function updateCategoryUI(){var c=state.category;$('#bSubtype').classList.toggle('hidden',c!=='B');$('#eSubtype').classList.toggle('hidden',c!=='E');$('#tacho').classList.toggle('hidden',c!=='C');$('#fuelGroup').classList.toggle('hidden',c==='E');$('#pricePreview').textContent=priceText();$('#priceBig').textContent=priceText();}
+function wireGroup(group){var key=group.dataset.group||group.dataset.key;$$('[data-value]',group).forEach(btn=>btn.addEventListener('click',function(){$$('[data-value]',group).forEach(x=>x.classList.remove('selected'));btn.classList.add('selected');var value=btn.dataset.value;if(group.dataset.group){state[key]=value;if(key==='category')updateCategoryUI();}else state.data[key]=value;}));}
+$$('[data-group],[data-key]').forEach(wireGroup);
+function selectPrefill(groupName,value){if(!value)return;var group=$('[data-group="'+groupName+'"]');if(!group)return;var btn=$$('[data-value]',group).find(function(x){return x.dataset.value===value;});if(btn)btn.click();}
+selectPrefill('category',String(qs.get('category')||'').toUpperCase());selectPrefill('purpose',qs.get('purpose')||'');selectPrefill('channel',String(qs.get('channel')||'').toLowerCase());
+['city','model','name'].forEach(id=>{var el=$('#'+id);el.value=qs.get(id)||'';state[id]=el.value.trim();el.addEventListener('input',()=>state[id]=el.value.trim());});
+var phoneInput=$('#phone');phoneInput.value=qs.get('phone')||'';function syncPhone(){var digits=phoneInput.value.replace(/\D/g,'');if(digits.startsWith('8'))digits='7'+digits.slice(1);if(!digits.startsWith('7'))digits='7'+digits;digits=digits.slice(0,11);var d=digits.slice(1),out='+7';if(d.length>0)out+=' ('+d.slice(0,3);if(d.length>=3)out+=')';if(d.length>3)out+=' '+d.slice(3,6);if(d.length>6)out+='-'+d.slice(6,8);if(d.length>8)out+='-'+d.slice(8,10);phoneInput.value=out;state.phone=out;}phoneInput.addEventListener('input',syncPhone);if(phoneInput.value)syncPhone();
+['mileage','tires','comment'].forEach(id=>$('#'+id).addEventListener('input',()=>state.data[id]=$('#'+id).value.trim()));$('#tachoModel').addEventListener('input',()=>state.data.tacho_model=$('#tachoModel').value.trim());$('#tachoSerial').addEventListener('input',()=>state.data.tacho_serial=$('#tachoSerial').value.trim());$('#tachoUnknown').addEventListener('change',function(){state.data.tacho_unknown=this.checked;$('#tachoModel').disabled=this.checked;$('#tachoSerial').disabled=this.checked;if(this.checked){$('#tachoModel').value='';$('#tachoSerial').value='';state.data.tacho_model='';state.data.tacho_serial='';}});
+$$('input[type=file]').forEach(el=>el.addEventListener('change',function(){var lab=el.closest('.upload');if(el.files.length){lab.classList.add('done');lab.querySelector('span').textContent='Добавлено ✓';}}));
+var cardVisible=false;$('#showCard').addEventListener('click',function(){cardVisible=!cardVisible;$('#cardNumber').textContent=cardVisible?PAYMENT_CARD.replace(/(\d{4})(?=\d)/g,'$1 ').trim():PAYMENT_CARD_MASKED;this.textContent=cardVisible?'Скрыть реквизиты':'Показать реквизиты';});$('#copyCard').addEventListener('click',async function(){var ok=false;try{if(navigator.clipboard&&window.isSecureContext){await navigator.clipboard.writeText(PAYMENT_CARD);ok=true;}}catch(e){}if(!ok){var ta=document.createElement('textarea');ta.value=PAYMENT_CARD;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.select();try{ok=document.execCommand('copy');}catch(e){}ta.remove();}if(ok){$('#copyCardStatus').style.display='block';setTimeout(()=>$('#copyCardStatus').style.display='none',1800);}else alert('Не удалось скопировать автоматически. Нажмите «Показать реквизиты» и скопируйте номер вручную.');});
+function missing(){var digits=state.phone.replace(/\D/g,'');if(!state.category)return['Выберите категорию автомобиля.','secVehicle'];if(!state.purpose)return['Укажите, для чего нужна диагностическая карта.','secVehicle'];if(state.city.length<2||state.model.length<2)return['Укажите город и марку/модель автомобиля.','secContact'];if(state.name.length<2||digits.length!==11)return['Укажите имя и корректный номер телефона.','secContact'];if(!state.data.mileage||!state.data.tires)return['Укажите пробег и марку шин.','secTech'];if(state.category==='B'&&!state.data.b_type)return['Выберите тип категории B.','secTech'];if(state.category!=='E'&&!state.data.fuel)return['Выберите тип топлива.','secTech'];if(!state.data.brakes)return['Выберите тип тормозной системы.','secTech'];if(state.category==='E'&&!state.data.e_type)return['Укажите прицеп или полуприцеп.','secTech'];if(state.category==='C'&&!state.data.tacho_unknown&&(!state.data.tacho_model||!state.data.tacho_serial))return['Укажите данные тахографа или отметьте, что они неизвестны.','secTech'];if(!['sts_front','sts_back','car_front','car_back'].every(id=>$('#'+id).files.length))return['Добавьте все четыре фотографии.','secPhotos'];if(!$('#receipt').files.length)return['Прикрепите чек об оплате.','secPayment'];if(!state.channel)return['Выберите мессенджер для статусов заказа.','secChannel'];return null;}
+function showError(m){var box=$('#errorBox');if(!m){box.classList.remove('show');return;}box.textContent=m[0];box.classList.add('show');$('#'+m[1]).scrollIntoView({behavior:'smooth',block:'start'});}
+async function compressImage(file,maxSide,quality){if(!file.type.startsWith('image/'))return file;var img=await new Promise((res,rej)=>{var i=new Image(),u=URL.createObjectURL(file);i.onload=()=>{URL.revokeObjectURL(u);res(i)};i.onerror=rej;i.src=u;});var scale=Math.min(1,maxSide/Math.max(img.width,img.height)),c=document.createElement('canvas');c.width=Math.round(img.width*scale);c.height=Math.round(img.height*scale);c.getContext('2d').drawImage(img,0,0,c.width,c.height);return await new Promise(res=>c.toBlob(b=>res(new File([b],file.name.replace(/\.[^.]+$/,'.jpg'),{type:'image/jpeg'})),'image/jpeg',quality));}
+async function fileToBase64(file){var f=await compressImage(file,1600,.82);return await new Promise((res,rej)=>{var r=new FileReader();r.onload=()=>res({name:f.name,type:f.type,data:String(r.result).split(',')[1]});r.onerror=rej;r.readAsDataURL(f);});}
+async function post(obj){await fetch(BACKEND_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(obj)});}
+var isUploading=false;window.addEventListener('beforeunload',function(e){if(isUploading){e.preventDefault();e.returnValue='Заявка и документы ещё отправляются. Не закрывайте страницу.';}});
+function buildOrderData(){var d={brakes:state.data.brakes,mileage:state.data.mileage,tires:state.data.tires,comment:state.data.comment};if(state.category!=='E')d.fuel=state.data.fuel;if(state.category==='B')d.b_type=state.data.b_type;if(state.category==='E')d.e_type=state.data.e_type;if(state.category==='C'){d.tacho_unknown=state.data.tacho_unknown;d.tacho_model=state.data.tacho_model;d.tacho_serial=state.data.tacho_serial;}return d;}
+async function submitAll(){var price=priceFor(state.category),orderData=buildOrderData();var payload={lead_token:leadToken,category:state.category,purpose:state.purpose,city:state.city,model:state.model,name:state.name,phone:state.phone,channel:state.channel,acquisition:acquisition};var progress=$('#uploadProgress');progress.textContent='1 из 8 — создаём заказ';await post({type:'full_order_init',order_id:orderId,payload:payload,data:orderData});progress.textContent='2 из 8 — данные автомобиля';await post({type:'order',order:orderId,category:state.category,purpose:state.purpose,price:String(price),name:state.name,phone:state.phone,city:state.city,model:state.model,data:orderData,ts:new Date().toISOString()});var files=['sts_front','sts_back','car_front','car_back','receipt'];for(var i=0;i<files.length;i++){var id=files[i],file=$('#'+id).files[0];progress.textContent=(i+3)+' из 8 — загружаем файл';var data=await fileToBase64(file);await post({type:'file',order:orderId,field:id,name:state.name,phone:state.phone,file:data});}progress.textContent='8 из 8 — завершаем';await post({type:'order_complete',order:orderId,lead_token:leadToken,channel:state.channel,purpose:state.purpose,city:state.city,model:state.model,name:state.name,phone:state.phone,category:state.category,price:String(price)});}
+function showSuccess(){var a=$('#messengerAction'),note=$('#messengerNote');$('#successOrder').textContent='Заказ '+orderId;if(state.channel==='tg'){a.style.display='block';a.textContent='ПЕРЕЙТИ В TELEGRAM';a.href='https://t.me/'+TG_BOT_USERNAME+'?start=lead_'+encodeURIComponent(leadToken);$('#successMsg').textContent='Документы и чек получены. Для получения статусов и готового PDF обязательно перейдите в Telegram и нажмите «Запустить».';note.textContent='Не закрывайте этот шаг, пока Telegram не откроется.';}else if(state.channel==='max'){a.style.display='block';a.textContent='ПЕРЕЙТИ В MAX';a.href='https://max.ru/'+MAX_BOT_NAME+'?start=lead_'+encodeURIComponent(leadToken);$('#successMsg').textContent='Документы и чек получены. Для получения статусов и готового PDF обязательно перейдите в MAX и запустите бота.';note.textContent='После запуска бота заказ привяжется автоматически.';}else{a.style.display='none';$('#successMsg').textContent='Документы и чек получены. Статусы заказа и готовую диагностическую карту отправим в WhatsApp на указанный номер.';note.textContent='Дополнительную ссылку на документы открывать не нужно.';}$('#success').classList.add('show');}
+$('#submitBtn').addEventListener('click',async function(){var m=missing();if(m){showError(m);return;}showError(null);this.disabled=true;isUploading=true;$('#uploadWait').classList.add('show');try{await submitAll();isUploading=false;$('#uploadWait').classList.remove('show');showSuccess();}catch(e){isUploading=false;$('#uploadWait').classList.remove('show');this.disabled=false;alert('Не удалось отправить все данные. Проверьте интернет и нажмите «Отправить заявку» ещё раз. Уже отправленные части не продублируются.');}});
+updateCategoryUI();
 })();
 </script>
 </body>
