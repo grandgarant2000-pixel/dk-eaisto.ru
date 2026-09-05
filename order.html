@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="autodoc-version" content="v10-final">
+<meta name="autodoc-version" content="v11-final">
 <title>АвтоДок РФ — ОФОРМЛЕНИЕ</title>
 <style>
 :root{--bg:#0a0d13;--surface:#131826;--surface2:#171d2d;--border:rgba(255,255,255,.09);--text:#f2f4f8;--dim:#8b93a8;--faint:#5b6478;--accent:#4c82ff;--accent2:#2f5fd6;--accentSoft:rgba(76,130,255,.13);--success:#2fd6b4;--danger:#ff6b6b;--font:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;--ease:cubic-bezier(.22,1,.36,1)}
@@ -49,6 +49,7 @@ h2{font-size:21px;font-weight:850}.hint{font-size:12px;color:#7895b3;margin-bott
 .success{text-align:center}
 @media(max-width:380px){.top .pill{position:static;margin-left:10px}.top{justify-content:space-between}}
 
+.success b{color:#fff}.success a.next{display:inline-flex;align-items:center;justify-content:center;min-height:52px}.upload-note{font-size:12px;color:var(--dim);text-align:center;margin:10px 0 0}
 </style>
 </head>
 <body>
@@ -75,7 +76,7 @@ h2{font-size:21px;font-weight:850}.hint{font-size:12px;color:#7895b3;margin-bott
 
       <div id="fuelGroup" class="group"><span class="label">Топливо</span><div class="choices" data-key="fuel"><button class="choice" data-value="petrol"><b>Бензин</b></button><button class="choice" data-value="diesel"><b>Дизель</b></button></div></div>
 
-      <div id="brakeGroup" class="group"><span class="label">Тормозная система</span><div class="choices" data-key="brakes"><button class="choice" data-value="hydraulic"><b>Гидравлическая</b></button><button class="choice" data-value="pneumatic"><b>Пневматическая</b></button><button class="choice hidden" id="brakeNone" data-value="none"><b>Нет</b></button></div></div>
+      <div id="brakeGroup" class="group"><span class="label">Тип тормозной системы</span><div class="choices" data-key="brakes"><button class="choice" data-value="hydraulic"><b>Гидравлический</b></button><button class="choice" data-value="combined"><b>Комбинированный</b></button><button class="choice" data-value="mechanical"><b>Механический</b></button><button class="choice" data-value="none"><b>Отсутствует</b></button><button class="choice" data-value="pneumatic"><b>Пневматический</b></button></div></div>
 
       <div id="eSubtype" class="group hidden"><span class="label">Что оформляем</span><div class="choices" data-key="e_type"><button class="choice" data-value="trailer"><b>Прицеп</b></button><button class="choice" data-value="semi"><b>Полуприцеп</b></button></div></div>
 
@@ -92,11 +93,12 @@ h2{font-size:21px;font-weight:850}.hint{font-size:12px;color:#7895b3;margin-bott
     <section class="step" data-step="2">
       <h2>Фото документов</h2><div class="hint">Добавьте 4 фото</div>
       <div class="upload-grid">
-        <label class="upload" data-upload="sts_front"><strong>СТС — лицевая сторона</strong><span>Добавить фото</span><input type="file" id="sts_front" accept="image/*" capture="environment"></label>
-        <label class="upload" data-upload="sts_back"><strong>СТС — оборот</strong><span>Добавить фото</span><input type="file" id="sts_back" accept="image/*" capture="environment"></label>
-        <label class="upload" data-upload="car_front"><strong>Фото автомобиля спереди</strong><span>Добавить фото</span><input type="file" id="car_front" accept="image/*" capture="environment"></label>
-        <label class="upload" data-upload="car_back"><strong>Фото автомобиля сзади</strong><span>Добавить фото</span><input type="file" id="car_back" accept="image/*" capture="environment"></label>
+        <label class="upload" data-upload="sts_front"><strong>СТС — лицевая сторона</strong><span>Добавить фото</span><input type="file" id="sts_front" accept="image/*"></label>
+        <label class="upload" data-upload="sts_back"><strong>СТС — оборот</strong><span>Добавить фото</span><input type="file" id="sts_back" accept="image/*"></label>
+        <label class="upload" data-upload="car_front"><strong>Фото автомобиля спереди</strong><span>Добавить фото</span><input type="file" id="car_front" accept="image/*"></label>
+        <label class="upload" data-upload="car_back"><strong>Фото автомобиля сзади</strong><span>Добавить фото</span><input type="file" id="car_back" accept="image/*"></label>
       </div>
+      <div class="upload-note">Можно выбрать уже сделанные фотографии из галереи телефона.</div>
       <div class="group" style="margin-top:14px"><label class="label" for="comment">Комментарий <span style="color:var(--faint)">необязательно</span></label><textarea id="comment" placeholder="Если есть важное уточнение"></textarea></div>
     </section>
 
@@ -117,7 +119,8 @@ h2{font-size:21px;font-weight:850}.hint{font-size:12px;color:#7895b3;margin-bott
     </section>
 
     <div class="nav" id="nav"><button class="btn back" id="back" disabled>←</button><button class="btn next" id="next">Далее</button></div>
-    <section class="success" id="success"><div class="ok">✓</div><h2>ЗАЯВКА ПРИНЯТА</h2><p>Документы получены. Мы свяжемся, если понадобится уточнение.</p></section>
+    <section class="success" id="success"><div class="ok">✓</div><h2>ДОКУМЕНТЫ ОТПРАВЛЕНЫ</h2><p id="successMsg">Документы и чек получены. Дальнейший статус заказа придёт в выбранный мессенджер.</p><a id="returnMessenger" class="btn next" href="#" style="display:none;text-decoration:none;margin-top:20px">Вернуться в мессенджер</a></section>
+    <section class="success" id="uploadWait"><div class="ok">↥</div><h2>ОТПРАВЛЯЕМ ДОКУМЕНТЫ</h2><p><b>Не закрывайте эту страницу.</b><br>Дождитесь подтверждения отправки.</p><div id="uploadProgress" class="price" style="font-size:24px;margin-top:18px">Подготовка…</div></section>
   </main>
 </div>
 
@@ -126,14 +129,19 @@ h2{font-size:21px;font-weight:850}.hint{font-size:12px;color:#7895b3;margin-bott
 'use strict';
 var BACKEND_URL="https://script.google.com/macros/s/AKfycbw0OYfKGVxbgJizlpHTbbQ_O5gIgov4p1kW_EsIjCuIX9aBAqogWGRle8XlgbvQcBqr/exec"; // paste deployed Apps Script URL before launch
 var qs=new URLSearchParams(location.search);
-var category=(qs.get('category')||'B').toUpperCase();
+var category=String(qs.get('category')||'').toUpperCase();
+var allowedCategories=['A','B','C','E'];
+if(allowedCategories.indexOf(category)===-1){document.body.innerHTML='<div style="max-width:520px;margin:80px auto;padding:24px;color:white;text-align:center;font-family:system-ui"><h2>Ошибка ссылки заказа</h2><p>Категория автомобиля не определена. Вернитесь в бот и откройте ссылку на документы ещё раз.</p></div>';return;}
 var purpose=qs.get('purpose')||'drive';
 var orderId=qs.get('order')||'';
-var price=qs.get('price')||'';
+var price=qs.get('price')||((category==='A'||category==='B')?'6990':'9990');
 var model=qs.get('model')||'';
 var clientName=qs.get('name')||'';
 var phone=qs.get('phone')||'';
 var city=qs.get('city')||'';
+var channel=String(qs.get('channel')||'').toLowerCase();
+var TG_BOT_USERNAME='avtodok_lead_bot';
+var MAX_BOT_NAME='id642101454567_bot';
 var state={step:1,data:{b_type:'',fuel:'',brakes:'',e_type:'',mileage:'',tires:'',tacho_model:'',tacho_serial:'',tacho_unknown:false,comment:''}};
 var $=(s,c)=>(c||document).querySelector(s), $$=(s,c)=>Array.from((c||document).querySelectorAll(s));
 $('#orderPill').textContent=orderId?'Заказ '+orderId:'Заказ';
@@ -180,8 +188,7 @@ $('#copyCard').addEventListener('click',async function(){
 });
 if(category==='B') $('#bSubtype').classList.remove('hidden');
 if(category==='C') $('#tacho').classList.remove('hidden');
-if(category==='E') { $('#eSubtype').classList.remove('hidden'); $('#fuelGroup').classList.add('hidden'); $('#brakeNone').classList.remove('hidden'); }
-if(category==='OTHER'){ $('#fuelGroup').classList.add('hidden'); $('#brakeGroup').classList.add('hidden'); }
+if(category==='E') { $('#eSubtype').classList.remove('hidden'); $('#fuelGroup').classList.add('hidden'); }
 
 $$('[data-key]').forEach(function(group){ $$('.choice',group).forEach(function(btn){btn.addEventListener('click',function(e){e.preventDefault(); $$('.choice',group).forEach(x=>x.classList.remove('selected'));btn.classList.add('selected');state.data[group.dataset.key]=btn.dataset.value;validate();});});});
 ['mileage','tires','tachoModel','tachoSerial','comment'].forEach(function(id){var el=$('#'+id);if(el)el.addEventListener('input',function(){var key={tachoModel:'tacho_model',tachoSerial:'tacho_serial'}[id]||id;state.data[key]=el.value.trim();validate();});});
@@ -191,13 +198,13 @@ $$('input[type=file]').forEach(function(el){el.addEventListener('change',functio
 function step1Valid(){
  if(!state.data.mileage||!state.data.tires)return false;
  if(category==='B' && !state.data.b_type)return false;
+ if(category==='A' && (!state.data.fuel||!state.data.brakes))return false;
  if(category==='C'){
    if(!state.data.fuel||!state.data.brakes)return false;
    if(!state.data.tacho_unknown && (!state.data.tacho_model||!state.data.tacho_serial))return false;
  }
  if(category==='B' && (!state.data.fuel||!state.data.brakes))return false;
  if(category==='E' && (!state.data.e_type||!state.data.brakes))return false;
- if(category==='E' && !state.data.e_type)return false;
  return true;
 }
 function step2Valid(){return ['sts_front','sts_back','car_front','car_back'].every(id=>$('#'+id).files.length>0);}
@@ -205,7 +212,10 @@ function step3Valid(){return $('#receipt').files.length>0;}
 function validate(){var ok=state.step===1?step1Valid():state.step===2?step2Valid():step3Valid();$('#next').disabled=!ok;return ok;}
 function render(){ $$('.step').forEach(s=>s.classList.toggle('active',Number(s.dataset.step)===state.step));$('#bar').style.width=(state.step/3*100)+'%';$('#back').disabled=state.step===1;$('#next').textContent=state.step===3?'Отправить':'Далее';validate(); }
 $('#back').addEventListener('click',function(){if(state.step>1){state.step--;render();}});
-$('#next').addEventListener('click',async function(){if(!validate())return;if(state.step<3){state.step++;render();return;}this.disabled=true;this.textContent='Отправка…';try{await submitAll();$('#nav').classList.add('hidden');$$('.step').forEach(s=>s.classList.remove('active'));$('#bar').style.width='100%';$('#success').classList.add('show');}catch(e){alert('Не удалось отправить. Проверьте интернет и попробуйте ещё раз.');this.textContent='Отправить';validate();}});
+var isUploading=false;
+window.addEventListener('beforeunload',function(e){if(isUploading){e.preventDefault();e.returnValue='Документы ещё отправляются. Не закрывайте страницу.';}});
+$('#next').addEventListener('click',async function(){if(!validate())return;if(state.step<3){state.step++;render();return;}this.disabled=true;this.textContent='Отправка…';isUploading=true;$('#nav').classList.add('hidden');$$('.step').forEach(s=>s.classList.remove('active'));$('#uploadWait').classList.add('show');$('#uploadProgress').textContent='Подготовка…';try{await submitAll();isUploading=false;$('#uploadWait').classList.remove('show');$('#bar').style.width='100%';configureReturnButton();$('#success').classList.add('show');}catch(e){isUploading=false;$('#uploadWait').classList.remove('show');$('#nav').classList.remove('hidden');render();alert('Не удалось отправить все документы. Страница не закрыта — проверьте интернет и нажмите «Отправить» ещё раз.');this.textContent='Отправить';validate();}});
+function configureReturnButton(){var a=$('#returnMessenger');if(channel==='tg'){a.textContent='Вернуться в Telegram';a.href='https://t.me/'+TG_BOT_USERNAME;$('#successMsg').textContent='Документы получены. Вернитесь в Telegram — там будут статусы заказа и готовая диагностическая карта.';a.style.display='inline-flex';}else if(channel==='max'){a.textContent='Вернуться в MAX';a.href='https://max.ru/'+MAX_BOT_NAME;$('#successMsg').textContent='Документы получены. Вернитесь в MAX — там будут статусы заказа и готовая диагностическая карта.';a.style.display='inline-flex';}else{$('#successMsg').textContent='Документы получены. Мы сообщим о готовности по WhatsApp.';}}
 
 async function compressImage(file,maxSide,quality){
  if(!file.type.startsWith('image/'))return file;
@@ -217,8 +227,11 @@ async function fileToBase64(file){var f=await compressImage(file,1600,.82);retur
 async function post(obj){if(!BACKEND_URL){console.log('[preview]',obj);return;}await fetch(BACKEND_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(obj)});}
 async function submitAll(){
  var meta={type:'order',order:orderId,category:category,purpose:purpose,price:price,name:clientName,phone:phone,city:city,model:model,data:state.data,ts:new Date().toISOString()};
+ $('#uploadProgress').textContent='Данные заказа…';
  await post(meta);
- for(const id of ['sts_front','sts_back','car_front','car_back','receipt']){var file=$('#'+id).files[0];if(file){var payload=await fileToBase64(file);await post({type:'file',order:orderId,field:id,name:clientName,phone:phone,file:payload});}}
+ var files=['sts_front','sts_back','car_front','car_back','receipt'];
+ for(var i=0;i<files.length;i++){var id=files[i],file=$('#'+id).files[0];if(file){$('#uploadProgress').textContent='Файл '+(i+1)+' из '+files.length;var payload=await fileToBase64(file);await post({type:'file',order:orderId,field:id,name:clientName,phone:phone,file:payload});}}
+ $('#uploadProgress').textContent='Завершаем отправку…';
  await post({type:'order_complete',order:orderId,name:clientName,phone:phone,category:category,price:price});
 }
 render();

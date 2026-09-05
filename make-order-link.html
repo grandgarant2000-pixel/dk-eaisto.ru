@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="autodoc-version" content="v10-final">
+<meta name="autodoc-version" content="v11-final">
 <title>АвтоДок — новый заказ</title>
 <style>
 :root{--bg:#020914;--s:#07162c;--s2:#0b203d;--b:rgba(61,183,255,.28);--t:#f8fbff;--d:#91abc6;--a:#118dff}
@@ -20,7 +20,7 @@ h1{font-size:27px;margin:4px 0 5px}p{color:var(--d);font-size:13px;margin:0 0 16
 <p>Когда клиент сразу позвонил и уже согласен.</p>
 <div class="box">
   <div class="row">
-    <div class="g"><label>Категория</label><select id="cat"><option value="B">B / такси — 6 990 ₽</option><option value="C">C — 9 990 ₽</option><option value="E">Прицеп — 9 990 ₽</option></select></div>
+    <div class="g"><label>Категория</label><select id="cat"><option value="A">A / мото — 6 990 ₽</option><option value="B">B / легковой / такси — 6 990 ₽</option><option value="C">C / грузовой — 9 990 ₽</option><option value="E">E / прицеп — 9 990 ₽</option></select></div>
     <div class="g"><label>Цель</label><select id="purpose"><option value="drive">Для езды</option><option value="registration">Постановка на учёт</option></select></div>
   </div>
   <div class="g"><label>Канал клиента</label><select id="channel"><option value="tg">Telegram</option><option value="wa">WhatsApp</option><option value="max">MAX</option></select></div>
@@ -68,7 +68,7 @@ $('phone').addEventListener('focus',function(){ if(!this.value) this.value='+7';
 
 function digits(s){let d=String(s||'').replace(/\D/g,'');if(d.length===11&&d[0]==='8')d='7'+d.slice(1);if(d.length===10)d='7'+d;return d;}
 function orderId(){return 'AD-'+String(Date.now()).slice(-8)}
-function orderUrl(data,id){const p=new URLSearchParams({order:id,price:data.category==='B'?'6990':'9990',category:data.category,purpose:data.purpose,city:data.city,model:data.model,name:data.name,phone:data.phone,channel:data.channel});return ORDER_BASE+'?'+p.toString();}
+function orderUrl(data,id){const p=new URLSearchParams({order:id,price:(data.category==='A'||data.category==='B')?'6990':'9990',category:data.category,purpose:data.purpose,city:data.city,model:data.model,name:data.name,phone:data.phone,channel:data.channel});return ORDER_BASE+'?'+p.toString();}
 
 $('create').onclick=async function(){
   const leadToken=token(), oid=orderId();
