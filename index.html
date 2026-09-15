@@ -3,86 +3,391 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="autodoc-version" content="v12.2-final">
+<meta name="autodoc-version" content="v12.9-sharp-all">
 <title>АвтоДок РФ — Техосмотр по России</title>
 <meta name="description" content="Оформление техосмотра: данные автомобиля, документы, оплата и отправка заявки в одном месте.">
 <style>
-:root{--bg:#020914;--s:#07162c;--s2:#0b203d;--b:rgba(61,183,255,.26);--t:#f8fbff;--d:#9db8d2;--f:#6985a1;--a:#118dff;--a2:#0d63e8;--ok:#24d8ff;--bad:#ff6b6b}
-*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}html{scroll-behavior:smooth}body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:radial-gradient(circle at 50% -10%,rgba(0,132,255,.24),transparent 34%),linear-gradient(180deg,#020914,#03101f 48%,#020914);color:var(--t);min-height:100vh;line-height:1.45}.shell{max-width:560px;margin:auto;padding:14px 14px 80px}.top{display:flex;justify-content:space-between;align-items:center;padding:4px 2px 10px}.brand{font-weight:900}.brand small{display:block;color:var(--f);font-weight:600;font-size:11px}.pill{font-size:11px;color:#c7dcf3;border:1px solid var(--b);background:rgba(4,26,52,.72);padding:6px 9px;border-radius:999px}.hero{padding:24px 17px 18px;border:1px solid rgba(55,190,255,.48);border-radius:24px;background:linear-gradient(180deg,rgba(5,26,53,.94),rgba(3,16,34,.94));box-shadow:0 0 26px rgba(0,159,255,.11)}.hero h1{font-size:33px;line-height:1.03;font-weight:950;letter-spacing:-.04em}.hero p{color:var(--d);font-size:14px;margin-top:10px}.hero-info{margin-top:14px;color:#8fb3d5;font-size:12px}.hero-info::before{content:"✓ ";color:var(--ok);font-weight:900}.card{margin-top:12px;padding:16px;border:1px solid var(--b);border-radius:22px;background:linear-gradient(180deg,rgba(7,25,51,.97),rgba(4,17,36,.97));box-shadow:0 0 22px rgba(0,136,255,.07)}.card h2{font-size:20px;margin-bottom:3px}.hint{font-size:12.5px;color:var(--d);margin-bottom:15px}.group{margin-bottom:14px}.label{display:block;font-size:12px;color:var(--d);margin-bottom:6px}.input,textarea{width:100%;border:1px solid var(--b);background:var(--s2);color:#fff;border-radius:13px;padding:13px 14px;font-size:16px;outline:none}.input:focus,textarea:focus{border-color:#2daeff}textarea{min-height:78px;resize:vertical}.choices,.tile-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.choice,.tile{position:relative;border:1px solid rgba(61,183,255,.22);background:linear-gradient(180deg,rgba(11,34,66,.96),rgba(8,27,54,.96));color:#fff;border-radius:13px;padding:13px 11px;text-align:center;cursor:pointer}.choice.selected,.tile.selected{border-color:#16a8ff;box-shadow:0 0 0 1px #16a8ff inset,0 0 15px rgba(0,160,255,.15);background:rgba(17,104,192,.22)}.choice b,.tile b{font-size:13px}.choice small,.tile small{display:block;color:var(--f);font-size:10.5px;margin-top:3px}.category-grid{grid-template-columns:1fr 1fr}.price-line{margin-top:10px;padding:12px 14px;border-radius:13px;background:rgba(0,147,255,.08);border:1px solid rgba(61,183,255,.18);text-align:center}.price-line strong{font-size:24px}.upload-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.upload{position:relative;border:1px dashed rgba(61,183,255,.35);background:var(--s2);border-radius:13px;min-height:104px;padding:14px 10px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;cursor:pointer}.upload.done{border-style:solid;border-color:var(--ok);background:rgba(36,216,255,.07)}.upload strong{font-size:12.5px}.upload span{font-size:10.5px;color:var(--f);margin-top:5px}.upload input{display:none}.upload-note{margin-top:9px;color:var(--f);font-size:11px;text-align:center}.check{display:flex;gap:9px;align-items:flex-start;padding:12px;border:1px solid var(--b);border-radius:12px;background:var(--s2);color:var(--d);font-size:12px}.check input{margin-top:3px;accent-color:var(--a)}.hidden{display:none!important}.payment-card{text-align:center;padding:15px;border:1px solid rgba(0,191,255,.3);border-radius:15px;background:var(--s2)}.price{font-size:31px;font-weight:900;margin:8px 0 14px}.btn-row{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:11px}.mini{border:1px solid var(--b);background:var(--s2);color:#fff;border-radius:11px;padding:10px 13px;font-weight:700}.submit{width:100%;border:0;border-radius:15px;padding:16px 18px;background:linear-gradient(180deg,var(--a),var(--a2));color:#fff;font-size:17px;font-weight:900;box-shadow:0 8px 24px rgba(0,132,255,.28);cursor:pointer}.submit:disabled{opacity:.45;box-shadow:none}.agreement{margin:13px 2px;color:var(--f);font-size:10.5px;text-align:center}.wait,.success{display:none;position:fixed;inset:0;z-index:50;background:radial-gradient(circle at 50% 25%,rgba(0,150,255,.17),transparent 34%),#020914;padding:28px 18px;overflow:auto}.wait.show,.success.show{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}.round{width:72px;height:72px;border-radius:50%;display:grid;place-items:center;background:rgba(36,216,255,.1);color:var(--ok);font-size:32px;margin-bottom:17px}.wait h2,.success h2{font-size:25px}.wait p,.success p{max-width:380px;color:var(--d);font-size:14px;margin-top:9px}.progressText{font-size:24px;font-weight:900;margin-top:20px}.order-id{margin-top:14px;padding:8px 12px;border:1px solid var(--b);border-radius:999px;color:#b8d6f3;font-weight:800}.messenger-action{display:block;width:100%;max-width:330px;margin-top:18px;padding:15px;border-radius:14px;background:linear-gradient(180deg,var(--a),var(--a2));color:#fff;text-decoration:none;font-weight:900}.messenger-note{max-width:330px;color:var(--f);font-size:11.5px;margin-top:8px}.errorbox{display:none;margin:0 0 12px;padding:11px;border-radius:12px;background:rgba(255,107,107,.08);border:1px solid rgba(255,107,107,.3);color:#ffb6b6;font-size:12px}.errorbox.show{display:block}@media(max-width:380px){.choices,.tile-grid,.upload-grid{grid-template-columns:1fr}.hero h1{font-size:30px}}
+:root{
+  --bg:#081321;
+  --surface:#0d1d2e;
+  --surface2:#13283d;
+  --border:rgba(61,183,255,.16);
+  --border-strong:rgba(92,170,225,.34);
+  --text:#e8f0f7;
+  --text-soft:#b3c3d2;
+  --text-faint:#7f96aa;
+  --accent:#0d6fda;
+  --accent-strong:#2aa4ff;
+  --accent-tint:rgba(42,164,255,.14);
+  --brass:#7fd3ff;
+  --brass-tint:rgba(127,211,255,.10);
+  --ok:#2fd6b4;
+  --ok-tint:rgba(47,214,180,.11);
+  --bad:#ff6b6b;
+  --bad-tint:rgba(255,107,107,.12);
+  --radius:18px;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth}
+body{
+  font-family:"Segoe UI Variable","Segoe UI",Arial,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  min-height:100vh;
+  line-height:1.45;
+  -webkit-font-smoothing:auto;
+  text-rendering:geometricPrecision;
+  font-synthesis:none;
+}
+.shell{max-width:560px;margin:0 auto;padding:0 16px 118px}
+.hidden{display:none!important}
+
+/* top bar + progress */
+.topbar{position:sticky;top:0;z-index:40;background:rgba(8,19,33,.94);backdrop-filter:saturate(140%) blur(6px);border-bottom:1px solid var(--border)}
+.topbar-inner{max-width:560px;margin:0 auto;padding:14px 16px 4px;display:flex;justify-content:space-between;align-items:center}
+.brand{font-weight:650;font-size:17px;letter-spacing:0;color:#f2f6fa}
+.brand small{display:block;color:#93aabd;font-weight:500;font-size:11.5px;margin-top:1px;letter-spacing:.006em}
+.pill{font-size:11px;font-weight:600;color:#d8efff;background:rgba(13,111,218,.12);border:1px solid rgba(42,164,255,.24);padding:6px 10px;border-radius:999px;letter-spacing:.01em}
+.step-row{max-width:560px;margin:0 auto;padding:0 16px 12px;display:flex;justify-content:space-between;align-items:center}
+.step-label{font-size:11.5px;font-weight:600;color:#b9c8d5;letter-spacing:.012em}
+.progress-track{height:3px;background:var(--border);max-width:560px;margin:0 auto}
+.progress-fill{height:100%;width:50%;background:linear-gradient(90deg,#0d6fda,#2aa4ff);transition:width .25s ease}
+
+/* hero */
+.hero{padding:20px 2px 4px}
+.hero h1{font-size:25px;line-height:1.18;font-weight:650;letter-spacing:-.005em;color:#f3f7fb}
+.hero p{color:var(--text-soft);font-size:13.5px;margin-top:7px;max-width:46ch}
+
+
+.hero-main{padding-top:24px;padding-bottom:4px}
+.eyebrow{display:inline-flex;align-items:center;min-height:26px;padding:5px 9px;border-radius:999px;border:1px solid rgba(42,164,255,.22);background:rgba(42,164,255,.08);color:#ccecff;font-size:10.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;margin-bottom:12px}
+.hero-main h1{max-width:460px;font-size:29px;line-height:1.10;font-weight:650;letter-spacing:-.008em;color:#f5f8fb}
+.hero-main p{font-size:14px;line-height:1.5;margin-top:9px;max-width:420px;color:#b5c9dd}
+.trust-row{display:flex;flex-wrap:wrap;gap:7px;margin-top:15px}
+.trust-chip{display:inline-flex;align-items:center;min-height:31px;padding:6px 10px;border-radius:10px;border:1px solid rgba(92,170,225,.20);background:rgba(7,22,44,.78);color:#d7ecfb;font-size:11.5px;font-weight:600;letter-spacing:.004em;white-space:nowrap}
+.trust-chip::before{content:"✓";display:inline-grid;place-items:center;width:15px;height:15px;margin-right:6px;border-radius:50%;background:rgba(47,214,180,.13);color:var(--ok);font-size:9px;font-weight:700}
+
+/* cards */
+.card{margin-top:14px;padding:19px 16px;border:1px solid var(--border);border-radius:var(--radius);background:linear-gradient(180deg,rgba(13,29,46,.96),rgba(10,24,39,.96));box-shadow:inset 0 1px 0 rgba(255,255,255,.025)}
+.card h2{font-size:15.5px;font-weight:650;margin-bottom:3px;letter-spacing:.005em;color:#eef4f9}
+.hint{font-size:12px;color:#8fa6b9;margin:5px 0 14px;font-weight:400;letter-spacing:.002em}
+
+.group{margin-bottom:14px}
+.group:last-child{margin-bottom:0}
+.label{display:block;font-size:12.5px;font-weight:600;color:#c5d2de;margin-bottom:6px;letter-spacing:.006em}
+.optional-tag{font-weight:400;color:#8fa6b9}
+.input,textarea{width:100%;border:1px solid var(--border-strong);background:linear-gradient(180deg,#142a40,#11253a);color:var(--text);border-radius:13px;padding:14px 14px;font-size:16px;outline:none;transition:border-color .15s,background .15s}
+.input:focus,textarea:focus{border-color:var(--accent-strong);background:#17314a}
+textarea{min-height:74px;resize:vertical}
+
+/* native select, styled */
+.select-wrap{position:relative}
+.select{width:100%;appearance:none;-webkit-appearance:none;-moz-appearance:none;border:1px solid var(--border-strong);background:linear-gradient(180deg,#142a40,#11253a);color:var(--text);border-radius:13px;padding:14px 40px 14px 14px;font-size:16px;outline:none;transition:border-color .15s,background .15s}
+.select:focus{border-color:var(--accent-strong);background:#17314a}
+.select-wrap::after{content:"";position:absolute;right:16px;top:50%;width:8px;height:8px;border-right:2px solid var(--text-soft);border-bottom:2px solid var(--text-soft);transform:translateY(-65%) rotate(45deg);pointer-events:none}
+.select option{background:var(--surface2);color:var(--text)}
+
+.price-mini{margin-top:2px;font-size:12.5px;color:var(--text-soft)}
+.price-mini strong{color:#aee2ff;font-weight:650;font-size:14.5px;letter-spacing:.006em}
+
+/* toggle switch */
+.switch-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px 14px;border:1px solid var(--border);border-radius:13px;background:linear-gradient(180deg,#0b203d,#0a1c35)}
+.switch-text b{font-size:13.5px;display:block;font-weight:650;color:#eef4f9}
+.switch-text small{display:block;color:#8fa6b9;font-size:11.5px;margin-top:2px;font-weight:400}
+.switch{position:relative;flex:none;width:46px;height:28px}
+.switch input{position:absolute;opacity:0;width:100%;height:100%;margin:0;cursor:pointer}
+.switch .track{position:absolute;inset:0;background:#39424f;border-radius:999px;transition:background .15s}
+.switch .knob{position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;background:#e9ecf1;transition:transform .15s}
+.switch input:checked + .track{background:#1479db}
+.switch input:checked + .track .knob{transform:translateX(18px)}
+
+/* small choice buttons (only used for E subtype now) */
+.choices{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.choice{position:relative;border:1px solid var(--border-strong);background:linear-gradient(180deg,#142a40,#11253a);color:var(--text);border-radius:12px;padding:13px 12px;text-align:center;cursor:pointer;min-height:48px;font:inherit}
+.choice b{font-size:13.5px;font-weight:650;color:#eef4f9}
+.choice.selected{border-color:var(--accent-strong);background:var(--accent-tint)}
+.choice.selected::after{content:"✓";position:absolute;top:6px;right:8px;color:var(--accent-strong);font-weight:700;font-size:11px}
+
+/* messenger tiles — kept large */
+.tile-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.tile{position:relative;border:1px solid var(--border-strong);background:linear-gradient(180deg,#142a40,#11253a);color:var(--text);border-radius:14px;padding:16px 12px;text-align:center;cursor:pointer;font:inherit}
+.tile b{font-size:14px;font-weight:650;display:block;letter-spacing:.003em;color:#eef4f9}
+.tile small{display:block;color:#8fa6b9;font-size:11px;margin-top:4px;font-weight:400}
+.tile.selected{border-color:var(--accent-strong);background:var(--accent-tint);box-shadow:inset 0 0 0 1px var(--accent-strong)}
+.tile.selected::after{content:"✓";position:absolute;top:8px;right:10px;color:var(--accent-strong);font-weight:700;font-size:12px}
+
+/* uploads 2x2 */
+.upload-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.upload{position:relative;border:1.5px dashed rgba(92,170,225,.34);background:linear-gradient(180deg,#142a40,#11253a);border-radius:14px;min-height:108px;padding:14px 10px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;cursor:pointer}
+.upload svg{width:22px;height:22px;color:var(--text-faint);margin-bottom:7px}
+.upload strong{font-size:12.5px;font-weight:600;letter-spacing:.003em;color:#edf3f8}
+.upload span{font-size:10.5px;color:#8fa6b9;margin-top:4px;font-weight:400}
+.upload input{display:none}
+.upload.done{border-style:solid;border-color:var(--ok);background:var(--ok-tint)}
+.upload.done svg{color:var(--ok)}
+.upload.done span{color:var(--ok);font-weight:600}
+
+.check{display:flex;gap:9px;align-items:flex-start;padding:13px;border:1px solid var(--border);border-radius:12px;background:var(--surface2);color:#bac9d5;font-size:12.5px;font-weight:400}
+.check input{margin-top:3px;width:17px;height:17px;accent-color:var(--accent);flex:none}
+
+/* payment */
+.payment-card{padding:17px;border:1px solid rgba(92,170,225,.22);border-radius:14px;background:linear-gradient(180deg,#0b203d,#091a31)}
+.payment-card .price{font-size:28px;font-weight:650;color:#d9f3ff;text-align:center;letter-spacing:.01em;font-variant-numeric:tabular-nums}
+.payment-card .pay-label{text-align:center;font-size:12.5px;color:#aebfcd;font-weight:500;margin-top:2px}
+.card-number{font-size:18px;font-weight:650;letter-spacing:.025em;margin-top:12px;text-align:center;font-variant-numeric:tabular-nums;color:#eef4f9}
+.btn-row{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:12px}
+.mini{border:1px solid rgba(92,170,225,.28);background:#0a1b31;color:#eaf1f7;border-radius:11px;padding:10px 13px;font-weight:600;font-size:13px;cursor:pointer;letter-spacing:.002em}
+.mini:active{background:var(--surface2)}
+.pay-note{margin-top:12px;font-size:11.5px;color:var(--text-faint);text-align:center}
+.copied-note{display:none;color:var(--ok);font-size:12px;margin-top:8px;text-align:center;font-weight:600}
+
+/* back link on step 2 */
+.back-link{display:inline-flex;align-items:center;gap:6px;background:none;border:0;color:#bac9d5;font-size:13px;font-weight:600;padding:6px 0;margin-bottom:6px;cursor:pointer;letter-spacing:.002em}
+.back-link:active{color:var(--text)}
+
+/* errors */
+.errorbox{display:none;margin-bottom:12px;padding:12px;border-radius:11px;background:var(--bad-tint);border:1px solid var(--bad);color:var(--bad);font-size:12.5px;font-weight:500}
+.errorbox.show{display:block}
+.agreement{font-size:11.5px;color:var(--text-faint);text-align:center;margin-top:10px}
+.footer-note{font-size:13px;color:var(--text-soft);margin-bottom:4px}
+
+/* sticky CTA */
+.sticky-cta{position:fixed;left:0;right:0;bottom:0;z-index:45;background:rgba(8,19,33,.96);border-top:1px solid rgba(92,170,225,.16);backdrop-filter:blur(8px)}
+.sticky-cta-inner{max-width:560px;margin:0 auto;padding:12px 16px calc(12px + env(safe-area-inset-bottom));display:flex;align-items:center;gap:12px}
+.sticky-price{flex:none;text-align:left}
+.sticky-price span{display:block;font-size:10.5px;color:#8fa6b9;font-weight:500}
+.sticky-price strong{font-size:18px;color:#aee2ff;font-weight:650;font-variant-numeric:tabular-nums}
+.submit{flex:1;border:0;border-radius:13px;padding:15px 16px;background:linear-gradient(180deg,#118dff,#0d63e8);color:#fff;font-size:15px;font-weight:650;cursor:pointer;box-shadow:0 8px 22px rgba(17,141,255,.18)}
+.submit:disabled{opacity:.5}
+.submit:active{background:#0b5fcf}
+
+/* full-screen states */
+.wait,.success{display:none;position:fixed;inset:0;z-index:50;background:var(--bg);padding:28px 20px;overflow:auto}
+.wait.show,.success.show{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.round{width:62px;height:62px;border-radius:50%;display:grid;place-items:center;background:var(--accent-tint);color:var(--accent-strong);font-size:26px;margin-bottom:16px}
+.success .round{background:var(--ok-tint);color:var(--ok)}
+.wait h2,.success h2{font-size:20px;font-weight:650;color:#f3f7fb}
+.wait p,.success p{max-width:360px;color:var(--text-soft);font-size:14px;margin-top:9px}
+.progressText{font-size:19px;font-weight:650;margin-top:22px;color:#9fddff;font-variant-numeric:tabular-nums}
+.order-id{margin-top:16px;padding:8px 14px;border:1px solid var(--border-strong);border-radius:999px;color:#bac9d5;font-weight:600;font-size:13px;background:var(--surface)}
+.messenger-action{display:block;width:100%;max-width:330px;margin-top:20px;padding:15px;border-radius:13px;background:linear-gradient(180deg,#118dff,#0d63e8);color:#fff;text-decoration:none;font-weight:650;font-size:14.5px}
+.messenger-note{max-width:330px;color:var(--text-faint);font-size:11.5px;margin-top:9px}
+
+@media(max-width:380px){
+  .choices,.tile-grid{grid-template-columns:1fr}
+  .upload-grid{grid-template-columns:1fr 1fr}
+  .upload{min-height:102px;padding:12px 8px}
+  .hero h1{font-size:21px}
+}
 </style>
 </head>
 <body>
-<div class="shell" id="formShell">
-  <header class="top"><div class="brand">АвтоДок РФ<small>Техосмотр по России</small></div><div class="pill">ЕАИСТО</div></header>
-  <section class="hero">
-    <h1>ТЕХОСМОТР АВТО</h1>
-    <p>Заполните данные, приложите документы и чек. Всё отправится специалисту одной заявкой.</p>
-    <div class="hero-info">Категории A, B, C, E · По России · Без лишних переходов</div>
-  </section>
 
-  <section class="card" id="secVehicle">
-    <h2>1. Автомобиль</h2><div class="hint">Категория и цель оформления</div>
-    <div class="tile-grid category-grid" data-group="category">
-      <button type="button" class="tile" data-value="A"><b>A — мотоцикл</b><small>6 990 ₽</small></button>
-      <button type="button" class="tile" data-value="B"><b>B — легковой</b><small>6 990 ₽</small></button>
-      <button type="button" class="tile" data-value="C"><b>C — грузовой</b><small>9 990 ₽</small></button>
-      <button type="button" class="tile" data-value="E"><b>E — прицеп</b><small>9 990 ₽</small></button>
-    </div>
-    <div class="group" style="margin-top:14px"><span class="label">Для чего нужна диагностическая карта</span><div class="choices" data-group="purpose"><button type="button" class="choice" data-value="drive"><b>Для езды</b></button><button type="button" class="choice" data-value="registration"><b>Постановка на учёт</b></button></div></div>
-    <div class="price-line"><span style="color:var(--d);font-size:11px">Стоимость</span><br><strong id="pricePreview">—</strong></div>
-  </section>
-
-  <section class="card" id="secContact">
-    <h2>2. Контакты</h2><div class="hint">Куда оформить и кому сообщать статус</div>
-    <div class="group"><label class="label" for="city">Город</label><input class="input" id="city" placeholder="Например, Самара" autocomplete="address-level2"></div>
-    <div class="group"><label class="label" for="model">Марка и модель</label><input class="input" id="model" placeholder="Например, Hyundai Solaris"></div>
-    <div class="group"><label class="label" for="name">Имя</label><input class="input" id="name" placeholder="Ваше имя" autocomplete="given-name"></div>
-    <div class="group"><label class="label" for="phone">Телефон</label><input class="input" id="phone" type="tel" inputmode="tel" placeholder="+7 (___) ___-__-__" autocomplete="tel"></div>
-  </section>
-
-  <section class="card" id="secTech">
-    <h2>3. Данные автомобиля</h2><div class="hint">Поля меняются в зависимости от категории</div>
-    <div id="bSubtype" class="group hidden"><span class="label">Категория B</span><div class="choices" data-key="b_type"><button type="button" class="choice" data-value="B"><b>B обычная</b></button><button type="button" class="choice" data-value="B taxi"><b>B / B Такси</b></button></div></div>
-    <div id="fuelGroup" class="group"><span class="label">Топливо</span><div class="choices" data-key="fuel"><button type="button" class="choice" data-value="petrol"><b>Бензин</b></button><button type="button" class="choice" data-value="diesel"><b>Дизель</b></button></div></div>
-    <div class="group"><span class="label">Тип тормозной системы</span><div class="choices" data-key="brakes"><button type="button" class="choice" data-value="hydraulic"><b>Гидравлический</b></button><button type="button" class="choice" data-value="combined"><b>Комбинированный</b></button><button type="button" class="choice" data-value="mechanical"><b>Механический</b></button><button type="button" class="choice" data-value="none"><b>Отсутствует</b></button><button type="button" class="choice" data-value="pneumatic"><b>Пневматический</b></button></div></div>
-    <div id="eSubtype" class="group hidden"><span class="label">Что оформляем</span><div class="choices" data-key="e_type"><button type="button" class="choice" data-value="trailer"><b>Прицеп</b></button><button type="button" class="choice" data-value="semi"><b>Полуприцеп</b></button></div></div>
-    <div class="group"><label class="label" for="mileage">Пробег, км</label><input class="input" id="mileage" inputmode="numeric" placeholder="Например, 145000"></div>
-    <div class="group"><label class="label" for="tires">Марка шин</label><input class="input" id="tires" placeholder="Например, Cordiant"></div>
-    <div id="tacho" class="hidden"><div class="group"><label class="label" for="tachoModel">Марка и модель тахографа</label><input class="input" id="tachoModel" placeholder="Например, АТОЛ Drive 5"></div><div class="group"><label class="label" for="tachoSerial">Серийный номер тахографа</label><input class="input" id="tachoSerial" placeholder="Серийный номер"></div><label class="check"><input type="checkbox" id="tachoUnknown"><span><b>Данных тахографа нет</b><br>Подтверждаю, что данные тахографа мне неизвестны</span></label></div>
-  </section>
-
-  <section class="card" id="secPhotos">
-    <h2>4. Документы и фото</h2><div class="hint">Можно выбрать уже сделанные фотографии из галереи</div>
-    <div class="upload-grid">
-      <label class="upload" data-upload="sts_front"><strong>СТС — лицевая сторона</strong><span>Добавить фото</span><input type="file" id="sts_front" accept="image/*"></label>
-      <label class="upload" data-upload="sts_back"><strong>СТС — оборот</strong><span>Добавить фото</span><input type="file" id="sts_back" accept="image/*"></label>
-      <label class="upload" data-upload="car_front"><strong>Авто спереди</strong><span>Добавить фото</span><input type="file" id="car_front" accept="image/*"></label>
-      <label class="upload" data-upload="car_back"><strong>Авто сзади</strong><span>Добавить фото</span><input type="file" id="car_back" accept="image/*"></label>
-    </div>
-    <div class="upload-note">Камера не запускается принудительно — можно выбрать фото из галереи.</div>
-    <div class="group" style="margin-top:14px"><label class="label" for="comment">Комментарий <span style="color:var(--f)">необязательно</span></label><textarea id="comment" placeholder="Если есть важное уточнение"></textarea></div>
-  </section>
-
-  <section class="card" id="secPayment">
-    <h2>5. Оплата</h2><div class="hint">Переведите сумму и приложите чек</div>
-    <div class="payment-card"><div class="price" id="priceBig">—</div><b>Перевод на карту</b><div id="cardNumber" style="font-size:20px;font-weight:900;letter-spacing:.03em;margin-top:10px">2200 3961 •••• 3390</div><div class="btn-row"><button type="button" class="mini" id="showCard">Показать реквизиты</button><button type="button" class="mini" id="copyCard">Скопировать номер</button></div><div id="copyCardStatus" style="display:none;color:var(--ok);font-size:12px;margin-top:8px">Номер карты скопирован ✓</div></div>
-    <div style="margin-top:10px"><label class="upload" data-upload="receipt"><strong>Прикрепить чек</strong><span>Фото или скриншот</span><input type="file" id="receipt" accept="image/*"></label></div>
-  </section>
-
-  <section class="card" id="secChannel">
-    <h2>6. Куда присылать статус</h2><div class="hint">После отправки заявки откройте выбранный мессенджер</div>
-    <div class="tile-grid" data-group="channel"><button type="button" class="tile" data-value="tg"><b>Telegram</b><small>Статусы и PDF автоматически</small></button><button type="button" class="tile" data-value="max"><b>MAX</b><small>Статусы и PDF автоматически</small></button><button type="button" class="tile" data-value="wa"><b>WhatsApp</b><small>На указанный номер</small></button></div>
-  </section>
-
-  <section class="card">
-    <div class="errorbox" id="errorBox"></div>
-    <button class="submit" id="submitBtn" type="button">ОПЛАТИЛ — ОТПРАВИТЬ ЗАЯВКУ</button>
-    <div class="agreement">Нажимая кнопку, вы подтверждаете корректность введённых данных и приложенного чека.</div>
-  </section>
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">АвтоДок РФ<small>Диагностическая карта</small></div>
+    <div class="pill">Онлайн</div>
+  </div>
+  <div class="step-row">
+    <span class="step-label" id="stepLabel">Шаг 1 из 2 — данные</span>
+  </div>
+  <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
 </div>
 
-<section class="wait" id="uploadWait"><div class="round">↥</div><h2>ОТПРАВЛЯЕМ ЗАЯВКУ</h2><p><b>Не закрывайте страницу.</b><br>Фото и документы ещё загружаются. Дождитесь подтверждения отправки.</p><div class="progressText" id="uploadProgress">Подготовка…</div></section>
-<section class="success" id="success"><div class="round">✓</div><h2>ЗАЯВКА ОТПРАВЛЕНА</h2><p id="successMsg">Документы и чек получены.</p><div class="order-id" id="successOrder">Заказ —</div><a class="messenger-action" id="messengerAction" href="#" style="display:none">Перейти в мессенджер</a><div class="messenger-note" id="messengerNote"></div></section>
+<div class="shell" id="formShell">
+
+  <!-- ==================== ШАГ 1 ==================== -->
+  <div id="step1" class="step-view">
+    <section class="hero hero-main">
+      <div class="eyebrow">АвтоДок РФ</div>
+      <h1>Диагностическая карта онлайн</h1>
+      <p>Для легковых, грузовых автомобилей и прицепов.</p>
+      <div class="trust-row" aria-label="Преимущества сервиса">
+        <span class="trust-chip">ЕАИСТО</span>
+        <span class="trust-chip">По всей России</span>
+        <span class="trust-chip">Оформление онлайн</span>
+      </div>
+    </section>
+
+    <section class="card" id="secContact">
+      <h2>Контакты</h2>
+      <div class="hint">Куда сообщить статус заявки</div>
+      <div class="group"><label class="label" for="name">Имя</label><input class="input" id="name" placeholder="Ваше имя" autocomplete="given-name"></div>
+      <div class="group"><label class="label" for="phone">Телефон</label><input class="input" id="phone" type="tel" inputmode="tel" placeholder="+7 (___) ___-__-__" autocomplete="tel"></div>
+      <div class="group"><label class="label" for="city">Город</label><input class="input" id="city" placeholder="Например, Самара" autocomplete="address-level2"></div>
+      <input type="hidden" id="model">
+    </section>
+
+    <section class="card" id="secVehicle">
+      <h2>Данные автомобиля</h2>
+      <div class="hint">Поля подстраиваются под выбранную категорию</div>
+
+      <div class="group">
+        <label class="label" for="categorySelect">Категория ТС</label>
+        <div class="select-wrap">
+          <select class="select" id="categorySelect">
+            <option value="" disabled selected>Выберите категорию</option>
+            <option value="A">A — мотоцикл</option>
+            <option value="B">B — легковой автомобиль</option>
+            <option value="C">C — грузовой автомобиль</option>
+            <option value="E">E — прицеп / полуприцеп</option>
+          </select>
+        </div>
+      </div>
+      <span id="priceMini" style="display:none"><span id="priceMiniValue">—</span></span>
+
+      <div id="bTaxiToggle" class="group hidden">
+        <label class="switch-row">
+          <span class="switch-text"><b>Используется в такси</b><small>Отметьте, если автомобиль работает в такси</small></span>
+          <span class="switch"><input type="checkbox" id="taxiToggle"><span class="track"><span class="knob"></span></span></span>
+        </label>
+      </div>
+
+      <div class="group">
+        <label class="label" for="purposeSelect">Для чего нужна карта</label>
+        <div class="select-wrap">
+          <select class="select" id="purposeSelect">
+            <option value="" disabled selected>Выберите цель</option>
+            <option value="drive">Для езды</option>
+            <option value="registration">Постановка на учёт</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="group"><label class="label" for="mileage">Пробег, км</label><input class="input" id="mileage" inputmode="numeric" placeholder="Например, 145000"></div>
+      <div class="group"><label class="label" for="tires">Марка шин</label><input class="input" id="tires" placeholder="Например, Cordiant"></div>
+
+      <div id="fuelGroup" class="group">
+        <label class="label" for="fuelSelect">Тип топлива</label>
+        <div class="select-wrap">
+          <select class="select" id="fuelSelect">
+            <option value="" disabled selected>Выберите топливо</option>
+            <option value="petrol">Бензин</option>
+            <option value="diesel">Дизель</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="group">
+        <label class="label" for="brakesSelect">Тип тормозной системы</label>
+        <div class="select-wrap">
+          <select class="select" id="brakesSelect">
+            <option value="" disabled selected>Выберите тип</option>
+            <option value="hydraulic">Гидравлическая</option>
+            <option value="pneumatic">Пневматическая</option>
+            <option value="combined">Комбинированная</option>
+            <option value="mechanical">Механическая</option>
+            <option value="none">Отсутствует</option>
+          </select>
+        </div>
+      </div>
+
+      <div id="eSubtype" class="group hidden">
+        <span class="label">Что оформляем</span>
+        <div class="choices" data-key="e_type">
+          <button type="button" class="choice" data-value="trailer"><b>Прицеп</b></button>
+          <button type="button" class="choice" data-value="semi"><b>Полуприцеп</b></button>
+        </div>
+      </div>
+
+      <div id="tacho" class="hidden">
+        <div class="group"><label class="label" for="tachoModel">Марка и модель тахографа</label><input class="input" id="tachoModel" placeholder="Например, АТОЛ Drive 5"></div>
+        <div class="group"><label class="label" for="tachoSerial">Серийный номер тахографа</label><input class="input" id="tachoSerial" placeholder="Серийный номер"></div>
+        <label class="check"><input type="checkbox" id="tachoUnknown"><span><b>Данных тахографа нет</b><br>Подтверждаю, что данные тахографа мне неизвестны</span></label>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="errorbox" id="errorBox1"></div>
+    </section>
+  </div>
+
+  <!-- ==================== ШАГ 2 ==================== -->
+  <div id="step2" class="step-view hidden">
+    <section class="hero">
+      <button type="button" class="back-link" id="backBtn">← Назад к данным</button>
+      <h1>Документы и оплата</h1>
+      <p>Прикрепите фото, оплатите и приложите чек — заявка отправится одним пакетом.</p>
+    </section>
+
+    <section class="card" id="secPhotos">
+      <h2>Документы и фото</h2>
+      <div class="hint">Можно снять камерой сейчас или выбрать готовое фото из галереи</div>
+      <div class="upload-grid">
+        <label class="upload" data-upload="sts_front"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="6" width="18" height="13" rx="2.5"/><circle cx="12" cy="12.5" r="3.4"/><path d="M8 6l1.2-2h5.6L16 6"/></svg><strong>СТС — лицевая сторона</strong><span>Камера или галерея</span><input type="file" id="sts_front" accept="image/*"></label>
+        <label class="upload" data-upload="sts_back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="6" width="18" height="13" rx="2.5"/><circle cx="12" cy="12.5" r="3.4"/><path d="M8 6l1.2-2h5.6L16 6"/></svg><strong>СТС — оборот</strong><span>Камера или галерея</span><input type="file" id="sts_back" accept="image/*"></label>
+        <label class="upload" data-upload="car_front"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="6" width="18" height="13" rx="2.5"/><circle cx="12" cy="12.5" r="3.4"/><path d="M8 6l1.2-2h5.6L16 6"/></svg><strong>Авто спереди</strong><span>Камера или галерея</span><input type="file" id="car_front" accept="image/*"></label>
+        <label class="upload" data-upload="car_back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="6" width="18" height="13" rx="2.5"/><circle cx="12" cy="12.5" r="3.4"/><path d="M8 6l1.2-2h5.6L16 6"/></svg><strong>Авто сзади</strong><span>Камера или галерея</span><input type="file" id="car_back" accept="image/*"></label>
+      </div>
+      <div class="group" style="margin-top:14px"><label class="label" for="comment">Комментарий <span class="optional-tag">необязательно</span></label><textarea id="comment" placeholder="Если есть важное уточнение"></textarea></div>
+    </section>
+
+    <section class="card" id="secPayment">
+      <h2>Оплата</h2>
+      <div class="hint">Переведите точную сумму и приложите чек</div>
+      <div class="payment-card">
+        <div class="price" id="priceBig">—</div>
+        <div class="pay-label">Перевод на карту</div>
+        <div class="card-number" id="cardNumber">2200 3961 •••• 3390</div>
+        <div class="btn-row">
+          <button type="button" class="mini" id="showCard">Показать номер</button>
+          <button type="button" class="mini" id="copyCard">Скопировать номер</button>
+        </div>
+        <div class="copied-note" id="copyCardStatus">Номер скопирован ✓</div>
+        <div class="pay-note">Реквизиты нужны только для оплаты. Не передавайте их посторонним.</div>
+      </div>
+      <div style="margin-top:12px">
+        <label class="upload" data-upload="receipt" style="min-height:88px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 3h9l3 3v15H6z"/><path d="M9 9h6M9 13h6M9 17h3"/></svg><strong>Прикрепить чек</strong><span>Фото или скриншот перевода</span><input type="file" id="receipt" accept="image/*"></label>
+      </div>
+    </section>
+
+    <section class="card" id="secChannel">
+      <h2>Куда присылать статус</h2>
+      <div class="hint">После отправки заявки откройте выбранный мессенджер</div>
+      <div class="tile-grid" data-group="channel">
+        <button type="button" class="tile" data-value="tg"><b>Telegram</b><small>Статус и PDF автоматически</small></button>
+        <button type="button" class="tile" data-value="max"><b>MAX</b><small>Статус и PDF автоматически</small></button>
+        <button type="button" class="tile" data-value="wa"><b>WhatsApp</b><small>Статус на этот номер</small></button>
+      </div>
+    </section>
+
+    <section class="card footer-card">
+      <div class="errorbox" id="errorBox2"></div>
+      <p class="footer-note">Проверьте данные — после отправки исправить заявку самостоятельно будет нельзя.</p>
+      <div class="agreement">Нажимая «Я оплатил — отправить заявку», вы подтверждаете корректность введённых данных и приложенного чека.</div>
+    </section>
+  </div>
+
+</div>
+
+<div class="sticky-cta" id="stickyStep1">
+  <div class="sticky-cta-inner">
+    <button class="submit" id="nextStepBtn" type="button">Далее — документы и оплата</button>
+  </div>
+</div>
+
+<div class="sticky-cta hidden" id="stickyStep2">
+  <div class="sticky-cta-inner">
+    <div class="sticky-price"><span>Итого</span><strong id="stickyPriceValue">—</strong></div>
+    <button class="submit" id="submitBtn" type="button">Я оплатил — отправить заявку</button>
+  </div>
+</div>
+
+<section class="wait" id="uploadWait">
+  <div class="round">↥</div>
+  <h2>Отправляем заявку</h2>
+  <p><b>Не закрывайте страницу.</b><br>Фото и документы ещё загружаются. Дождитесь подтверждения отправки.</p>
+  <div class="progressText" id="uploadProgress">Подготовка…</div>
+</section>
+
+<section class="success" id="success">
+  <div class="round">✓</div>
+  <h2>Заявка отправлена</h2>
+  <p id="successMsg">Документы и чек получены.</p>
+  <div class="order-id" id="successOrder">Заказ —</div>
+  <a class="messenger-action" id="messengerAction" href="#" style="display:none">Перейти в мессенджер</a>
+  <div class="messenger-note" id="messengerNote"></div>
+</section>
 
 <script>
 (function(){
@@ -92,40 +397,237 @@ var TG_BOT_USERNAME='avtodok_lead_bot';
 var MAX_BOT_NAME='id642101454567_bot';
 var PAYMENT_CARD='2200396127223390';
 var PAYMENT_CARD_MASKED='2200 3961 •••• 3390';
+
 var qs=new URLSearchParams(location.search);
 var acquisition={utm_source:qs.get('utm_source')||'',utm_campaign:qs.get('utm_campaign')||'',utm_medium:qs.get('utm_medium')||'',ad:qs.get('ad')||'',referrer:document.referrer||'',landing_url:location.href,ts:new Date().toISOString()};
+
 var state={category:'',purpose:'',city:'',model:'',name:'',phone:'',channel:'',data:{b_type:'',fuel:'',brakes:'',e_type:'',mileage:'',tires:'',tacho_model:'',tacho_serial:'',tacho_unknown:false,comment:''}};
+
 var $=(s,c)=>(c||document).querySelector(s), $$=(s,c)=>Array.from((c||document).querySelectorAll(s));
+
 function makeLeadToken(){var bytes=new Uint8Array(12);if(window.crypto&&crypto.getRandomValues)crypto.getRandomValues(bytes);else for(var i=0;i<bytes.length;i++)bytes[i]=Math.floor(Math.random()*256);return Array.from(bytes).map(b=>b.toString(16).padStart(2,'0')).join('');}
 function makeOrderId(){var bytes=new Uint8Array(4);if(window.crypto&&crypto.getRandomValues)crypto.getRandomValues(bytes);else for(var i=0;i<bytes.length;i++)bytes[i]=Math.floor(Math.random()*256);var rnd=Array.from(bytes).map(b=>b.toString(16).padStart(2,'0')).join('').toUpperCase();return 'AD-'+String(Date.now()).slice(-6)+'-'+rnd.slice(0,6);}
 var leadToken=makeLeadToken(),orderId=makeOrderId();
+
 function priceFor(category){return (category==='A'||category==='B')?6990:((category==='C'||category==='E')?9990:0);}
 function priceText(){var p=priceFor(state.category);return p?p.toLocaleString('ru-RU')+' ₽':'—';}
-function updateCategoryUI(){var c=state.category;$('#bSubtype').classList.toggle('hidden',c!=='B');$('#eSubtype').classList.toggle('hidden',c!=='E');$('#tacho').classList.toggle('hidden',c!=='C');$('#fuelGroup').classList.toggle('hidden',c==='E');$('#pricePreview').textContent=priceText();$('#priceBig').textContent=priceText();}
-function wireGroup(group){var key=group.dataset.group||group.dataset.key;$$('[data-value]',group).forEach(btn=>btn.addEventListener('click',function(){$$('[data-value]',group).forEach(x=>x.classList.remove('selected'));btn.classList.add('selected');var value=btn.dataset.value;if(group.dataset.group){state[key]=value;if(key==='category')updateCategoryUI();}else state.data[key]=value;}));}
+
+/* ---------- step navigation ---------- */
+var currentStep=1;
+var STEP1_SECTIONS=['secContact','secVehicle'];
+var STEP2_SECTIONS=['secPhotos','secPayment','secChannel'];
+function stepOfSection(id){return STEP1_SECTIONS.indexOf(id)!==-1?1:2;}
+function goToStep(n){
+  currentStep=n;
+  $('#step1').classList.toggle('hidden',n!==1);
+  $('#step2').classList.toggle('hidden',n!==2);
+  $('#stickyStep1').classList.toggle('hidden',n!==1);
+  $('#stickyStep2').classList.toggle('hidden',n!==2);
+  $('#stepLabel').textContent=n===1?'Шаг 1 из 2 — данные':'Шаг 2 из 2 — документы и оплата';
+  $('#progressFill').style.width=n===1?'50%':'100%';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function updateCategoryUI(){
+  var c=state.category;
+  $('#bTaxiToggle').classList.toggle('hidden',c!=='B');
+  $('#eSubtype').classList.toggle('hidden',c!=='E');
+  $('#tacho').classList.toggle('hidden',c!=='C');
+  $('#fuelGroup').classList.toggle('hidden',c==='E');
+  if(c==='B'&&!state.data.b_type){state.data.b_type='B';$('#taxiToggle').checked=false;}
+  var txt=priceText();
+  $('#priceMini').style.display=c?'block':'none';
+  $('#priceMiniValue').textContent=txt;
+  $('#priceBig').textContent=txt;
+  $('#stickyPriceValue').textContent=txt;
+}
+
+$('#categorySelect').addEventListener('change',function(){state.category=this.value;updateCategoryUI();});
+$('#purposeSelect').addEventListener('change',function(){state.purpose=this.value;});
+$('#fuelSelect').addEventListener('change',function(){state.data.fuel=this.value;});
+$('#brakesSelect').addEventListener('change',function(){state.data.brakes=this.value;});
+$('#taxiToggle').addEventListener('change',function(){state.data.b_type=this.checked?'B taxi':'B';});
+
+function wireGroup(group){
+  var key=group.dataset.group||group.dataset.key;
+  $$('[data-value]',group).forEach(btn=>btn.addEventListener('click',function(){
+    $$('[data-value]',group).forEach(x=>x.classList.remove('selected'));
+    btn.classList.add('selected');
+    var value=btn.dataset.value;
+    if(group.dataset.group)state[key]=value;
+    else state.data[key]=value;
+  }));
+}
 $$('[data-group],[data-key]').forEach(wireGroup);
-function selectPrefill(groupName,value){if(!value)return;var group=$('[data-group="'+groupName+'"]');if(!group)return;var btn=$$('[data-value]',group).find(function(x){return x.dataset.value===value;});if(btn)btn.click();}
-selectPrefill('category',String(qs.get('category')||'').toUpperCase());selectPrefill('purpose',qs.get('purpose')||'');selectPrefill('channel',String(qs.get('channel')||'').toLowerCase());
+
+function selectPrefill(kind,value){
+  if(!value)return;
+  if(kind==='category'){var el=$('#categorySelect');if([...el.options].some(o=>o.value===value)){el.value=value;state.category=value;updateCategoryUI();}return;}
+  if(kind==='purpose'){var el2=$('#purposeSelect');if([...el2.options].some(o=>o.value===value)){el2.value=value;state.purpose=value;}return;}
+  if(kind==='channel'){var group=$('[data-group="channel"]');if(!group)return;var btn=$$('[data-value]',group).find(x=>x.dataset.value===value);if(btn)btn.click();return;}
+}
+selectPrefill('category',String(qs.get('category')||'').toUpperCase());
+selectPrefill('purpose',qs.get('purpose')||'');
+selectPrefill('channel',String(qs.get('channel')||'').toLowerCase());
+
 ['city','model','name'].forEach(id=>{var el=$('#'+id);el.value=qs.get(id)||'';state[id]=el.value.trim();el.addEventListener('input',()=>state[id]=el.value.trim());});
-var phoneInput=$('#phone');phoneInput.value=qs.get('phone')||'';function syncPhone(){var digits=phoneInput.value.replace(/\D/g,'');if(digits.startsWith('8'))digits='7'+digits.slice(1);if(!digits.startsWith('7'))digits='7'+digits;digits=digits.slice(0,11);var d=digits.slice(1),out='+7';if(d.length>0)out+=' ('+d.slice(0,3);if(d.length>=3)out+=')';if(d.length>3)out+=' '+d.slice(3,6);if(d.length>6)out+='-'+d.slice(6,8);if(d.length>8)out+='-'+d.slice(8,10);phoneInput.value=out;state.phone=out;}phoneInput.addEventListener('input',syncPhone);if(phoneInput.value)syncPhone();
-['mileage','tires','comment'].forEach(id=>$('#'+id).addEventListener('input',()=>state.data[id]=$('#'+id).value.trim()));$('#tachoModel').addEventListener('input',()=>state.data.tacho_model=$('#tachoModel').value.trim());$('#tachoSerial').addEventListener('input',()=>state.data.tacho_serial=$('#tachoSerial').value.trim());$('#tachoUnknown').addEventListener('change',function(){state.data.tacho_unknown=this.checked;$('#tachoModel').disabled=this.checked;$('#tachoSerial').disabled=this.checked;if(this.checked){$('#tachoModel').value='';$('#tachoSerial').value='';state.data.tacho_model='';state.data.tacho_serial='';}});
+
+var phoneInput=$('#phone');
+phoneInput.value=qs.get('phone')||'';
+function syncPhone(){var digits=phoneInput.value.replace(/\D/g,'');if(digits.startsWith('8'))digits='7'+digits.slice(1);if(!digits.startsWith('7'))digits='7'+digits;digits=digits.slice(0,11);var d=digits.slice(1),out='+7';if(d.length>0)out+=' ('+d.slice(0,3);if(d.length>=3)out+=')';if(d.length>3)out+=' '+d.slice(3,6);if(d.length>6)out+='-'+d.slice(6,8);if(d.length>8)out+='-'+d.slice(8,10);phoneInput.value=out;state.phone=out;}
+phoneInput.addEventListener('input',syncPhone);
+if(phoneInput.value)syncPhone();
+
+['mileage','tires','comment'].forEach(id=>$('#'+id).addEventListener('input',()=>state.data[id]=$('#'+id).value.trim()));
+$('#tachoModel').addEventListener('input',()=>state.data.tacho_model=$('#tachoModel').value.trim());
+$('#tachoSerial').addEventListener('input',()=>state.data.tacho_serial=$('#tachoSerial').value.trim());
+$('#tachoUnknown').addEventListener('change',function(){
+  state.data.tacho_unknown=this.checked;
+  $('#tachoModel').disabled=this.checked;
+  $('#tachoSerial').disabled=this.checked;
+  if(this.checked){$('#tachoModel').value='';$('#tachoSerial').value='';state.data.tacho_model='';state.data.tacho_serial='';}
+});
+
 var preparedFiles={};
 async function prepareSelectedFile(id,file){var entry={original:file,promise:compressImage(file,1400,.80)};preparedFiles[id]=entry;try{await entry.promise;}catch(e){if(preparedFiles[id]===entry)delete preparedFiles[id];}}
-$$('input[type=file]').forEach(el=>el.addEventListener('change',function(){var lab=el.closest('.upload');if(el.files.length){lab.classList.add('done');lab.querySelector('span').textContent='Добавлено ✓';prepareSelectedFile(el.id,el.files[0]);}else{lab.classList.remove('done');delete preparedFiles[el.id];}}));
-var cardVisible=false;$('#showCard').addEventListener('click',function(){cardVisible=!cardVisible;$('#cardNumber').textContent=cardVisible?PAYMENT_CARD.replace(/(\d{4})(?=\d)/g,'$1 ').trim():PAYMENT_CARD_MASKED;this.textContent=cardVisible?'Скрыть реквизиты':'Показать реквизиты';});$('#copyCard').addEventListener('click',async function(){var ok=false;try{if(navigator.clipboard&&window.isSecureContext){await navigator.clipboard.writeText(PAYMENT_CARD);ok=true;}}catch(e){}if(!ok){var ta=document.createElement('textarea');ta.value=PAYMENT_CARD;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.select();try{ok=document.execCommand('copy');}catch(e){}ta.remove();}if(ok){$('#copyCardStatus').style.display='block';setTimeout(()=>$('#copyCardStatus').style.display='none',1800);}else alert('Не удалось скопировать автоматически. Нажмите «Показать реквизиты» и скопируйте номер вручную.');});
-function missing(){var digits=state.phone.replace(/\D/g,'');if(!state.category)return['Выберите категорию автомобиля.','secVehicle'];if(!state.purpose)return['Укажите, для чего нужна диагностическая карта.','secVehicle'];if(state.city.length<2||state.model.length<2)return['Укажите город и марку/модель автомобиля.','secContact'];if(state.name.length<2||digits.length!==11)return['Укажите имя и корректный номер телефона.','secContact'];if(!state.data.mileage||!state.data.tires)return['Укажите пробег и марку шин.','secTech'];if(state.category==='B'&&!state.data.b_type)return['Выберите тип категории B.','secTech'];if(state.category!=='E'&&!state.data.fuel)return['Выберите тип топлива.','secTech'];if(!state.data.brakes)return['Выберите тип тормозной системы.','secTech'];if(state.category==='E'&&!state.data.e_type)return['Укажите прицеп или полуприцеп.','secTech'];if(state.category==='C'&&!state.data.tacho_unknown&&(!state.data.tacho_model||!state.data.tacho_serial))return['Укажите данные тахографа или отметьте, что они неизвестны.','secTech'];if(!['sts_front','sts_back','car_front','car_back'].every(id=>$('#'+id).files.length))return['Добавьте все четыре фотографии.','secPhotos'];if(!$('#receipt').files.length)return['Прикрепите чек об оплате.','secPayment'];if(!state.channel)return['Выберите мессенджер для статусов заказа.','secChannel'];return null;}
-function showError(m){var box=$('#errorBox');if(!m){box.classList.remove('show');return;}box.textContent=m[0];box.classList.add('show');$('#'+m[1]).scrollIntoView({behavior:'smooth',block:'start'});}
-async function compressImage(file,maxSide,quality){if(!file.type.startsWith('image/'))return file;var img=await new Promise((res,rej)=>{var i=new Image(),u=URL.createObjectURL(file);i.onload=()=>{URL.revokeObjectURL(u);res(i)};i.onerror=()=>{URL.revokeObjectURL(u);rej(new Error('image decode failed'));};i.src=u;});var scale=Math.min(1,maxSide/Math.max(img.width,img.height));if(scale===1&&file.size<=1200000)return file;var c=document.createElement('canvas');c.width=Math.max(1,Math.round(img.width*scale));c.height=Math.max(1,Math.round(img.height*scale));c.getContext('2d').drawImage(img,0,0,c.width,c.height);return await new Promise((res,rej)=>c.toBlob(b=>b?res(new File([b],file.name.replace(/\.[^.]+$/,'.jpg'),{type:'image/jpeg'})):rej(new Error('image compression failed')),'image/jpeg',quality));}
+$$('input[type=file]').forEach(el=>el.addEventListener('change',function(){
+  var lab=el.closest('.upload');
+  if(el.files.length){lab.classList.add('done');lab.querySelector('span').textContent='Добавлено ✓';prepareSelectedFile(el.id,el.files[0]);}
+  else{lab.classList.remove('done');delete preparedFiles[el.id];}
+}));
+
+var cardVisible=false;
+$('#showCard').addEventListener('click',function(){cardVisible=!cardVisible;$('#cardNumber').textContent=cardVisible?PAYMENT_CARD.replace(/(\d{4})(?=\d)/g,'$1 ').trim():PAYMENT_CARD_MASKED;this.textContent=cardVisible?'Скрыть номер':'Показать номер';});
+$('#copyCard').addEventListener('click',async function(){
+  var ok=false;
+  try{if(navigator.clipboard&&window.isSecureContext){await navigator.clipboard.writeText(PAYMENT_CARD);ok=true;}}catch(e){}
+  if(!ok){var ta=document.createElement('textarea');ta.value=PAYMENT_CARD;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.select();try{ok=document.execCommand('copy');}catch(e){}ta.remove();}
+  if(ok){$('#copyCardStatus').style.display='block';setTimeout(()=>$('#copyCardStatus').style.display='none',1800);}
+  else alert('Не удалось скопировать автоматически. Нажмите «Показать номер» и скопируйте вручную.');
+});
+
+/* ---------- validation ---------- */
+function missingStep1(){
+  var digits=state.phone.replace(/\D/g,'');
+  if(state.name.length<2||digits.length!==11)return['Укажите имя и корректный номер телефона.','secContact'];
+  if(state.city.length<2)return['Укажите город.','secContact'];
+  if(!state.category)return['Выберите категорию автомобиля.','secVehicle'];
+  if(!state.purpose)return['Укажите, для чего нужна диагностическая карта.','secVehicle'];
+  if(!state.data.mileage||!state.data.tires)return['Укажите пробег и марку шин.','secVehicle'];
+  if(state.category!=='E'&&!state.data.fuel)return['Выберите тип топлива.','secVehicle'];
+  if(!state.data.brakes)return['Выберите тип тормозной системы.','secVehicle'];
+  if(state.category==='E'&&!state.data.e_type)return['Укажите прицеп или полуприцеп.','secVehicle'];
+  if(state.category==='C'&&!state.data.tacho_unknown&&(!state.data.tacho_model||!state.data.tacho_serial))return['Укажите данные тахографа или отметьте, что они неизвестны.','secVehicle'];
+  return null;
+}
+function missingStep2(){
+  if(!['sts_front','sts_back','car_front','car_back'].every(id=>$('#'+id).files.length))return['Добавьте все четыре фотографии.','secPhotos'];
+  if(!$('#receipt').files.length)return['Прикрепите чек об оплате.','secPayment'];
+  if(!state.channel)return['Выберите мессенджер для статусов заказа.','secChannel'];
+  return null;
+}
+function missing(){return missingStep1()||missingStep2();}
+
+function showError(m){
+  $('#errorBox1').classList.remove('show');
+  $('#errorBox2').classList.remove('show');
+  if(!m)return;
+  var targetStep=stepOfSection(m[1]);
+  if(targetStep!==currentStep)goToStep(targetStep);
+  var box=targetStep===1?$('#errorBox1'):$('#errorBox2');
+  box.textContent=m[0];
+  box.classList.add('show');
+  setTimeout(()=>$('#'+m[1]).scrollIntoView({behavior:'smooth',block:'start'}),targetStep!==currentStep?350:0);
+}
+
+$('#nextStepBtn').addEventListener('click',function(){
+  var m=missingStep1();
+  if(m){showError(m);return;}
+  showError(null);
+  goToStep(2);
+});
+$('#backBtn').addEventListener('click',function(){goToStep(1);});
+
+/* ---------- upload / submit (unchanged backend flow) ---------- */
+async function compressImage(file,maxSide,quality){
+  if(!file.type.startsWith('image/'))return file;
+  var img=await new Promise((res,rej)=>{var i=new Image(),u=URL.createObjectURL(file);i.onload=()=>{URL.revokeObjectURL(u);res(i)};i.onerror=()=>{URL.revokeObjectURL(u);rej(new Error('image decode failed'));};i.src=u;});
+  var scale=Math.min(1,maxSide/Math.max(img.width,img.height));
+  if(scale===1&&file.size<=1200000)return file;
+  var c=document.createElement('canvas');
+  c.width=Math.max(1,Math.round(img.width*scale));
+  c.height=Math.max(1,Math.round(img.height*scale));
+  c.getContext('2d').drawImage(img,0,0,c.width,c.height);
+  return await new Promise((res,rej)=>c.toBlob(b=>b?res(new File([b],file.name.replace(/\.[^.]+$/,'.jpg'),{type:'image/jpeg'})):rej(new Error('image compression failed')),'image/jpeg',quality));
+}
 async function preparedFile(id){var input=$('#'+id),file=input.files[0],cached=preparedFiles[id];if(cached&&cached.original===file){try{return await cached.promise;}catch(e){}}var f=await compressImage(file,1400,.80);preparedFiles[id]={original:file,promise:Promise.resolve(f)};return f;}
 async function fileToBase64(file){return await new Promise((res,rej)=>{var r=new FileReader();r.onload=()=>res({name:file.name,type:file.type,data:String(r.result).split(',')[1]});r.onerror=rej;r.readAsDataURL(file);});}
 async function uploadBatch(ids,progress,startStep){progress.textContent=(ids.length===2?(startStep)+'–'+(startStep+1):String(startStep))+' из 8 — загружаем '+(ids.length===2?'файлы':'файл');await Promise.all(ids.map(async function(id){var file=await preparedFile(id);var data=await fileToBase64(file);await post({type:'file',order:orderId,field:id,name:state.name,phone:state.phone,file:data});}));}
 async function post(obj){await fetch(BACKEND_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(obj)});}
-var isUploading=false;window.addEventListener('beforeunload',function(e){if(isUploading){e.preventDefault();e.returnValue='Заявка и документы ещё отправляются. Не закрывайте страницу.';}});
-function buildOrderData(){var d={brakes:state.data.brakes,mileage:state.data.mileage,tires:state.data.tires,comment:state.data.comment};if(state.category!=='E')d.fuel=state.data.fuel;if(state.category==='B')d.b_type=state.data.b_type;if(state.category==='E')d.e_type=state.data.e_type;if(state.category==='C'){d.tacho_unknown=state.data.tacho_unknown;d.tacho_model=state.data.tacho_model;d.tacho_serial=state.data.tacho_serial;}return d;}
-async function submitAll(){var price=priceFor(state.category),orderData=buildOrderData();var payload={lead_token:leadToken,category:state.category,purpose:state.purpose,city:state.city,model:state.model,name:state.name,phone:state.phone,channel:state.channel,acquisition:acquisition};var progress=$('#uploadProgress');progress.textContent='1 из 8 — создаём заказ';await post({type:'full_order_init',order_id:orderId,payload:payload,data:orderData});progress.textContent='2 из 8 — данные автомобиля';await post({type:'order',order:orderId,category:state.category,purpose:state.purpose,price:String(price),name:state.name,phone:state.phone,city:state.city,model:state.model,channel:state.channel,data:orderData,ts:new Date().toISOString()});var files=['sts_front','sts_back','car_front','car_back','receipt'];for(var i=0;i<files.length;i+=2){await uploadBatch(files.slice(i,i+2),progress,i+3);}progress.textContent='8 из 8 — завершаем';await post({type:'order_complete',order:orderId,lead_token:leadToken,channel:state.channel,purpose:state.purpose,city:state.city,model:state.model,name:state.name,phone:state.phone,category:state.category,price:String(price)});}
-function showSuccess(){var a=$('#messengerAction'),note=$('#messengerNote');$('#successOrder').textContent='Заказ '+orderId;if(state.channel==='tg'){a.style.display='block';a.textContent='ПЕРЕЙТИ В TELEGRAM';a.href='https://t.me/'+TG_BOT_USERNAME+'?start=lead_'+encodeURIComponent(leadToken);$('#successMsg').textContent='Документы и чек получены. Для получения статусов и готового PDF обязательно перейдите в Telegram и нажмите «Запустить».';note.textContent='Не закрывайте этот шаг, пока Telegram не откроется.';}else if(state.channel==='max'){a.style.display='block';a.textContent='ПЕРЕЙТИ В MAX';a.href='https://max.ru/'+MAX_BOT_NAME+'?start=lead_'+encodeURIComponent(leadToken);$('#successMsg').textContent='Документы и чек получены. Для получения статусов и готового PDF обязательно перейдите в MAX и запустите бота.';note.textContent='После запуска бота заказ привяжется автоматически.';}else{a.style.display='none';$('#successMsg').textContent='Документы и чек получены. Статусы заказа и готовую диагностическую карту отправим в WhatsApp на указанный номер.';note.textContent='Дополнительную ссылку на документы открывать не нужно.';}$('#success').classList.add('show');}
-$('#submitBtn').addEventListener('click',async function(){var m=missing();if(m){showError(m);return;}showError(null);this.disabled=true;isUploading=true;$('#uploadWait').classList.add('show');try{await submitAll();isUploading=false;$('#uploadWait').classList.remove('show');showSuccess();}catch(e){isUploading=false;$('#uploadWait').classList.remove('show');this.disabled=false;alert('Не удалось отправить все данные. Проверьте интернет и нажмите «Отправить заявку» ещё раз. Уже отправленные части не продублируются.');}});
+
+var isUploading=false;
+window.addEventListener('beforeunload',function(e){if(isUploading){e.preventDefault();e.returnValue='Заявка и документы ещё отправляются. Не закрывайте страницу.';}});
+
+function buildOrderData(){
+  var d={brakes:state.data.brakes,mileage:state.data.mileage,tires:state.data.tires,comment:state.data.comment};
+  if(state.category!=='E')d.fuel=state.data.fuel;
+  if(state.category==='B')d.b_type=state.data.b_type;
+  if(state.category==='E')d.e_type=state.data.e_type;
+  if(state.category==='C'){d.tacho_unknown=state.data.tacho_unknown;d.tacho_model=state.data.tacho_model;d.tacho_serial=state.data.tacho_serial;}
+  return d;
+}
+async function submitAll(){
+  var price=priceFor(state.category),orderData=buildOrderData();
+  var payload={lead_token:leadToken,category:state.category,purpose:state.purpose,city:state.city,model:state.model,name:state.name,phone:state.phone,channel:state.channel,acquisition:acquisition};
+  var progress=$('#uploadProgress');
+  progress.textContent='1 из 8 — создаём заказ';
+  await post({type:'full_order_init',order_id:orderId,payload:payload,data:orderData});
+  progress.textContent='2 из 8 — данные автомобиля';
+  await post({type:'order',order:orderId,category:state.category,purpose:state.purpose,price:String(price),name:state.name,phone:state.phone,city:state.city,model:state.model,channel:state.channel,data:orderData,ts:new Date().toISOString()});
+  var files=['sts_front','sts_back','car_front','car_back','receipt'];
+  for(var i=0;i<files.length;i+=2){await uploadBatch(files.slice(i,i+2),progress,i+3);}
+  progress.textContent='8 из 8 — завершаем';
+  await post({type:'order_complete',order:orderId,lead_token:leadToken,channel:state.channel,purpose:state.purpose,city:state.city,model:state.model,name:state.name,phone:state.phone,category:state.category,price:String(price)});
+}
+function showSuccess(){
+  var a=$('#messengerAction'),note=$('#messengerNote');
+  $('#successOrder').textContent='Заказ '+orderId;
+  if(state.channel==='tg'){
+    a.style.display='block';a.textContent='Перейти в Telegram';a.href='https://t.me/'+TG_BOT_USERNAME+'?start=lead_'+encodeURIComponent(leadToken);
+    $('#successMsg').textContent='Документы и чек получены. Чтобы получать статусы и готовый PDF, перейдите в Telegram и нажмите «Запустить».';
+    note.textContent='Не закрывайте этот экран, пока Telegram не откроется.';
+  }else if(state.channel==='max'){
+    a.style.display='block';a.textContent='Перейти в MAX';a.href='https://max.ru/'+MAX_BOT_NAME+'?start=lead_'+encodeURIComponent(leadToken);
+    $('#successMsg').textContent='Документы и чек получены. Чтобы получать статусы и готовый PDF, перейдите в MAX и запустите бота.';
+    note.textContent='После запуска бота заказ привяжется автоматически.';
+  }else{
+    a.style.display='none';
+    $('#successMsg').textContent='Документы и чек получены. Статусы заказа и готовую диагностическую карту пришлём в WhatsApp на указанный номер.';
+    note.textContent='Дополнительную ссылку открывать не нужно.';
+  }
+  $('#success').classList.add('show');
+}
+$('#submitBtn').addEventListener('click',async function(){
+  var m=missing();
+  if(m){showError(m);return;}
+  showError(null);
+  this.disabled=true;isUploading=true;
+  $('#uploadWait').classList.add('show');
+  try{
+    await submitAll();
+    isUploading=false;
+    $('#uploadWait').classList.remove('show');
+    showSuccess();
+  }catch(e){
+    isUploading=false;
+    $('#uploadWait').classList.remove('show');
+    this.disabled=false;
+    alert('Не удалось отправить все данные. Проверьте интернет и нажмите «Я оплатил — отправить заявку» ещё раз. Уже отправленные части не продублируются.');
+  }
+});
+
 updateCategoryUI();
+goToStep(1);
 })();
 </script>
 </body>
